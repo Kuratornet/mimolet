@@ -60,4 +60,14 @@
         android:onClick="authorize"
         android:text="@string/signin" />
 
+    <Button
+        android:id="@+id/tempButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signinButton"
+        android:layout_below="@+id/signinButton"
+        android:layout_marginTop="50dp"
+        android:onClick="goToAddBook"
+        android:text="Go to add book" />
+
 </RelativeLayout>

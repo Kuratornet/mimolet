@@ -3,6 +3,7 @@ package com.mimolet.android;
 import java.util.Properties;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -46,5 +47,14 @@ public class AuthorizationActivity extends Activity {
 		} catch (Exception ex) {
 			Log.v(TAG, "Could not read connection configuration", ex);
 		}
+	}
+
+	/**
+	 * temp method for testing
+	 */
+	public void goToAddBook(View view) {
+		final Intent intent = new Intent(getApplicationContext(),
+				AddBookActivity.class);
+		startActivity(intent);
 	}
 }
