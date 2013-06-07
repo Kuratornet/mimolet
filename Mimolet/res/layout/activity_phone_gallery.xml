@@ -8,11 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PhoneGalleryActivity" >
 
-    <android.support.v7.widget.GridLayout
+    <RelativeLayout
         android:id="@+id/PhoneImageGrid"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        fill_parent=""
         android:columnWidth="90dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
