@@ -23,6 +23,8 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
+import com.mimolet.android.task.AuthorizationTask;
+import com.mimolet.android.task.SendPDFTask;
 
 public class PhoneGalleryActivity extends SherlockActivity {
 
@@ -56,11 +58,11 @@ public class PhoneGalleryActivity extends SherlockActivity {
 			@Override
 			public void onClick(View arg0) {
 				Document document = new Document(new Rectangle(566, 594));
-
+				final String targetFile = android.os.Environment
+						.getExternalStorageDirectory()
+						+ java.io.File.separator + "Images.pdf";
 				try {
-					final String targetFile = android.os.Environment
-							.getExternalStorageDirectory()
-							+ java.io.File.separator + "Images.pdf";
+					
 					File f = new File(targetFile);
 					if (!f.exists()) {
 						f.createNewFile();
@@ -103,7 +105,10 @@ public class PhoneGalleryActivity extends SherlockActivity {
 					e.printStackTrace();
 				}
 				document.close();
+				new SendPDFTask(PhoneGalleryActivity.this, targetFile).execute(new Void[0]);
 			}
+//			new send().execute(loginField.getText().toString(),
+//					passwordField.getText().toString(), serverUrl);
 		});
 	}
 
