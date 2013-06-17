@@ -18,20 +18,16 @@
         android:onClick="authorize"
         android:text="@string/signin" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/passwordField"
-        android:src="@drawable/logo" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/loginField"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/loginField"
+        android:background="@drawable/testloginbg"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
         android:text="@string/login" />
 
     <EditText
@@ -46,26 +42,6 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/passwordField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/signinButton"
-        android:layout_alignRight="@+id/loginField"
-        android:layout_below="@+id/loginField"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/passwordField"
-        android:layout_alignBottom="@+id/passwordField"
-        android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/passwordField"
-        android:text="@string/password" />
-
     <Button
         android:id="@+id/tempButton1"
         android:layout_width="wrap_content"
@@ -75,5 +51,34 @@
         android:layout_marginBottom="28dp"
         android:onClick="goToAddBook"
         android:text="Go to add book" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/loginField"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_above="@+id/signinButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/testloginbg"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:text="@string/password" />
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignTop="@+id/textView2"
+        android:ems="10"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

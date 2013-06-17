@@ -916,6 +916,7 @@ containing a value of this type.
         public static final int login=0x7f020073;
         public static final int loginback=0x7f020074;
         public static final int logo=0x7f020075;
+        public static final int testloginbg=0x7f020076;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040020;
@@ -964,11 +965,11 @@ containing a value of this type.
         public static final int edit_query=0x7f040026;
         public static final int fragment_container=0x7f040032;
         public static final int homeAsUp=0x7f040006;
-        public static final int imageView1=0x7f040039;
+        public static final int imageView1=0x7f040035;
         public static final int imgView=0x7f04003a;
         public static final int listMode=0x7f040002;
         public static final int listview=0x7f04003d;
-        public static final int loginField=0x7f040038;
+        public static final int loginField=0x7f040039;
         public static final int normal=0x7f040001;
         public static final int passwordField=0x7f040036;
         public static final int showCustom=0x7f040008;
@@ -977,8 +978,8 @@ containing a value of this type.
         public static final int signinButton=0x7f040033;
         public static final int tabMode=0x7f040003;
         public static final int tempButton1=0x7f040034;
-        public static final int textView1=0x7f040035;
-        public static final int textView2=0x7f040037;
+        public static final int textView1=0x7f040037;
+        public static final int textView2=0x7f040038;
         public static final int thumbImage=0x7f04003e;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
