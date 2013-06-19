@@ -36,7 +36,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	protected Void doInBackground(Void... arg0) {
 		final HttpClient httpClient = new DefaultHttpClient();
 		final HttpPost httpPost = new HttpPost(
-				"http://93.126.85.253:8080/server/upload"); //FIXME
+				"http://192.168.1.2:8080/server/upload"); //FIXME
 		try {
 			final byte[] bytes = FileUtils.readFileToByteArray(new File(
 					filePath));
@@ -45,10 +45,10 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 					HttpMultipartMode.BROWSER_COMPATIBLE);
 			reqEntity.addPart("file", new ByteArrayBody(bytes, "img.pdf"));
 			reqEntity.addPart("description", new StringBody("Pizdatij albom"));
-			reqEntity.addPart("binding", new StringBody("Na skoba"));
-			reqEntity.addPart("paper", new StringBody("Tyaletnaja"));
-			reqEntity.addPart("print", new StringBody("Digital-Surround-Mega-Bass"));
-			reqEntity.addPart("blockSize", new StringBody("20*20"));
+			reqEntity.addPart("binding", new StringBody("1"));
+			reqEntity.addPart("paper", new StringBody("1"));
+			reqEntity.addPart("print", new StringBody("1"));
+			reqEntity.addPart("blockSize", new StringBody("1"));
 			reqEntity.addPart("pages", new StringBody("20"));
 			httpPost.setEntity(reqEntity);
 			httpClient.execute(httpPost);
