@@ -2,8 +2,10 @@ package com.mimolet.android;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -15,6 +17,14 @@ import com.mimolet.android.fragment.ChooseStyleFragment;
 public class AddBookActivity extends SherlockFragmentActivity {
 	private static final String TAG = "AddBookActivity";
 
+	/* These numbers should correlate with tab order */
+	private static final int CHOOSE_STYLE_TAB = 1;
+	private static final int ADD_PHOTO_TAB = 2;
+	private static final int STYLE_PAGE_TAB = 3;
+	private static final int PREVIEW_TAB = 4;
+
+	private int selectedTab;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,7 +34,8 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		actionbar.setDisplayShowHomeEnabled(false);
 		actionbar.setDisplayShowTitleEnabled(true);
 		actionbar.setTitle(R.string.creating_book);
-		final Fragment chooseStyleFragment = new ChooseStyleFragment();
+
+		chooseStyleTabClick(null);
 		final Fragment addPhotoFragment = new AddPhotoFragment();
 	}
 
@@ -34,48 +45,91 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		inflater.inflate(R.menu.add_book, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
-	public void tab1Click(View view) {
-		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
-		tab1.setBackgroundResource(R.drawable.tab1_selected);
-		final ImageButton tab2 = (ImageButton) findViewById(R.id.tab2);
-		tab2.setBackgroundResource(R.drawable.tab2);
-		final ImageButton tab3 = (ImageButton) findViewById(R.id.tab3);
-		tab3.setBackgroundResource(R.drawable.tab3);
-		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
-		tab4.setBackgroundResource(R.drawable.tab4);
+
+	private boolean isTabAccessible(int tabIndex) {
+		return selectedTab == tabIndex - 1 || selectedTab > tabIndex;
 	}
-	
-	public void tab2Click(View view) {
-		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
-		tab1.setBackgroundResource(R.drawable.tab1_done);
-		final ImageButton tab2 = (ImageButton) findViewById(R.id.tab2);
-		tab2.setBackgroundResource(R.drawable.tab2_selected);
-		final ImageButton tab3 = (ImageButton) findViewById(R.id.tab3);
-		tab3.setBackgroundResource(R.drawable.tab3);
-		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
-		tab4.setBackgroundResource(R.drawable.tab4);
+
+	private void switchFragment(Fragment fragment) {
+		final FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+				.beginTransaction();
+		fragmentTransaction.replace(R.id.fragment_container, fragment);
+		fragmentTransaction.commit();
 	}
-	
-	public void tab3Click(View view) {
-		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
-		tab1.setBackgroundResource(R.drawable.tab1_done);
-		final ImageButton tab2 = (ImageButton) findViewById(R.id.tab2);
-		tab2.setBackgroundResource(R.drawable.tab2_done);
-		final ImageButton tab3 = (ImageButton) findViewById(R.id.tab3);
-		tab3.setBackgroundResource(R.drawable.tab3_selected);
-		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
-		tab4.setBackgroundResource(R.drawable.tab4);
+
+	public void chooseStyleTabClick(View view) {
+		if (isTabAccessible(CHOOSE_STYLE_TAB)) {
+			selectedTab = CHOOSE_STYLE_TAB;
+			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+			chooseStyleTab
+					.setBackgroundResource(R.drawable.choose_style_tab_selected);
+			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+			addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab);
+			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+			stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
+			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+			previewTab.setBackgroundResource(R.drawable.preview_tab);
+
+			switchFragment(new ChooseStyleFragment());
+		}
 	}
-	
-	public void tab4Click(View view) {
-		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
-		tab1.setBackgroundResource(R.drawable.tab1_done);
-		final ImageButton tab2 = (ImageButton) findViewById(R.id.tab2);
-		tab2.setBackgroundResource(R.drawable.tab2_done);
-		final ImageButton tab3 = (ImageButton) findViewById(R.id.tab3);
-		tab3.setBackgroundResource(R.drawable.tab3_done);
-		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
-		tab4.setBackgroundResource(R.drawable.tab4_selected);
+
+	public void addPhotoTabClick(View view) {
+		if (isTabAccessible(ADD_PHOTO_TAB)) {
+			selectedTab = ADD_PHOTO_TAB;
+			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+			chooseStyleTab
+					.setBackgroundResource(R.drawable.choose_style_tab_done);
+			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+			addPhotoTab
+					.setBackgroundResource(R.drawable.add_photo_tab_selected);
+			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+			stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
+			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+			previewTab.setBackgroundResource(R.drawable.preview_tab);
+
+			switchFragment(new AddPhotoFragment());
+		}
+	}
+
+	public void stylePageTabClick(View view) {
+		if (isTabAccessible(STYLE_PAGE_TAB)) {
+			selectedTab = STYLE_PAGE_TAB;
+			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+			chooseStyleTab
+					.setBackgroundResource(R.drawable.choose_style_tab_done);
+			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+			addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab_done);
+			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+			stylePageTab
+					.setBackgroundResource(R.drawable.style_page_tab_selected);
+			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+			previewTab.setBackgroundResource(R.drawable.preview_tab);
+		}
+	}
+
+	public void previewTabClick(View view) {
+		if (isTabAccessible(PREVIEW_TAB)) {
+			selectedTab = PREVIEW_TAB;
+			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+			chooseStyleTab
+					.setBackgroundResource(R.drawable.choose_style_tab_done);
+			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+			addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab_done);
+			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+			stylePageTab.setBackgroundResource(R.drawable.style_page_tab_done);
+			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+			previewTab.setBackgroundResource(R.drawable.preview_tab_selected);
+		}
+	}
+
+	public void bottom1Click(View view) {
+	}
+
+	public void bottom2Click(View view) {
+		// already here, do nothing
+	}
+
+	public void bottom3Click(View view) {
 	}
 }

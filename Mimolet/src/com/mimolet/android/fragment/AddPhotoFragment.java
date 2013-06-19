@@ -2,14 +2,14 @@ package com.mimolet.android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.mimolet.android.PhoneGalleryActivity;
 
-public class AddPhotoFragment extends SherlockListFragment {
+public class AddPhotoFragment extends ListFragment {
 
 	private final String[] listviewItems = new String[] { "Phone memory",
 			"Facebook", "Instagram", "Google+" };
