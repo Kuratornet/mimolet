@@ -34,7 +34,7 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		inflater.inflate(R.menu.add_book, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	public void tab1Click(View view) {
 		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
 		tab1.setBackgroundResource(R.drawable.tab1_selected);
@@ -45,7 +45,7 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
 		tab4.setBackgroundResource(R.drawable.tab4);
 	}
-	
+
 	public void tab2Click(View view) {
 		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
 		tab1.setBackgroundResource(R.drawable.tab1_done);
@@ -56,7 +56,7 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
 		tab4.setBackgroundResource(R.drawable.tab4);
 	}
-	
+
 	public void tab3Click(View view) {
 		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
 		tab1.setBackgroundResource(R.drawable.tab1_done);
@@ -67,7 +67,7 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
 		tab4.setBackgroundResource(R.drawable.tab4);
 	}
-	
+
 	public void tab4Click(View view) {
 		final ImageButton tab1 = (ImageButton) findViewById(R.id.tab1);
 		tab1.setBackgroundResource(R.drawable.tab1_done);
@@ -77,5 +77,14 @@ public class AddBookActivity extends SherlockFragmentActivity {
 		tab3.setBackgroundResource(R.drawable.tab3_done);
 		final ImageButton tab4 = (ImageButton) findViewById(R.id.tab4);
 		tab4.setBackgroundResource(R.drawable.tab4_selected);
+	}
+
+	public void bottom1Click(View view) {
+	}
+
+	public void bottom2Click(View view) {
+	}
+
+	public void bottom3Click(View view) {
 	}
 }

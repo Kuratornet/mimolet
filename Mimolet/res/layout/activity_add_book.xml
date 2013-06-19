@@ -19,9 +19,9 @@
             android:layout_margin="0dp"
             android:layout_weight="170"
             android:adjustViewBounds="true"
+            android:background="@drawable/tab1_selected"
             android:clickable="true"
-            android:onClick="tab1Click"
-            android:background="@drawable/tab1_selected" />
+            android:onClick="tab1Click" />
 
         <ImageButton
             android:id="@+id/tab2"
@@ -30,9 +30,9 @@
             android:layout_margin="0dp"
             android:layout_weight="160"
             android:adjustViewBounds="true"
+            android:background="@drawable/tab2"
             android:clickable="true"
-            android:onClick="tab2Click"
-            android:background="@drawable/tab2" />
+            android:onClick="tab2Click" />
 
         <ImageButton
             android:id="@+id/tab3"
@@ -41,9 +41,9 @@
             android:layout_margin="0dp"
             android:layout_weight="159"
             android:adjustViewBounds="true"
+            android:background="@drawable/tab3"
             android:clickable="true"
-            android:onClick="tab3Click"
-            android:background="@drawable/tab3" />
+            android:onClick="tab3Click" />
 
         <ImageButton
             android:id="@+id/tab4"
@@ -52,9 +52,9 @@
             android:layout_margin="0dp"
             android:layout_weight="151"
             android:adjustViewBounds="true"
+            android:background="@drawable/tab4"
             android:clickable="true"
-            android:onClick="tab4Click"
-            android:background="@drawable/tab4" />
+            android:onClick="tab4Click" />
     </LinearLayout>
 
     <LinearLayout
@@ -66,6 +66,50 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="0dp" >
+
+        <ImageButton
+            android:id="@+id/bottomtab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="205"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab1"
+            android:clickable="true"
+            android:onClick="bottom1Click" />
+
+        <ImageButton
+            android:id="@+id/bottomtab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="239"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab2"
+            android:clickable="true"
+            android:onClick="bottom2Click" />
+
+        <ImageButton
+            android:id="@+id/bottomtab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="196"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab3"
+            android:clickable="true"
+            android:onClick="bottom3Click" />
     </LinearLayout>
 
 </RelativeLayout>
