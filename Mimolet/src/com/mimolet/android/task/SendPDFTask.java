@@ -1,9 +1,12 @@
 package com.mimolet.android.task;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -16,6 +19,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.mimolet.android.util.Registry;
 
 public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	private static final String TAG = "SendPDFTask";
@@ -44,11 +49,12 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 					"connection.properties"));
 			final String serverUrl = connectionProperties
 					.getProperty("server_url")
-					+ connectionProperties.getProperty("upload_pdf_path");
+					+ connectionProperties.getProperty("pdf_upload_path");
 			final HttpPost httpPost = new HttpPost(serverUrl);
 			final byte[] bytes = FileUtils.readFileToByteArray(new File(
 					filePath));
-
+			httpPost.addHeader("Cookie",
+					"JSESSIONID=" + Registry.<String> get("JSESSIONID"));
 			final MultipartEntity reqEntity = new MultipartEntity(
 					HttpMultipartMode.BROWSER_COMPATIBLE);
 			reqEntity.addPart("file", new ByteArrayBody(bytes, "img.pdf"));
@@ -59,7 +65,13 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 			reqEntity.addPart("blockSize", new StringBody("1"));
 			reqEntity.addPart("pages", new StringBody("20"));
 			httpPost.setEntity(reqEntity);
-			httpClient.execute(httpPost);
+			final HttpResponse response = httpClient.execute(httpPost);
+			final BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = "";
+			while ((line = rd.readLine()) != null) {
+				Log.v(TAG, line);
+			}
 		} catch (Exception ex) {
 			Log.v(TAG, "Could not upload pdf file");
 		}

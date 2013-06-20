@@ -42,7 +42,7 @@ public class AuthorizationActivity extends Activity {
 			final String serverUrl = connectionProperties
 					.getProperty("server_url")
 					+ connectionProperties.getProperty("login_path");
-			new AuthorizationTask().execute(loginField.getText().toString(),
+			new AuthorizationTask(this).execute(loginField.getText().toString(),
 					passwordField.getText().toString(), serverUrl);
 		} catch (Exception ex) {
 			Log.v(TAG, "Could not read connection configuration", ex);
