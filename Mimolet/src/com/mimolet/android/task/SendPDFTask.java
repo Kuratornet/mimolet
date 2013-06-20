@@ -1,6 +1,7 @@
 package com.mimolet.android.task;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.HttpClient;
@@ -20,10 +21,12 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	private static final String TAG = "SendPDFTask";
 	private final ProgressDialog dialog;
 	private String filePath;
+	private Context context;
 
 	public SendPDFTask(Context context, String filePath) {
 		dialog = new ProgressDialog(context);
 		this.filePath = filePath;
+		this.context = context;
 	}
 
 	protected void onPreExecute() {
@@ -35,9 +38,14 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		final HttpClient httpClient = new DefaultHttpClient();
-		final HttpPost httpPost = new HttpPost(
-				"http://192.168.1.2:8080/server/upload"); //FIXME
+		final Properties connectionProperties = new Properties();
 		try {
+			connectionProperties.load(context.getAssets().open(
+					"connection.properties"));
+			final String serverUrl = connectionProperties
+					.getProperty("server_url")
+					+ connectionProperties.getProperty("upload_pdf_path");
+			final HttpPost httpPost = new HttpPost(serverUrl);
 			final byte[] bytes = FileUtils.readFileToByteArray(new File(
 					filePath));
 
