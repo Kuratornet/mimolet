@@ -33,6 +33,11 @@
             android:name="com.mimolet.android.PhoneGalleryActivity"
             android:label="@string/title_activity_phone_gallery" >
         </activity>
+        <activity
+            android:name="com.mimolet.android.OrdersListActivity"
+            android:label="@string/title_activity_orders_list" >
+        </activity>
     </application>
+    <application android:name="GlobalVariables" android:icon="@drawable/ic_launcher" android:label="@string/app_name"></application>
 
 </manifest>

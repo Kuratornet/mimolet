@@ -1,4 +1,4 @@
-package com.mimolet.android;
+package com.mimolet.android.global;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

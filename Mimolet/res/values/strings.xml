@@ -14,5 +14,6 @@
     <string name="binding">Переплет:</string>
     <string name="size">Размер:</string>
     <string name="soft_with_clamp">Мягкий на скобе</string>
+    <string name="title_activity_orders_list">Orders List</string>
 
 </resources>
