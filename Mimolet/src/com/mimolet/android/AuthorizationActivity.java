@@ -1,5 +1,6 @@
 package com.mimolet.android;
 
+import java.util.List;
 import java.util.Properties;
 
 import android.app.Activity;
@@ -11,50 +12,67 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mimolet.android.task.AuthorizationTask;
+import com.mimolet.android.task.GetOrdersListTask;
+
+import entity.Order;
 
 public class AuthorizationActivity extends Activity {
 
-	private static final String TAG = "AuthorizationActivity";
-	private EditText loginField;
-	private EditText passwordField;
+  private static final String TAG = "AuthorizationActivity";
+  private EditText loginField;
+  private EditText passwordField;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_authorization);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_authorization);
 
-		loginField = (EditText) findViewById(R.id.loginField);
-		passwordField = (EditText) findViewById(R.id.passwordField);
-	}
+    loginField = (EditText) findViewById(R.id.loginField);
+    passwordField = (EditText) findViewById(R.id.passwordField);
+  }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.authorization, menu);
-		return true;
-	}
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.authorization, menu);
+    return true;
+  }
 
-	public void authorize(View view) {
-		final Properties connectionProperties = new Properties();
-		try {
-			connectionProperties
-					.load(getAssets().open("connection.properties"));
-			final String serverUrl = connectionProperties
-					.getProperty("server_url")
-					+ connectionProperties.getProperty("login_path");
-			new AuthorizationTask(this).execute(loginField.getText().toString(),
-					passwordField.getText().toString(), serverUrl);
-		} catch (Exception ex) {
-			Log.v(TAG, "Could not read connection configuration", ex);
-		}
-	}
+  public void authorize(View view) {
+    final Properties connectionProperties = new Properties();
+    try {
+      connectionProperties
+          .load(getAssets().open("connection.properties"));
+      final String serverUrl = connectionProperties
+          .getProperty("server_url")
+          + connectionProperties.getProperty("login_path");
+      new AuthorizationTask(this).execute(loginField.getText().toString(),
+          passwordField.getText().toString(), serverUrl);
+    } catch (Exception ex) {
+      Log.v(TAG, "Could not read connection configuration", ex);
+    }
+  }
 
-	/**
-	 * temp method for testing
-	 */
-	public void goToAddBook(View view) {
-		final Intent intent = new Intent(getApplicationContext(),
-				AddBookActivity.class);
-		startActivity(intent);
-	}
+  /**
+   * temp method for testing
+   */
+  public void goToAddBook(View view) {
+    final Intent intent = new Intent(getApplicationContext(),
+        AddBookActivity.class);
+    startActivity(intent);
+  }
+  
+  public void goToOrderList(View view, List<Order> orders) {
+    final String[] ordersName = new String[orders.size()];
+    final String[] imageSourcesLinks = new String[orders.size()];
+    for (int i = 0; i < orders.size(); i++) {
+      ordersName[i] = orders.get(i).getDescription();
+      imageSourcesLinks[i] = orders.get(i).getLink();
+    }
+    final Intent intent = new Intent(getApplicationContext(),
+        OrdersListActivity.class);
+    intent.putExtra("orders", ordersName);
+    intent.putExtra("imageSources", imageSourcesLinks);
+    startActivity(intent);
+  }
 }
