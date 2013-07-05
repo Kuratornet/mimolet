@@ -30,7 +30,7 @@ public class OrderArrayAdapter extends ArrayAdapter<String> {
     LayoutInflater inflater = (LayoutInflater) context
       .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
  
-    View rowView = inflater.inflate(R.layout.activity_orders_list, parent, false);
+    View rowView = inflater.inflate(R.layout.order_in_list, parent, false);
     TextView textView = (TextView) rowView.findViewById(R.id.label);
     ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
     
