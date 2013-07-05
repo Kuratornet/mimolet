@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.task.AuthorizationTask;
 
 import entity.Order;
@@ -38,17 +40,21 @@ public class AuthorizationActivity extends Activity {
   }
 
   public void authorize(View view) {
-    final Properties connectionProperties = new Properties();
-    try {
-      connectionProperties
-          .load(getAssets().open("connection.properties"));
-      final String serverUrl = connectionProperties
-          .getProperty("server_url")
-          + connectionProperties.getProperty("login_path");
-      new AuthorizationTask(this).execute(loginField.getText().toString(),
-          passwordField.getText().toString(), serverUrl);
-    } catch (Exception ex) {
-      Log.v(TAG, "Could not read connection configuration", ex);
+    if (GlobalMethods.isOnline(this)) {
+      final Properties connectionProperties = new Properties();
+      try {
+        connectionProperties
+            .load(getAssets().open("connection.properties"));
+        final String serverUrl = connectionProperties
+            .getProperty("server_url")
+            + connectionProperties.getProperty("login_path");
+        new AuthorizationTask(this).execute(loginField.getText().toString(),
+            passwordField.getText().toString(), serverUrl);
+      } catch (Exception ex) {
+        Log.v(TAG, "Could not read connection configuration", ex);
+      }
+    } else {
+      Toast.makeText(getApplicationContext(), "Permission dinied! /n No internet connection. Check your connection.", Toast.LENGTH_LONG).show();
     }
   }
 

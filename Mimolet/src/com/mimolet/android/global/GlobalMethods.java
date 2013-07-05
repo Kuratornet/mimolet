@@ -12,7 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-class GlobalMethod {
+public class GlobalMethods {
   final private static long DELAY = 60 * 1000 * 10;
   
   public static void startTimer (final String url) {
@@ -34,9 +34,10 @@ class GlobalMethod {
     }, DELAY, DELAY, TimeUnit.MILLISECONDS);
   }
   
+  @SuppressWarnings("static-access")
   public static boolean isOnline(Activity activity) {
     ConnectivityManager cm =
-        (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        (ConnectivityManager) activity.getSystemService(activity.getApplicationContext().CONNECTIVITY_SERVICE);
     NetworkInfo netInfo = cm.getActiveNetworkInfo();
     if (netInfo != null && netInfo.isConnectedOrConnecting()) {
         return true;
