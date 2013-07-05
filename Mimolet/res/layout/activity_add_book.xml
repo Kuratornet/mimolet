@@ -85,7 +85,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/bottom_tab1"
             android:clickable="true"
-            android:onClick="bottom1Click" />
+            android:onClick="myOrders" />
 
         <ImageButton
             android:id="@+id/bottomtab2"
@@ -96,7 +96,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/bottom_tab2"
             android:clickable="true"
-            android:onClick="bottom2Click" />
+            android:onClick="createBook" />
 
         <ImageButton
             android:id="@+id/bottomtab3"
@@ -107,7 +107,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/bottom_tab3"
             android:clickable="true"
-            android:onClick="bottom3Click" />
+            android:onClick="paidOrders" />
     </LinearLayout>
 
 </RelativeLayout>
