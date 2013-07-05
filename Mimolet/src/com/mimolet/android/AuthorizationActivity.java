@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mimolet.android.task.AuthorizationTask;
-import com.mimolet.android.task.GetOrdersListTask;
 
 import entity.Order;
 

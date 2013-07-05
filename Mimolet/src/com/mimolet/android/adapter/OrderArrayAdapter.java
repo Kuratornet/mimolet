@@ -1,12 +1,7 @@
 package com.mimolet.android.adapter;
 
-import java.net.URL;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.mimolet.android.R;
 
 
@@ -41,10 +37,10 @@ public class OrderArrayAdapter extends ArrayAdapter<String> {
     textView.setText(values[position]);
     Bitmap bmp;
     try {
-      URL url = new URL (imageSources[position]);
-      System.out.println(imageSources[position]);
-      bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-      imageView.setImageBitmap(bmp);
+//      URL url = new URL (imageSources[position]);
+//      bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//      imageView.setImageBitmap(bmp);
+      UrlImageViewHelper.setUrlDrawable(imageView, imageSources[position]);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
