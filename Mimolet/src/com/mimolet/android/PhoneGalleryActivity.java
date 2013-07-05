@@ -55,7 +55,12 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				Document document = new Document(new Rectangle(566, 594));
+				final int SIDE_SIZE = 576;
+				final int BORDER_SIZE = 43;
+				Document document = new Document(new Rectangle(SIDE_SIZE,
+						SIDE_SIZE));
+				document.setMargins(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE,
+						BORDER_SIZE);
 				final String targetFile = android.os.Environment
 						.getExternalStorageDirectory()
 						+ java.io.File.separator
@@ -71,12 +76,14 @@ public class PhoneGalleryActivity extends SherlockActivity {
 					document.open();
 					for (String url : urls) {
 						final Bitmap bitmap = decodeSampledBitmapFromFile(url,
-								566, 594);
+								SIDE_SIZE, SIDE_SIZE);
 						ByteArrayOutputStream stream = new ByteArrayOutputStream();
 						bitmap.compress(Bitmap.CompressFormat.PNG /* FileType */,
 								100 /* Ratio */, stream);
 						Image png = Image.getInstance(stream.toByteArray());
-						png.scaleToFit(566, 594);
+						png.setAlignment(Image.ALIGN_MIDDLE);
+						png.scaleToFit(SIDE_SIZE - 2 * BORDER_SIZE, SIDE_SIZE
+								- 2 * BORDER_SIZE);
 						document.add(png);
 						bitmap.recycle();
 					}
