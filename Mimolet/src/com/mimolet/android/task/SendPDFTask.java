@@ -26,12 +26,14 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	private static final String TAG = "SendPDFTask";
 	private final ProgressDialog dialog;
 	private String filePath;
+	private String previewPath;
 	private Context context;
 
-	public SendPDFTask(Context context, String filePath) {
+	public SendPDFTask(Context context, String filePath, String previePath) {
 		dialog = new ProgressDialog(context);
 		this.filePath = filePath;
 		this.context = context;
+		this.previewPath = previewPath;
 	}
 
 	protected void onPreExecute() {
@@ -53,11 +55,14 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 			final HttpPost httpPost = new HttpPost(serverUrl);
 			final byte[] bytes = FileUtils.readFileToByteArray(new File(
 					filePath));
+			final byte[] previewBytes = FileUtils.readFileToByteArray(new File(
+					previewPath)); 
 			httpPost.addHeader("Cookie",
 					"JSESSIONID=" + Registry.<String> get("JSESSIONID"));
 			final MultipartEntity reqEntity = new MultipartEntity(
 					HttpMultipartMode.BROWSER_COMPATIBLE);
 			reqEntity.addPart("file", new ByteArrayBody(bytes, "img.pdf"));
+			reqEntity.addPart("preview", new ByteArrayBody(previewBytes, "img.png"));
 			reqEntity.addPart("description", new StringBody("Pizdatij albom"));
 			reqEntity.addPart("binding", new StringBody("1"));
 			reqEntity.addPart("paper", new StringBody("1"));

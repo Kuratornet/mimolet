@@ -65,12 +65,29 @@ public class PhoneGalleryActivity extends SherlockActivity {
 						.getExternalStorageDirectory()
 						+ java.io.File.separator
 						+ "Images.pdf";
+				final String previewFile = android.os.Environment
+						.getExternalStorageDirectory()
+						+ java.io.File.separator
+						+ "preview.png";
 				try {
 
 					File f = new File(targetFile);
 					if (!f.exists()) {
 						f.createNewFile();
 					}
+					File preview = new File(previewFile);
+					if (!preview.exists()) {
+						preview.createNewFile();
+					}
+					final String previewUrl = urls.get(0);
+					final Bitmap previewBitmap = decodeSampledBitmapFromFile(previewUrl,
+							200, 200);
+					FileOutputStream fOut = new FileOutputStream(preview);
+
+				    previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+				    fOut.flush();
+				    fOut.close();
+				    previewBitmap.recycle();
 					PdfWriter.getInstance(document, new FileOutputStream(
 							targetFile));
 					document.open();
@@ -91,7 +108,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
 					e.printStackTrace();
 				}
 				document.close();
-				new SendPDFTask(PhoneGalleryActivity.this, targetFile)
+				new SendPDFTask(PhoneGalleryActivity.this, targetFile, previewFile)
 						.execute(new Void[0]);
 			}
 		});
