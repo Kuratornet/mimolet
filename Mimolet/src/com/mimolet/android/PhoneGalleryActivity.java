@@ -27,7 +27,6 @@ import com.mimolet.android.task.SendPDFTask;
 
 public class PhoneGalleryActivity extends SherlockActivity {
 
-	private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
 	private List<String> urls = new ArrayList<String>();
 
 	private static int RESULT_LOAD_IMAGE = 666;
@@ -59,9 +58,10 @@ public class PhoneGalleryActivity extends SherlockActivity {
 				Document document = new Document(new Rectangle(566, 594));
 				final String targetFile = android.os.Environment
 						.getExternalStorageDirectory()
-						+ java.io.File.separator + "Images.pdf";
+						+ java.io.File.separator
+						+ "Images.pdf";
 				try {
-					
+
 					File f = new File(targetFile);
 					if (!f.exists()) {
 						f.createNewFile();
@@ -69,46 +69,67 @@ public class PhoneGalleryActivity extends SherlockActivity {
 					PdfWriter.getInstance(document, new FileOutputStream(
 							targetFile));
 					document.open();
-					for (Bitmap bitmap : bitmaps) {
-						// for (String path : urls) {
+					for (String url : urls) {
+						final Bitmap bitmap = decodeSampledBitmapFromFile(url,
+								566, 594);
 						ByteArrayOutputStream stream = new ByteArrayOutputStream();
 						bitmap.compress(Bitmap.CompressFormat.PNG /* FileType */,
 								100 /* Ratio */, stream);
 						Image png = Image.getInstance(stream.toByteArray());
-						png.scaleAbsolute(566, 594);
+						png.scaleToFit(566, 594);
 						document.add(png);
-
-						// PdfContentByte canvas = writer.getDirectContent();
-						//
-						// canvas.saveState();
-						// canvas.setColorStroke(GrayColor.BLACK);
-						// canvas.setColorFill(GrayColor.YELLOW);
-						// canvas.rectangle(0, 0, 566, 100);
-						// canvas.fillStroke();
-						// String text = "ABCDEâàïâàF";
-						// BaseFont bf = BaseFont.createFont();
-						// canvas.beginText();
-						// canvas.setColorStroke(GrayColor.BLACK);
-						// canvas.setFontAndSize(bf, 22);
-						// canvas.setTextMatrix(50, 50);
-						// canvas.showText(text);
-						// canvas.showTextAligned(PdfContentByte.ALIGN_CENTER,
-						// text, 100, 100, 0);
-						// canvas.endText();
-						// canvas.restoreState();
-						// Image image = Image.getInstance(path);
-						// image.scaleAbsolute(566, 594);
-						// document.add(image);
+						bitmap.recycle();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				document.close();
-				new SendPDFTask(PhoneGalleryActivity.this, targetFile).execute(new Void[0]);
+				new SendPDFTask(PhoneGalleryActivity.this, targetFile)
+						.execute(new Void[0]);
 			}
-//			new send().execute(loginField.getText().toString(),
-//					passwordField.getText().toString(), serverUrl);
 		});
+	}
+
+	private int calculateInSampleSize(BitmapFactory.Options options,
+			int reqWidth, int reqHeight) {
+		// Raw height and width of image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+
+		if (height > reqHeight || width > reqWidth) {
+
+			// Calculate ratios of height and width to requested height and
+			// width
+			final int heightRatio = Math.round((float) height
+					/ (float) reqHeight);
+			final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+			// Choose the smallest ratio as inSampleSize value, this will
+			// guarantee
+			// a final image with both dimensions larger than or equal to the
+			// requested height and width.
+			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+		}
+
+		return inSampleSize;
+	}
+
+	private Bitmap decodeSampledBitmapFromFile(String filepath, int reqWidth,
+			int reqHeight) {
+
+		// First decode with inJustDecodeBounds=true to check dimensions
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filepath, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, reqWidth,
+				reqHeight);
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(filepath, options);
 	}
 
 	@Override
@@ -129,37 +150,12 @@ public class PhoneGalleryActivity extends SherlockActivity {
 			cursor.close();
 
 			ImageView imageView = (ImageView) findViewById(R.id.imgView);
-			final Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+
+			final Bitmap bitmap = decodeSampledBitmapFromFile(picturePath,
+					1024, 1024);
 			imageView.setImageBitmap(bitmap);
-			bitmaps.add(bitmap);
-			urls.add(selectedImage.getPath());
+			urls.add(picturePath);
 		}
-		// System.out.println(data.getDataString());
-		// System.out.println(requestCode);
-		// System.out.println(resultCode);
-		// // if (Intent.ACTION_SEND_MULTIPLE.equals(getIntent().getAction())
-		// // && getIntent().hasExtra(Intent.EXTRA_STREAM)) {
-		// if (requestCode == RESULT_LOAD_IMAGE) {
-		// ArrayList<Parcelable> list = getIntent()
-		// .getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-		// for (Parcelable parcel : list) {
-		// Uri selectedImage = (Uri) parcel;
-		// String sourcepath = getPath(selectedImage);
-		// String[] filePathColumn = { MediaStore.Images.Media.DATA };
-		// System.out.println(sourcepath);
-		// Cursor cursor = getContentResolver().query(selectedImage,
-		// filePathColumn, null, null, null);
-		// cursor.moveToFirst();
-		//
-		// int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-		// String picturePath = cursor.getString(columnIndex);
-		// cursor.close();
-		//
-		// ImageView imageView = (ImageView) findViewById(R.id.imgView);
-		// imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-		// }
-		// finish();
-		// }
 	}
 
 	public String getPath(Uri uri) {
