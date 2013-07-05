@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/book_name"
-            android:background="@drawable/testloginbg"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/testloginbg"
             android:ems="10"
             android:hint="@string/book_name" >
 
@@ -77,9 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawSelectorOnTop="true">
+                    android:drawSelectorOnTop="true" >
                 </Spinner>
-                
             </TableRow>
         </TableLayout>
     </LinearLayout>
