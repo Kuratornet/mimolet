@@ -100,7 +100,9 @@
         android:layout_above="@+id/textView2"
         android:layout_alignRight="@+id/textView1"
         android:ems="10"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress" >
 
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
