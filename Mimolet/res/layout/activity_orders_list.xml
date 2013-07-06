@@ -1,12 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
-    android:padding="5dp">
+    >
     
     <ListView
     android:id="@android:id/list"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-</LinearLayout>
+    android:layout_height="320dp"
+    android:padding="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="0dp" >
+
+        <ImageButton
+            android:id="@+id/bottomtab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="205"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab1selected"
+            android:clickable="true"
+            android:onClick="myOrders" />
+
+        <ImageButton
+            android:id="@+id/bottomtab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="239"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab2nonselected"
+            android:clickable="true"
+            android:onClick="createBook" />
+
+        <ImageButton
+            android:id="@+id/bottomtab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="196"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab3nonselected"
+            android:clickable="true"
+            android:onClick="paidOrders" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/bottomtab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@android:id/list"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="0dp"
+        android:layout_weight="196"
+        android:adjustViewBounds="true"
+        android:background="@drawable/createbookbutton"
+        android:clickable="true"
+        android:onClick="createBook" />
+
+</RelativeLayout>
