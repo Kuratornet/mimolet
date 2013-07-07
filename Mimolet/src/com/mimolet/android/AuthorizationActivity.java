@@ -66,18 +66,5 @@ public class AuthorizationActivity extends Activity {
         AddBookActivity.class);
     startActivity(intent);
   }
-  
-  public void goToOrderList(View view, List<Order> orders) {
-    final String[] ordersName = new String[orders.size()];
-    final String[] imageSourcesLinks = new String[orders.size()];
-    for (int i = 0; i < orders.size(); i++) {
-      ordersName[i] = orders.get(i).getDescription();
-      imageSourcesLinks[i] = orders.get(i).getLink();
-    }
-    final Intent intent = new Intent(getApplicationContext(),
-        OrdersListActivity.class);
-    intent.putExtra("orders", ordersName);
-    intent.putExtra("imageSources", imageSourcesLinks);
-    startActivity(intent);
-  }
+
 }

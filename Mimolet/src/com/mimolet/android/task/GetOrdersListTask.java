@@ -10,22 +10,24 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mimolet.android.AuthorizationActivity;
+import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.util.Registry;
 
 import entity.Order;
 
 public class GetOrdersListTask extends AsyncTask<String, Void, List<Order>> {
   
-  private AuthorizationActivity parent;
+  private Activity parent;
   final Properties connectionProperties;
   
-  public GetOrdersListTask(AuthorizationActivity parent) {
+  public GetOrdersListTask(Activity parent) {
     this.parent = parent;
     connectionProperties = new Properties();
   }
@@ -55,7 +57,7 @@ public class GetOrdersListTask extends AsyncTask<String, Void, List<Order>> {
   @Override
   protected void onPostExecute(List<Order> result) {
     if (result != null) {
-      parent.goToOrderList(null, result);
+      GlobalMethods.goToOrderList(parent, null, result);
     } else {
       //Do something horrible here
     }

@@ -1,14 +1,14 @@
 package com.mimolet.android;
 
+import com.mimolet.android.task.GetOrdersListTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
 public class BottomMenu {
   public void openMyOrders(Activity activity) {
-    final Intent intent = new Intent(activity.getApplicationContext(),
-        OrdersListActivity.class);
-    activity.startActivity(intent);
+    new GetOrdersListTask(activity).execute();
   }
   
   public void openAddBook(Activity activity) {
