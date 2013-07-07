@@ -29,7 +29,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	private String previewPath;
 	private Context context;
 
-	public SendPDFTask(Context context, String filePath, String previePath) {
+	public SendPDFTask(Context context, String filePath, String previewPath) {
 		dialog = new ProgressDialog(context);
 		this.filePath = filePath;
 		this.context = context;
