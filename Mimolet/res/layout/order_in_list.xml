@@ -22,24 +22,27 @@
         android:layout_alignTop="@+id/logo"
         android:layout_toRightOf="@+id/logo"
         android:text="@string/password"
-        android:textSize="20sp" />
+        android:textColor="#de7614"
+        android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/descriptionlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label"
         android:layout_toRightOf="@+id/logo"
-        android:text="TextView"
-        android:textSize="12sp" />
+        android:text="Desription text here"
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/optionalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/logo"
-        android:layout_alignLeft="@+id/textView1"
-        android:text="TextView"
-        android:textSize="12sp" />
+        android:layout_toRightOf="@+id/logo"
+        android:text="Поделиться"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

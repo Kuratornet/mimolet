@@ -19,12 +19,14 @@ public class OrderArrayAdapter extends ArrayAdapter<String> {
   private final Context context;
   private final String[] values;
   private final String[] imageSources;
+  private final String[] createData;
  
-  public OrderArrayAdapter(Context context, int textViewResourceIdint, String[] values, String[] images) {
+  public OrderArrayAdapter(Context context, int textViewResourceIdint, String[] values, String[] images, String[] createData) {
     super(context, textViewResourceIdint, values);
     this.context = context;
     this.values = values;
     this.imageSources = images;
+    this.createData = createData;
   }
  
   @Override
@@ -33,10 +35,12 @@ public class OrderArrayAdapter extends ArrayAdapter<String> {
       .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
  
     View rowView = inflater.inflate(R.layout.order_in_list, parent, false);
-    TextView textView = (TextView) rowView.findViewById(R.id.label);
-    ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
+    final TextView textView = (TextView) rowView.findViewById(R.id.label);
+    final TextView dataLabel = (TextView) rowView.findViewById(R.id.descriptionlabel);
+    final ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
     
     textView.setText(values[position]);
+    dataLabel.setText(createData[position]);
     try {
       UrlImageViewHelper.setUrlDrawable(imageView, imageSources[position]);
     } catch (Exception e) {

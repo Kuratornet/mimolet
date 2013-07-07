@@ -21,9 +21,10 @@ public class OrdersListActivity extends ListActivity {
     Intent intent = getIntent();
     String[] orders = intent.getStringArrayExtra("orders");
     String[] images = intent.getStringArrayExtra("imageSources");
+    String[] createData = intent.getStringArrayExtra("createData");
     // in call activity use intent.putExtra("")
     getListView().setAdapter(
-        new OrderArrayAdapter(this, R.id.undobar, orders, images));
+        new OrderArrayAdapter(this, R.id.undobar, orders, images, createData));
   }
 
   @Override

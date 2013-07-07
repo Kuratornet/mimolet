@@ -54,14 +54,17 @@ public class GlobalMethods {
   public static void goToOrderList(Activity activity, View view, List<Order> orders) {
     final String[] ordersName = new String[orders.size()];
     final String[] imageSourcesLinks = new String[orders.size()];
+    final String[] ordersDate = new String[orders.size()];
     for (int i = 0; i < orders.size(); i++) {
       ordersName[i] = orders.get(i).getDescription();
       imageSourcesLinks[i] = orders.get(i).getLink();
+      ordersDate[i] = orders.get(i).getCreateData();
     }
     final Intent intent = new Intent(activity.getApplicationContext(),
         OrdersListActivity.class);
     intent.putExtra("orders", ordersName);
     intent.putExtra("imageSources", imageSourcesLinks);
+    intent.putExtra("createData", ordersDate);
     activity.startActivity(intent);
   }
 }
