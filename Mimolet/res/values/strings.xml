@@ -16,5 +16,6 @@
     <string name="soft_with_clamp">Мягкий на скобе</string>
     <string name="title_activity_orders_list">Мои книги</string>
     <string name="logo">logo</string>
+    <string name="title_activity_uploaded_photo_gallery">UploadedPhotoGallery</string>
 
 </resources>

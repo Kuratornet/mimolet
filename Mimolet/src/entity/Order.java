@@ -6,6 +6,8 @@ public class Order {
 
   private String link;
   
+  private String imagelink;
+  
   private Integer status;
 
   private String description;
@@ -38,6 +40,14 @@ public class Order {
 
   public void setLink(String link) {
     this.link = link;
+  }
+
+  public String getImagelink() {
+    return imagelink;
+  }
+
+  public void setImagelink(String imagelink) {
+    this.imagelink = imagelink;
   }
 
   public Integer getStatus() {
