@@ -44,6 +44,7 @@ public class UploadedPhotoGallery extends Activity {
     setupUI();
     } catch (Exception e) {
       System.out.println("Are we here?");
+      e.printStackTrace();
     }
   }
 

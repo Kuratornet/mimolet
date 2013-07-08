@@ -58,7 +58,7 @@ public class GlobalMethods {
     for (int i = 0; i < orders.size(); i++) {
       ordersName[i] = orders.get(i).getDescription();
       imageSourcesLinks[i] = orders.get(i).getImagelink();
-      ordersDate[i] = orders.get(i).getCreateData();
+      ordersDate[i] = orders.get(i).getCreateData().toString();
     }
     final Intent intent = new Intent(activity.getApplicationContext(),
         OrdersListActivity.class);

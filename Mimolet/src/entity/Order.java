@@ -1,138 +1,139 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Order implements Serializable {
 
-  private static final long serialVersionUID = 6123072980683019086L;
-  
-  private Integer id;
+	private static final long serialVersionUID = 6123072980683019086L;
 
-  private String link;
+	private Integer id;
 
-  private String imagelink;
+	private String link;
 
-  public String getImagelink() {
-    return imagelink;
-  }
+	private String imagelink;
 
-  public void setImagelink(String imagelink) {
-    this.imagelink = imagelink;
-  }
+	private Integer status;
 
-  private Integer status;
+	private String description;
 
-  private String description;
+	private Integer ownerId;
 
-  private Integer ownerId;
+	private Integer binding;
 
-  private Integer binding;
+	private Integer paper;
 
-  private Integer paper;
+	private Integer print;
 
-  private Integer print;
+	private Integer blocksize;
 
-  private Integer blocksize;
+	private Integer pages;
 
-  private Integer pages;
+	private Date createData;
 
-  private String createData;
+	public Integer getId() {
+		return id;
+	}
 
-  public Integer getId() {
-    return id;
-  }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public String getLink() {
+		return link;
+	}
 
-  public String getLink() {
-    return link;
-  }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-  public void setLink(String link) {
-    this.link = link;
-  }
+	public String getImagelink() {
+		return imagelink;
+	}
 
-  public Integer getStatus() {
-    return status;
-  }
+	public void setImagelink(String imagelink) {
+		this.imagelink = imagelink;
+	}
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
+	public Integer getStatus() {
+		return status;
+	}
 
-  public Integer getOwnerId() {
-    return ownerId;
-  }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-  public void setOwnerId(Integer ownerId) {
-    this.ownerId = ownerId;
-  }
+	public Integer getOwnerId() {
+		return ownerId;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public Integer getBinding() {
-    return binding;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setBinding(Integer binding) {
-    this.binding = binding;
-  }
+	public Integer getBinding() {
+		return binding;
+	}
 
-  public Integer getPaper() {
-    return paper;
-  }
+	public void setBinding(Integer binding) {
+		this.binding = binding;
+	}
 
-  public void setPaper(Integer paper) {
-    this.paper = paper;
-  }
+	public Integer getPaper() {
+		return paper;
+	}
 
-  public Integer getPrint() {
-    return print;
-  }
+	public void setPaper(Integer paper) {
+		this.paper = paper;
+	}
 
-  public void setPrint(Integer print) {
-    this.print = print;
-  }
+	public Integer getPrint() {
+		return print;
+	}
 
-  public Integer getBlocksize() {
-    return blocksize;
-  }
+	public void setPrint(Integer print) {
+		this.print = print;
+	}
 
-  public void setBlocksize(Integer blocksize) {
-    this.blocksize = blocksize;
-  }
+	public Integer getBlocksize() {
+		return blocksize;
+	}
 
-  public Integer getPages() {
-    return pages;
-  }
+	public void setBlocksize(Integer blocksize) {
+		this.blocksize = blocksize;
+	}
 
-  public void setPages(Integer pages) {
-    this.pages = pages;
-  }
+	public Integer getPages() {
+		return pages;
+	}
 
-  public void setCreateData(String createData) {
-    this.createData = createData;
-  }
+	public void setPages(Integer pages) {
+		this.pages = pages;
+	}
 
-  public String getCreateData() {
-    return createData;
-  }
+	public void setCreateData(Date createData) {
+		this.createData = createData;
+	}
 
-  @Override
-  public String toString() {
-    return "Order [id=" + id + ", link=" + link + ", imagelink="
-        + imagelink + ", status=" + status + ", description="
-        + description + ", ownerId=" + ownerId + ", binding=" + binding
-        + ", paper=" + paper + ", print=" + print + ", blocksize="
-        + blocksize + ", pages=" + pages + ", createData=" + createData
-        + "]";
-  }
+	public Date getCreateData() {
+		return createData;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", link=" + link + ", imagelink="
+				+ imagelink + ", status=" + status + ", description="
+				+ description + ", ownerId=" + ownerId + ", binding=" + binding
+				+ ", paper=" + paper + ", print=" + print + ", blocksize="
+				+ blocksize + ", pages=" + pages + ", createData=" + createData
+				+ "]";
+	}
 }
