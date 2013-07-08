@@ -4,12 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.webkit.WebChromeClient.CustomViewCallback;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.mimolet.android.Constants;
 import com.mimolet.android.PhoneGalleryActivity;
 
+import entity.Order;
+
 public class AddPhotoFragment extends ListFragment {
+
+	private Order order;
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
 
 	private final String[] listviewItems = new String[] { "Phone memory",
 			"Facebook", "Instagram", "Google+" };
@@ -30,6 +44,9 @@ public class AddPhotoFragment extends ListFragment {
 		case 0:
 			final Intent intent = new Intent(getActivity()
 					.getApplicationContext(), PhoneGalleryActivity.class);
+			final Bundle bundle = new Bundle();
+			bundle.putSerializable(Constants.BUNDLE_ORDER, order);
+			intent.putExtras(bundle);
 			startActivity(intent);
 			break;
 		case 1:

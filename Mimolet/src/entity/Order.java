@@ -1,13 +1,25 @@
 package entity;
 
-public class Order {
+import java.io.Serializable;
 
+public class Order implements Serializable {
+
+  private static final long serialVersionUID = 6123072980683019086L;
+  
   private Integer id;
 
   private String link;
-  
+
   private String imagelink;
-  
+
+  public String getImagelink() {
+    return imagelink;
+  }
+
+  public void setImagelink(String imagelink) {
+    this.imagelink = imagelink;
+  }
+
   private Integer status;
 
   private String description;
@@ -40,14 +52,6 @@ public class Order {
 
   public void setLink(String link) {
     this.link = link;
-  }
-
-  public String getImagelink() {
-    return imagelink;
-  }
-
-  public void setImagelink(String imagelink) {
-    this.imagelink = imagelink;
   }
 
   public Integer getStatus() {
@@ -124,10 +128,11 @@ public class Order {
 
   @Override
   public String toString() {
-    return "Order [id=" + id + ", link=" + link + ", status=" + status
-        + ", description=" + description + ", ownerId=" + ownerId
-        + ", binding=" + binding + ", paper=" + paper + ", print="
-        + print + ", blocksize=" + blocksize + ", pages=" + pages
-        + ", createData=" + createData + "]";
+    return "Order [id=" + id + ", link=" + link + ", imagelink="
+        + imagelink + ", status=" + status + ", description="
+        + description + ", ownerId=" + ownerId + ", binding=" + binding
+        + ", paper=" + paper + ", print=" + print + ", blocksize="
+        + blocksize + ", pages=" + pages + ", createData=" + createData
+        + "]";
   }
 }

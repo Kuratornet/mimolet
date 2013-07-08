@@ -17,14 +17,14 @@
         android:paddingTop="20dp" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/bookName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/book_name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/bookNameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/testloginbg"
