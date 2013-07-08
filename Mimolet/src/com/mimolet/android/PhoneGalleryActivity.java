@@ -25,6 +25,8 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
 import com.mimolet.android.task.SendPDFTask;
 
+import entity.Order;
+
 public class PhoneGalleryActivity extends SherlockActivity {
 
 	private List<String> urls = new ArrayList<String>();
@@ -80,14 +82,14 @@ public class PhoneGalleryActivity extends SherlockActivity {
 						preview.createNewFile();
 					}
 					final String previewUrl = urls.get(0);
-					final Bitmap previewBitmap = decodeSampledBitmapFromFile(previewUrl,
-							200, 200);
+					final Bitmap previewBitmap = decodeSampledBitmapFromFile(
+							previewUrl, 200, 200);
 					FileOutputStream fOut = new FileOutputStream(preview);
 
-				    previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
-				    fOut.flush();
-				    fOut.close();
-				    previewBitmap.recycle();
+					previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+					fOut.flush();
+					fOut.close();
+					previewBitmap.recycle();
 					PdfWriter.getInstance(document, new FileOutputStream(
 							targetFile));
 					document.open();
@@ -108,8 +110,9 @@ public class PhoneGalleryActivity extends SherlockActivity {
 					e.printStackTrace();
 				}
 				document.close();
-				new SendPDFTask(PhoneGalleryActivity.this, targetFile, previewFile)
-						.execute(new Void[0]);
+				new SendPDFTask(PhoneGalleryActivity.this, targetFile,
+						previewFile, (Order) getIntent().getSerializableExtra(
+								Constants.BUNDLE_ORDER)).execute(new Void[0]);
 			}
 		});
 	}

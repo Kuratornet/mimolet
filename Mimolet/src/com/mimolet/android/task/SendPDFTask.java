@@ -22,18 +22,22 @@ import android.util.Log;
 
 import com.mimolet.android.util.Registry;
 
+import entity.Order;
+
 public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 	private static final String TAG = "SendPDFTask";
 	private final ProgressDialog dialog;
 	private String filePath;
 	private String previewPath;
+	private Order order;
 	private Context context;
 
-	public SendPDFTask(Context context, String filePath, String previewPath) {
+	public SendPDFTask(Context context, String filePath, String previewPath, Order order) {
 		dialog = new ProgressDialog(context);
 		this.filePath = filePath;
 		this.context = context;
 		this.previewPath = previewPath;
+		this.order = order;
 	}
 
 	protected void onPreExecute() {
@@ -63,7 +67,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 					HttpMultipartMode.BROWSER_COMPATIBLE);
 			reqEntity.addPart("file", new ByteArrayBody(bytes, "img.pdf"));
 			reqEntity.addPart("preview", new ByteArrayBody(previewBytes, "img.png"));
-			reqEntity.addPart("description", new StringBody("Pizdatij albom"));
+			reqEntity.addPart("description", new StringBody(order.getDescription()));
 			reqEntity.addPart("binding", new StringBody("1"));
 			reqEntity.addPart("paper", new StringBody("1"));
 			reqEntity.addPart("print", new StringBody("1"));

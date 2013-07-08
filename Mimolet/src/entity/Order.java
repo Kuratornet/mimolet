@@ -1,123 +1,138 @@
 package entity;
 
-public class Order {
+import java.io.Serializable;
 
-  private Integer id;
+public class Order implements Serializable {
 
-  private String link;
-  
-  private Integer status;
+	private static final long serialVersionUID = 6123072980683019086L;
+	
+	private Integer id;
 
-  private String description;
+	private String link;
 
-  private Integer ownerId;
+	private String imagelink;
 
-  private Integer binding;
+	public String getImagelink() {
+		return imagelink;
+	}
 
-  private Integer paper;
+	public void setImagelink(String imagelink) {
+		this.imagelink = imagelink;
+	}
 
-  private Integer print;
+	private Integer status;
 
-  private Integer blocksize;
+	private String description;
 
-  private Integer pages;
+	private Integer ownerId;
 
-  private String createData;
+	private Integer binding;
 
-  public Integer getId() {
-    return id;
-  }
+	private Integer paper;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	private Integer print;
 
-  public String getLink() {
-    return link;
-  }
+	private Integer blocksize;
 
-  public void setLink(String link) {
-    this.link = link;
-  }
+	private Integer pages;
 
-  public Integer getStatus() {
-    return status;
-  }
+	private String createData;
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
+	public Integer getId() {
+		return id;
+	}
 
-  public Integer getOwnerId() {
-    return ownerId;
-  }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  public void setOwnerId(Integer ownerId) {
-    this.ownerId = ownerId;
-  }
+	public String getLink() {
+		return link;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public Integer getStatus() {
+		return status;
+	}
 
-  public Integer getBinding() {
-    return binding;
-  }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-  public void setBinding(Integer binding) {
-    this.binding = binding;
-  }
+	public Integer getOwnerId() {
+		return ownerId;
+	}
 
-  public Integer getPaper() {
-    return paper;
-  }
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
 
-  public void setPaper(Integer paper) {
-    this.paper = paper;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public Integer getPrint() {
-    return print;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setPrint(Integer print) {
-    this.print = print;
-  }
+	public Integer getBinding() {
+		return binding;
+	}
 
-  public Integer getBlocksize() {
-    return blocksize;
-  }
+	public void setBinding(Integer binding) {
+		this.binding = binding;
+	}
 
-  public void setBlocksize(Integer blocksize) {
-    this.blocksize = blocksize;
-  }
+	public Integer getPaper() {
+		return paper;
+	}
 
-  public Integer getPages() {
-    return pages;
-  }
+	public void setPaper(Integer paper) {
+		this.paper = paper;
+	}
 
-  public void setPages(Integer pages) {
-    this.pages = pages;
-  }
+	public Integer getPrint() {
+		return print;
+	}
 
-  public void setCreateData(String createData) {
-    this.createData = createData;
-  }
+	public void setPrint(Integer print) {
+		this.print = print;
+	}
 
-  public String getCreateData() {
-    return createData;
-  }
+	public Integer getBlocksize() {
+		return blocksize;
+	}
 
-  @Override
-  public String toString() {
-    return "Order [id=" + id + ", link=" + link + ", status=" + status
-        + ", description=" + description + ", ownerId=" + ownerId
-        + ", binding=" + binding + ", paper=" + paper + ", print="
-        + print + ", blocksize=" + blocksize + ", pages=" + pages
-        + ", createData=" + createData + "]";
-  }
+	public void setBlocksize(Integer blocksize) {
+		this.blocksize = blocksize;
+	}
+
+	public Integer getPages() {
+		return pages;
+	}
+
+	public void setPages(Integer pages) {
+		this.pages = pages;
+	}
+
+	public void setCreateData(String createData) {
+		this.createData = createData;
+	}
+
+	public String getCreateData() {
+		return createData;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", link=" + link + ", imagelink="
+				+ imagelink + ", status=" + status + ", description="
+				+ description + ", ownerId=" + ownerId + ", binding=" + binding
+				+ ", paper=" + paper + ", print=" + print + ", blocksize="
+				+ blocksize + ", pages=" + pages + ", createData=" + createData
+				+ "]";
+	}
 }
