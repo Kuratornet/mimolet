@@ -206,7 +206,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
   private void saveIamge(Bitmap finalBitmap) {
 
     String root = Environment.getExternalStorageDirectory().toString();
-    File myDir = new File(root + File.pathSeparator + "mimolet_images");
+    File myDir = new File(root + File.separator + "mimolet_images");
     myDir.mkdirs();
     String fname = "Image-"+ (imageCounter++) +".png";
     File file = new File (myDir, fname);

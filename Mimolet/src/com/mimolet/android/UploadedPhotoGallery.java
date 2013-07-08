@@ -150,8 +150,8 @@ public class UploadedPhotoGallery extends Activity {
 
   private void getDrawablesList() {
     final String imageFolderPath =
-        Environment.getExternalStorageDirectory().toString() + File.pathSeparator + "mimolet_images"
-            + File.pathSeparator;
+        Environment.getExternalStorageDirectory().toString() + File.separator + "mimolet_images"
+            + File.separator;
     final File imageFolder = new File(imageFolderPath);
     File[] listOfFiles = imageFolder.listFiles();
     for (File file : listOfFiles) {
