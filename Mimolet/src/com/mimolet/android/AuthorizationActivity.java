@@ -27,7 +27,12 @@ public class AuthorizationActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_authorization);
-
+    
+    if( getIntent().getBooleanExtra("Exit me", false)){
+      finish();
+      return; // add this to prevent from doing unnecessary stuffs
+    }
+    
     loginField = (EditText) findViewById(R.id.loginField);
     passwordField = (EditText) findViewById(R.id.passwordField);
   }

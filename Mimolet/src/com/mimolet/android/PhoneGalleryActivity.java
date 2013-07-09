@@ -5,15 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,12 +24,15 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
+import com.mimolet.android.task.GetOrdersListTask;
 import com.mimolet.android.task.SendPDFTask;
 
 import entity.Order;
 
 public class PhoneGalleryActivity extends SherlockActivity {
 
+  private final Activity activity = this;
+  
   private List<String> urls = new ArrayList<String>();
 
   private static int RESULT_LOAD_IMAGE = 666;
@@ -114,6 +116,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
           e.printStackTrace();
         }
         document.close();
+        (new GetOrdersListTask(activity)).execute();
         new SendPDFTask(PhoneGalleryActivity.this, targetFile,
             previewFile, (Order) getIntent().getSerializableExtra(
                 Constants.BUNDLE_ORDER)).execute(new Void[0]);
@@ -184,12 +187,12 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
       final Bitmap bitmap = decodeSampledBitmapFromFile(picturePath,
           1024, 1024);
-      saveIamge(bitmap);
+//      saveIamge(bitmap);
       imageView.setImageBitmap(bitmap);
       urls.add(picturePath);
-      final Intent intent = new Intent(getApplicationContext(),
-          UploadedPhotoGallery.class);
-      startActivity(intent);
+//      final Intent intent = new Intent(getApplicationContext(),
+//          UploadedPhotoGallery.class);
+//      startActivity(intent);
     }
   }
 
@@ -203,22 +206,22 @@ public class PhoneGalleryActivity extends SherlockActivity {
     return cursor.getString(column_index);
   }
   
-  private void saveIamge(Bitmap finalBitmap) {
-
-    String root = Environment.getExternalStorageDirectory().toString();
-    File myDir = new File(root + File.separator + "mimolet_images");
-    myDir.mkdirs();
-    String fname = "Image-"+ (imageCounter++) +".png";
-    File file = new File (myDir, fname);
-    if (file.exists ()) file.delete ();
-    try {
-           FileOutputStream out = new FileOutputStream(file);
-           finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-           out.flush();
-           out.close();
-
-    } catch (Exception e) {
-           e.printStackTrace();
-    }
-}
+//  private void saveIamge(Bitmap finalBitmap) {
+//
+//    String root = Environment.getExternalStorageDirectory().toString();
+//    File myDir = new File(root + File.separator + "mimolet_images");
+//    myDir.mkdirs();
+//    String fname = "Image-"+ (imageCounter++) +".png";
+//    File file = new File (myDir, fname);
+//    if (file.exists ()) file.delete ();
+//    try {
+//           FileOutputStream out = new FileOutputStream(file);
+//           finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+//           out.flush();
+//           out.close();
+//
+//    } catch (Exception e) {
+//           e.printStackTrace();
+//    }
+//  }
 }
