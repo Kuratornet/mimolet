@@ -38,12 +38,9 @@ public class UploadedPhotoGallery extends Activity {
     try {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.uploaded_photo_gallery);
-    System.out.println("1");
     getDrawablesList();
-    System.out.println("2");
     setupUI();
     } catch (Exception e) {
-      System.out.println("Are we here?");
       e.printStackTrace();
     }
   }

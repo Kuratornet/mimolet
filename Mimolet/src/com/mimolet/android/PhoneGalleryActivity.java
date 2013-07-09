@@ -11,13 +11,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.lowagie.text.Document;
@@ -32,29 +38,38 @@ import entity.Order;
 public class PhoneGalleryActivity extends SherlockActivity {
 
   private final Activity activity = this;
-  
-  private List<String> urls = new ArrayList<String>();
 
-  private static int RESULT_LOAD_IMAGE = 666;
+  private List<String> urls = new ArrayList<String>();
+//  private int imageCounter = 0;
   
-  private int imageCounter;
+  private static int RESULT_LOAD_IMAGE = 666;
+
+  private static final String IMAGE_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
+      + "mimolet_images" + File.separator;
+
+  private int imageCounter = 0;
+  LinearLayout myGallery;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_phone_gallery);
 
+    myGallery = (LinearLayout) findViewById(R.id.mygallery);
+
     Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
     buttonLoadImage.setOnClickListener(new OnClickListener() {
 
       @Override
       public void onClick(View arg0) {
+        if (imageCounter < 20) {
 
-        Intent i = new Intent(
-            Intent.ACTION_PICK,
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(i, RESULT_LOAD_IMAGE);
+        } else {
+          Toast.makeText(activity.getApplicationContext(), "Вы уже загрузили 20 снимков. \n Перейдите в раздел оформления.", Toast.LENGTH_LONG).show();
+        }
       }
     });
 
@@ -65,18 +80,12 @@ public class PhoneGalleryActivity extends SherlockActivity {
       public void onClick(View arg0) {
         final int SIDE_SIZE = 576;
         final int BORDER_SIZE = 43;
-        Document document = new Document(new Rectangle(SIDE_SIZE,
-            SIDE_SIZE));
-        document.setMargins(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE,
-            BORDER_SIZE);
-        final String targetFile = android.os.Environment
-            .getExternalStorageDirectory()
-            + java.io.File.separator
-            + "Images.pdf";
-        final String previewFile = android.os.Environment
-            .getExternalStorageDirectory()
-            + java.io.File.separator
-            + "preview.png";
+        Document document = new Document(new Rectangle(SIDE_SIZE, SIDE_SIZE));
+        document.setMargins(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE);
+        final String targetFile =
+            android.os.Environment.getExternalStorageDirectory() + java.io.File.separator + "Images.pdf";
+        final String previewFile =
+            android.os.Environment.getExternalStorageDirectory() + java.io.File.separator + "preview.png";
         try {
 
           File f = new File(targetFile);
@@ -88,27 +97,22 @@ public class PhoneGalleryActivity extends SherlockActivity {
             preview.createNewFile();
           }
           final String previewUrl = urls.get(0);
-          final Bitmap previewBitmap = decodeSampledBitmapFromFile(
-              previewUrl, 200, 200);
+          final Bitmap previewBitmap = decodeSampledBitmapFromFile(previewUrl, 200, 200);
           FileOutputStream fOut = new FileOutputStream(preview);
 
           previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
           fOut.flush();
           fOut.close();
           previewBitmap.recycle();
-          PdfWriter.getInstance(document, new FileOutputStream(
-              targetFile));
+          PdfWriter.getInstance(document, new FileOutputStream(targetFile));
           document.open();
           for (String url : urls) {
-            final Bitmap bitmap = decodeSampledBitmapFromFile(url,
-                SIDE_SIZE, SIDE_SIZE);
+            final Bitmap bitmap = decodeSampledBitmapFromFile(url, SIDE_SIZE, SIDE_SIZE);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG /* FileType */,
-                100 /* Ratio */, stream);
+            bitmap.compress(Bitmap.CompressFormat.PNG /* FileType */, 100 /* Ratio */, stream);
             Image png = Image.getInstance(stream.toByteArray());
             png.setAlignment(Image.ALIGN_MIDDLE);
-            png.scaleToFit(SIDE_SIZE - 2 * BORDER_SIZE, SIDE_SIZE
-                - 2 * BORDER_SIZE);
+            png.scaleToFit(SIDE_SIZE - 2 * BORDER_SIZE, SIDE_SIZE - 2 * BORDER_SIZE);
             document.add(png);
             bitmap.recycle();
           }
@@ -116,16 +120,22 @@ public class PhoneGalleryActivity extends SherlockActivity {
           e.printStackTrace();
         }
         document.close();
-        (new GetOrdersListTask(activity)).execute();
-        new SendPDFTask(PhoneGalleryActivity.this, targetFile,
-            previewFile, (Order) getIntent().getSerializableExtra(
-                Constants.BUNDLE_ORDER)).execute(new Void[0]);
+        
+        final File toBeCleared = new File(IMAGE_FOLDER);
+        File[] listOfFiles = toBeCleared.listFiles();
+        for (File file : listOfFiles) {
+          if (file.isFile()) {
+            file.delete();
+          }
+        }
+        
+        new SendPDFTask(activity, targetFile, previewFile, (Order) getIntent().getSerializableExtra(
+            Constants.BUNDLE_ORDER)).execute(new Void[0]);
       }
     });
   }
 
-  private int calculateInSampleSize(BitmapFactory.Options options,
-      int reqWidth, int reqHeight) {
+  private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
     // Raw height and width of image
     final int height = options.outHeight;
     final int width = options.outWidth;
@@ -135,8 +145,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
       // Calculate ratios of height and width to requested height and
       // width
-      final int heightRatio = Math.round((float) height
-          / (float) reqHeight);
+      final int heightRatio = Math.round((float) height / (float) reqHeight);
       final int widthRatio = Math.round((float) width / (float) reqWidth);
 
       // Choose the smallest ratio as inSampleSize value, this will
@@ -149,8 +158,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
     return inSampleSize;
   }
 
-  private Bitmap decodeSampledBitmapFromFile(String filepath, int reqWidth,
-      int reqHeight) {
+  private Bitmap decodeSampledBitmapFromFile(String filepath, int reqWidth, int reqHeight) {
 
     // First decode with inJustDecodeBounds=true to check dimensions
     final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -158,8 +166,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
     BitmapFactory.decodeFile(filepath, options);
 
     // Calculate inSampleSize
-    options.inSampleSize = calculateInSampleSize(options, reqWidth,
-        reqHeight);
+    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
     // Decode bitmap with inSampleSize set
     options.inJustDecodeBounds = false;
@@ -170,13 +177,11 @@ public class PhoneGalleryActivity extends SherlockActivity {
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
-        && null != data) {
+    if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
       Uri selectedImage = data.getData();
       String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-      Cursor cursor = getContentResolver().query(selectedImage,
-          filePathColumn, null, null, null);
+      Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
       cursor.moveToFirst();
 
       int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -185,14 +190,11 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
       ImageView imageView = (ImageView) findViewById(R.id.imgView);
 
-      final Bitmap bitmap = decodeSampledBitmapFromFile(picturePath,
-          1024, 1024);
-//      saveIamge(bitmap);
+      final Bitmap bitmap = decodeSampledBitmapFromFile(picturePath, 1024, 1024);
+      saveImage(bitmap);
+      reviewFolder();
       imageView.setImageBitmap(bitmap);
       urls.add(picturePath);
-//      final Intent intent = new Intent(getApplicationContext(),
-//          UploadedPhotoGallery.class);
-//      startActivity(intent);
     }
   }
 
@@ -200,28 +202,63 @@ public class PhoneGalleryActivity extends SherlockActivity {
     String[] projection = { MediaStore.Images.Media.DATA };
     Cursor cursor = managedQuery(uri, projection, null, null, null);
     startManagingCursor(cursor);
-    int column_index = cursor
-        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
     cursor.moveToFirst();
     return cursor.getString(column_index);
   }
-  
-//  private void saveIamge(Bitmap finalBitmap) {
-//
-//    String root = Environment.getExternalStorageDirectory().toString();
-//    File myDir = new File(root + File.separator + "mimolet_images");
-//    myDir.mkdirs();
-//    String fname = "Image-"+ (imageCounter++) +".png";
-//    File file = new File (myDir, fname);
-//    if (file.exists ()) file.delete ();
-//    try {
-//           FileOutputStream out = new FileOutputStream(file);
-//           finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-//           out.flush();
-//           out.close();
-//
-//    } catch (Exception e) {
-//           e.printStackTrace();
+
+  private void saveImage(Bitmap finalBitmap) {
+    File myDir = new File(IMAGE_FOLDER);
+    myDir.mkdirs();
+    String fname = "Image-" + (imageCounter) + ".png";
+    File file = new File(myDir, fname);
+    if (file.exists())
+      file.delete();
+    try {
+      FileOutputStream out = new FileOutputStream(file);
+      finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+      out.flush();
+      out.close();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Method convert bitmap from some path to View.
+   *
+   * @param String path to source file.
+   * @return View, who can be use in ImageView.
+   */
+  private View insertPhoto(String path) {
+    Bitmap bm = decodeSampledBitmapFromFile(path, 220, 165);
+
+    LinearLayout layout = new LinearLayout(getApplicationContext());
+    layout.setLayoutParams(new LayoutParams(240, 180));
+    layout.setGravity(Gravity.CENTER);
+
+    ImageView imageView = new ImageView(getApplicationContext());
+    imageView.setLayoutParams(new LayoutParams(220, 165));
+    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    imageView.setImageBitmap(bm);
+
+    layout.addView(imageView);
+    return layout;
+  }
+
+  private void reviewFolder () {
+    final String imageFolderPath = IMAGE_FOLDER;
+    final File imageFolder = new File(imageFolderPath);
+    File[] listOfFiles = imageFolder.listFiles();
+    if (listOfFiles[imageCounter].isFile()) {
+      myGallery.addView(insertPhoto(listOfFiles[imageCounter].getAbsolutePath()));
+    }
+    imageCounter++;
+//    for (File file : listOfFiles) {
+//      if (file.isFile()) {
+//        myGallery.addView(insertPhoto(file.getAbsolutePath()));
+//      }
 //    }
-//  }
+  }
 }
