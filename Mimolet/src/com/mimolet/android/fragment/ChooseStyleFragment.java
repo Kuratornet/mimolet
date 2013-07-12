@@ -14,30 +14,30 @@ import entity.Order;
 
 public class ChooseStyleFragment extends Fragment {
 
-	private Order order;
+  private Order order;
 
-	public Order getOrder() {
-		return order;
-	}
+  public Order getOrder() {
+    return order;
+  }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+  public void setOrder(Order order) {
+    this.order = order;
+  }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		final View view = inflater.inflate(R.layout.fragment_choose_style,
-				container, false);
-		final EditText bookName = (EditText) view
-				.findViewById(R.id.bookNameField);
-		bookName.addTextChangedListener(new TextWatcherAdapter() {
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				order.setDescription(s.toString());
-			}
-		});
-		return view;
-	}
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    final View view = inflater.inflate(R.layout.fragment_choose_style,
+        container, false);
+    final EditText bookName = (EditText) view
+        .findViewById(R.id.bookNameField);
+    bookName.addTextChangedListener(new TextWatcherAdapter() {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before,
+          int count) {
+        order.setDescription(s.toString());
+      }
+    });
+    return view;
+  }
 }
