@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.webkit.WebChromeClient.CustomViewCallback;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
