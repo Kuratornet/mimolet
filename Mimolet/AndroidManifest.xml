@@ -39,6 +39,10 @@
             android:label="@string/title_activity_orders_list" >
         </activity>
         <activity
+            android:name="com.mimolet.android.ChoiseImagesActivity"
+            android:label="@string/title_activity_orders_list" >
+        </activity>
+        <activity
             android:name="com.mimolet.android.UploadedPhotoGallery"
             android:label="@string/title_activity_uploaded_photo_gallery" >
         </activity>

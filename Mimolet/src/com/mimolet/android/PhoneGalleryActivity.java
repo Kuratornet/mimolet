@@ -57,7 +57,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
     myGallery = (LinearLayout) findViewById(R.id.mygallery);
 
-    Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+    final Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
     buttonLoadImage.setOnClickListener(new OnClickListener() {
 
       @Override
