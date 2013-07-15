@@ -97,7 +97,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
             preview.createNewFile();
           }
           final String previewUrl = urls.get(0);
-          final Bitmap previewBitmap = decodeSampledBitmapFromFile(previewUrl, 200, 200);
+          final Bitmap previewBitmap = ImageUtils.decodeSampledBitmapFromFile(previewUrl, 200, 200);
           FileOutputStream fOut = new FileOutputStream(preview);
 
           previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
@@ -107,7 +107,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
           PdfWriter.getInstance(document, new FileOutputStream(targetFile));
           document.open();
           for (String url : urls) {
-            final Bitmap bitmap = decodeSampledBitmapFromFile(url, SIDE_SIZE, SIDE_SIZE);
+            final Bitmap bitmap = ImageUtils.decodeSampledBitmapFromFile(url, SIDE_SIZE, SIDE_SIZE);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG /* FileType */, 100 /* Ratio */, stream);
             Image png = Image.getInstance(stream.toByteArray());
@@ -135,44 +135,6 @@ public class PhoneGalleryActivity extends SherlockActivity {
     });
   }
 
-  private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-    // Raw height and width of image
-    final int height = options.outHeight;
-    final int width = options.outWidth;
-    int inSampleSize = 1;
-
-    if (height > reqHeight || width > reqWidth) {
-
-      // Calculate ratios of height and width to requested height and
-      // width
-      final int heightRatio = Math.round((float) height / (float) reqHeight);
-      final int widthRatio = Math.round((float) width / (float) reqWidth);
-
-      // Choose the smallest ratio as inSampleSize value, this will
-      // guarantee
-      // a final image with both dimensions larger than or equal to the
-      // requested height and width.
-      inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-    }
-
-    return inSampleSize;
-  }
-
-  private Bitmap decodeSampledBitmapFromFile(String filepath, int reqWidth, int reqHeight) {
-
-    // First decode with inJustDecodeBounds=true to check dimensions
-    final BitmapFactory.Options options = new BitmapFactory.Options();
-    options.inJustDecodeBounds = true;
-    BitmapFactory.decodeFile(filepath, options);
-
-    // Calculate inSampleSize
-    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-    // Decode bitmap with inSampleSize set
-    options.inJustDecodeBounds = false;
-    return BitmapFactory.decodeFile(filepath, options);
-  }
-
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -190,7 +152,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
 
       ImageView imageView = (ImageView) findViewById(R.id.imgView);
 
-      final Bitmap bitmap = decodeSampledBitmapFromFile(picturePath, 1024, 1024);
+      final Bitmap bitmap = ImageUtils.decodeSampledBitmapFromFile(picturePath, 1024, 1024);
       saveImage(bitmap);
       reviewFolder();
       imageView.setImageBitmap(bitmap);
@@ -232,7 +194,7 @@ public class PhoneGalleryActivity extends SherlockActivity {
    * @return View, who can be use in ImageView.
    */
   private View insertPhoto(String path) {
-    Bitmap bm = decodeSampledBitmapFromFile(path, 220, 165);
+    Bitmap bm = ImageUtils.decodeSampledBitmapFromFile(path, 220, 165);
 
     LinearLayout layout = new LinearLayout(getApplicationContext());
     layout.setLayoutParams(new LayoutParams(240, 180));
