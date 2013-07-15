@@ -16,6 +16,8 @@ public class GlobalVariables extends Application {
     this.ownerID = ownerID;
   }
   
+  public static final String BUNDLE_ORDER = "ORDER";
+  
   public static final String IMAGE_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
       + "mimolet_images" + File.separator;
 }

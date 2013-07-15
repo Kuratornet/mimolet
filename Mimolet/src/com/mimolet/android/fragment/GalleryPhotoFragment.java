@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -31,7 +30,6 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
-import com.mimolet.android.Constants;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.task.SendPDFTask;
@@ -128,7 +126,7 @@ public class GalleryPhotoFragment extends Fragment {
         }
         
         new SendPDFTask(activity, targetFile, previewFile, (Order) activity.getIntent().getSerializableExtra(
-            Constants.BUNDLE_ORDER)).execute(new Void[0]);
+            GlobalVariables.BUNDLE_ORDER)).execute(new Void[0]);
       }
     });
   }

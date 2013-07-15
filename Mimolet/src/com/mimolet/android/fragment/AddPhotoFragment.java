@@ -18,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.mimolet.android.ChoiseImagesActivity;
-import com.mimolet.android.Constants;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.global.GlobalVariables;
@@ -60,7 +58,7 @@ public class AddPhotoFragment extends Fragment {
           final Intent intent = new Intent(getActivity()
               .getApplicationContext(), MultiPhotoSelectActivity.class);
           final Bundle bundle = new Bundle();
-          bundle.putSerializable(Constants.BUNDLE_ORDER, order);
+          bundle.putSerializable(GlobalVariables.BUNDLE_ORDER, order);
           intent.putExtras(bundle);
           startActivityForResult(intent, 1);
           break;
