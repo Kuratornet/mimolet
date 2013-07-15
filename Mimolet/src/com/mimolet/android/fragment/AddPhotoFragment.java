@@ -21,6 +21,7 @@ import android.widget.ListView;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.global.ImageUtils;
 import com.mimolet.android.multiphoto.MultiPhotoSelectActivity;
 
 import entity.Order;
@@ -127,7 +128,7 @@ public class AddPhotoFragment extends Fragment {
   }
   
   private View insertPhoto(String path) {
-    Bitmap bm = GlobalMethods.decodeSampledBitmapFromFile(path, 220, 165);
+    Bitmap bm = ImageUtils.decodeSampledBitmapFromFile(path, 220, 165);
 
     LinearLayout layout = new LinearLayout(getActivity().getApplicationContext());
     layout.setLayoutParams(new LayoutParams(240, 180));

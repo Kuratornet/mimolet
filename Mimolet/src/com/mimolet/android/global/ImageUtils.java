@@ -1,4 +1,4 @@
-package com.mimolet.android;
+package com.mimolet.android.global;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
