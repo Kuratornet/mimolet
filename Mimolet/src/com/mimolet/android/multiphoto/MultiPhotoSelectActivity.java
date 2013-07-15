@@ -93,7 +93,7 @@ public class MultiPhotoSelectActivity extends BaseActivity {
   public void btnChoosePhotosClick(View v) {
     ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
     for (int i = 0; i < selectedItems.size(); i++) {
-      saveImage(ImageUtils.decodeSampledBitmapFromFile(selectedItems.get(i), 1024, 1024), i);
+      saveImage(ImageUtils.decodeSampledBitmapFromFile(selectedItems.get(i), 1024, 1024, false), i);
     }
     Intent intent = new Intent();
     setResult(RESULT_OK, intent);

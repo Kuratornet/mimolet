@@ -9,7 +9,6 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.mimolet.android.fragment.AddPhotoFragment;
 import com.mimolet.android.fragment.ChooseStyleFragment;
-import com.mimolet.android.fragment.GalleryPhotoFragment;
 import com.mimolet.android.fragment.StylePageFragment;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.global.ImageUtils;
@@ -221,9 +219,9 @@ public class AddBookActivity extends SherlockFragmentActivity {
     final ImageView rightImage = (ImageView) stylePageFragment.getView()
         .findViewById(R.id.rightImage);
     ImageUtils.loadImage(leftImage, GlobalVariables.IMAGE_FOLDER
-        + stylePageFragment.getLeftImagePath());
+        + stylePageFragment.getLeftImagePath(), 300, true);
     ImageUtils.loadImage(rightImage, GlobalVariables.IMAGE_FOLDER
-        + stylePageFragment.getRightImagePath());
+        + stylePageFragment.getRightImagePath(), 300, true);
   }
   
   private void onLeftSwipe() {

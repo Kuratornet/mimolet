@@ -41,6 +41,7 @@
                     android:layout_height="83dp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:padding="1dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
 
                 <ImageView
@@ -80,48 +81,56 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal"
-            android:weightSum="1.0" >
+            android:weightSum="200" >
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5" >
+                android:layout_weight="100" >
 
                 <ImageView
                     android:id="@+id/leftImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="right|center_vertical"
                     android:onClick="onLeftImageClick"
+                    android:padding="1dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
 
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="right|center_vertical"
+                    android:scaleType="fitXY"
                     android:src="@drawable/book_reversal_left" />
+
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5" >
+                android:layout_weight="100" >
 
                 <ImageView
                     android:id="@+id/rightImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="left|center_vertical"
                     android:onClick="onRightImageClick"
+                    android:padding="1dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
 
                 <ImageView
                     android:id="@+id/imageView6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="left|center_vertical"
+                    android:scaleType="fitXY"
                     android:src="@drawable/book_reversal_right" />
+
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

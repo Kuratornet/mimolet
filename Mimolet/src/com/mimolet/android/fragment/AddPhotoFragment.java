@@ -128,7 +128,7 @@ public class AddPhotoFragment extends Fragment {
   }
   
   private View insertPhoto(String path) {
-    Bitmap bm = ImageUtils.decodeSampledBitmapFromFile(path, 220, 165);
+    Bitmap bm = ImageUtils.decodeSampledBitmapFromFile(path, 220, 165, false);
 
     LinearLayout layout = new LinearLayout(getActivity().getApplicationContext());
     layout.setLayoutParams(new LayoutParams(240, 180));
