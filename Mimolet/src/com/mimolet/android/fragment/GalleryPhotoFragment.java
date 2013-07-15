@@ -33,6 +33,7 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
 import com.mimolet.android.Constants;
 import com.mimolet.android.R;
+import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.task.SendPDFTask;
 
 import entity.Order;
@@ -45,9 +46,6 @@ public class GalleryPhotoFragment extends Fragment {
   //private int imageCounter = 0;
   
   private static int RESULT_LOAD_IMAGE = 666;
-  
-  private static final String IMAGE_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
-      + "mimolet_images" + File.separator;
   
   private int imageCounter = 0;
   LinearLayout myGallery;
@@ -121,7 +119,7 @@ public class GalleryPhotoFragment extends Fragment {
         }
         document.close();
         
-        final File toBeCleared = new File(IMAGE_FOLDER);
+        final File toBeCleared = new File(GlobalVariables.IMAGE_FOLDER);
         File[] listOfFiles = toBeCleared.listFiles();
         for (File file : listOfFiles) {
           if (file.isFile()) {
@@ -191,7 +189,7 @@ public class GalleryPhotoFragment extends Fragment {
   }
 
   private void saveImage(Bitmap finalBitmap) {
-    File myDir = new File(IMAGE_FOLDER);
+    File myDir = new File(GlobalVariables.IMAGE_FOLDER);
     myDir.mkdirs();
     String fname = "Image-" + (imageCounter) + ".png";
     File file = new File(myDir, fname);
@@ -231,7 +229,7 @@ public class GalleryPhotoFragment extends Fragment {
   }
 
   private void reviewFolder () {
-    final String imageFolderPath = IMAGE_FOLDER;
+    final String imageFolderPath = GlobalVariables.IMAGE_FOLDER;
     final File imageFolder = new File(imageFolderPath);
     File[] listOfFiles = imageFolder.listFiles();
     if (listOfFiles[imageCounter].isFile()) {
