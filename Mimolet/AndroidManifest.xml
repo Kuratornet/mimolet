@@ -46,6 +46,10 @@
             android:name="com.mimolet.android.UploadedPhotoGallery"
             android:label="@string/title_activity_uploaded_photo_gallery" >
         </activity>
+        <activity
+            android:name="com.mimolet.android.multiphoto.MultiPhotoSelectActivity"
+            android:label="@string/title_activity_uploaded_photo_gallery" >
+        </activity>
     </application>
     <application
         android:name="com.mimolet.android.GlobalVariables"

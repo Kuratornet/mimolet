@@ -23,6 +23,7 @@ import com.mimolet.android.Constants;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.multiphoto.MultiPhotoSelectActivity;
 
 import entity.Order;
 
@@ -57,11 +58,11 @@ public class AddPhotoFragment extends Fragment {
         switch (position) {
         case 0:
           final Intent intent = new Intent(getActivity()
-              .getApplicationContext(), ChoiseImagesActivity.class);
+              .getApplicationContext(), MultiPhotoSelectActivity.class);
           final Bundle bundle = new Bundle();
           bundle.putSerializable(Constants.BUNDLE_ORDER, order);
           intent.putExtras(bundle);
-          startActivity(intent);
+          startActivityForResult(intent, 1);
           break;
         case 1:
         case 2:
@@ -141,5 +142,10 @@ public class AddPhotoFragment extends Fragment {
 
     layout.addView(imageView);
     return layout;
+  }
+  
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    reviewFolder();
   }
 }

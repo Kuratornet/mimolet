@@ -1,5 +1,7 @@
 package com.mimolet.android;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -12,9 +14,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mimolet.android.adapter.OrderArrayAdapter;
+import com.mimolet.android.global.GlobalVariables;
 
 public class OrdersListActivity extends ListActivity {
-  
+
   private final Activity activity = this;
 
   final BottomMenu bottomMenu = new BottomMenu();
@@ -47,6 +50,12 @@ public class OrdersListActivity extends ListActivity {
       new AlertDialog.Builder(this).setMessage("Are you sure you want to exit?").setCancelable(false)
           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+              final String imageFolderPath = GlobalVariables.IMAGE_FOLDER;
+              final File imageFolder = new File(imageFolderPath);
+              File[] listOfFiles = imageFolder.listFiles();
+              for (int i = 0; i < listOfFiles.length; i++) {
+                listOfFiles[i].delete();
+              }
               Intent intent = new Intent(activity, AuthorizationActivity.class);
               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
               intent.putExtra("Exit me", true);
