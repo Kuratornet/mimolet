@@ -26,9 +26,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.mimolet.android.ImageUtils;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.global.ImageUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

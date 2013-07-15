@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.mimolet.android.ImageUtils;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.global.ImageUtils;
 import com.mimolet.android.multiphoto.MultiPhotoSelectActivity;
 
 import entity.Order;

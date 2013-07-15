@@ -23,6 +23,7 @@ import com.mimolet.android.fragment.ChooseStyleFragment;
 import com.mimolet.android.fragment.GalleryPhotoFragment;
 import com.mimolet.android.fragment.StylePageFragment;
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.global.ImageUtils;
 
 import entity.Order;
 
