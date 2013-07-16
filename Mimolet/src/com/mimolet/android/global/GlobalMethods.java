@@ -7,18 +7,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.mimolet.android.OrdersListActivity;
-
-import entity.Order;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
+
+import com.mimolet.android.OrdersListActivity;
+
+import entity.Order;
 
 public class GlobalMethods {
   final private static long DELAY = 60 * 1000 * 10;
