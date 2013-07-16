@@ -51,7 +51,7 @@ public class StylePageFragment extends Fragment {
 	}
 	
 	public void flipImagesRight() {
-	  if (currentImageIndex + 2 <= imagePathes.length) {
+	  if (currentImageIndex + 2 < imagePathes.length) {
 	    currentImageIndex += 2;
 	  }
 	}
