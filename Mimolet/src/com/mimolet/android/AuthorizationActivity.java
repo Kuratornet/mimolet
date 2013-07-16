@@ -1,6 +1,5 @@
 package com.mimolet.android;
 
-import java.util.List;
 import java.util.Properties;
 
 import android.app.Activity;
@@ -14,8 +13,6 @@ import android.widget.Toast;
 
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.task.AuthorizationTask;
-
-import entity.Order;
 
 public class AuthorizationActivity extends Activity {
 

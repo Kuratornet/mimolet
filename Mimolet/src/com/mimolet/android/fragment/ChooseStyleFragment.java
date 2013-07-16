@@ -57,12 +57,16 @@ public class ChooseStyleFragment extends Fragment {
     final Spinner bindingSpinner = (Spinner) view.findViewById(R.id.bindingSpinner);
     bindingSpinner.setAdapter(bindingAdapter);
     
+    /*
+     *  TODO Yurii, do this sh1t better then now!
+     */
+    
     bindingSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
       @Override
       public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        if (bindingSpinner.getSelectedItem() == "Мягкий на скобе") {
-        order.setBinding(Binding.SOFT_ON_SKOBA);
+        if (bindingSpinner.getSelectedItemPosition() == 0) {
+          order.setBinding(Binding.SOFT_ON_SKOBA);
         }
       }
 
@@ -81,7 +85,7 @@ public class ChooseStyleFragment extends Fragment {
 
       @Override
       public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        if (sizeSpinner.getSelectedItem() == "20x20") {
+        if (sizeSpinner.getSelectedItem().equals("20x20")) {
         order.setPaper(Size.TWENTY_X_TWENTY);
         }
       }

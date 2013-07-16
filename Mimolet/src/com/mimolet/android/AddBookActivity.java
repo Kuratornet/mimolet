@@ -26,8 +26,7 @@ import com.mimolet.android.global.ImageUtils;
 import entity.Order;
 
 public class AddBookActivity extends SherlockFragmentActivity {
-  private static final String TAG = "AddBookActivity";
-
+  
   /* These numbers should correlate with tab order */
   private static final int CHOOSE_STYLE_TAB = 1;
   private static final int ADD_PHOTO_TAB = 2;
