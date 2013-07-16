@@ -49,11 +49,10 @@ public class AuthorizationTask extends
       nameValuePairs.add(new BasicNameValuePair("j_password", params[1]));
       httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
       final HttpResponse response = httpClient.execute(httpPost);
-      InputStream is = response.getEntity().getContent();
-      StringWriter writer = new StringWriter();
+      final InputStream is = response.getEntity().getContent();
+      final StringWriter writer = new StringWriter();
       IOUtils.copy(is, writer, "UTF-8");
-      String serverAnswer = writer.toString();
-      System.out.println(serverAnswer);
+      final String serverAnswer = writer.toString();
       if (serverAnswer.equals("false")) {
         return ExecutionResult.FAIL;
       }
