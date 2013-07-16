@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_weight="239"
+            android:layout_weight="220"
             android:adjustViewBounds="true"
             android:background="@drawable/bottom_tab2nonselected"
             android:clickable="true"

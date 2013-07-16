@@ -51,7 +51,6 @@ public class ChooseStyleFragment extends Fragment {
       }
     });
     ArrayAdapter<String> bindingAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, bindingArray);
-    bindingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     
     // Create book binding spinner and set binding in order.
     final Spinner bindingSpinner = (Spinner) view.findViewById(R.id.bindingSpinner);
@@ -76,7 +75,6 @@ public class ChooseStyleFragment extends Fragment {
     
     // Create book size spinner and set size in order.
     ArrayAdapter<String> sizeAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, sizeArray);
-    sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     
     final Spinner sizeSpinner = (Spinner) view.findViewById(R.id.sizeSpinner);
     sizeSpinner.setAdapter(sizeAdapter);

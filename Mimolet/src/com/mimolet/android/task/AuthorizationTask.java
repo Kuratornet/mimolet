@@ -1,8 +1,12 @@
 package com.mimolet.android.task;
 
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -12,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mimolet.android.AuthorizationActivity;
 import com.mimolet.android.util.Registry;
@@ -43,7 +48,15 @@ public class AuthorizationTask extends
       nameValuePairs.add(new BasicNameValuePair("j_username", params[0]));
       nameValuePairs.add(new BasicNameValuePair("j_password", params[1]));
       httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-      httpClient.execute(httpPost);
+      final HttpResponse response = httpClient.execute(httpPost);
+      InputStream is = response.getEntity().getContent();
+      StringWriter writer = new StringWriter();
+      IOUtils.copy(is, writer, "UTF-8");
+      String serverAnswer = writer.toString();
+      System.out.println(serverAnswer);
+      if (serverAnswer.equals("false")) {
+        return ExecutionResult.FAIL;
+      }
       final List<Cookie> cookies = httpClient.getCookieStore()
           .getCookies();
       for (Cookie cookie : cookies) {
@@ -66,6 +79,7 @@ public class AuthorizationTask extends
       break;
     case FAIL:
       // do something horrible here
+      Toast.makeText(parent.getApplicationContext(), "Неправильное имя пользователя или пароль!", Toast.LENGTH_LONG).show();
       break;
     }
   }

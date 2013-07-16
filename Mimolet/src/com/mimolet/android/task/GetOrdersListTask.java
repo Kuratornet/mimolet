@@ -28,34 +28,34 @@ import com.mimolet.android.util.Registry;
 import entity.Order;
 
 public class GetOrdersListTask extends AsyncTask<String, Void, List<Order>> {
-  
+
   private Activity parent;
   final Properties connectionProperties;
-  
+
   public GetOrdersListTask(Activity parent) {
     this.parent = parent;
     connectionProperties = new Properties();
   }
-  
+
   @Override
   protected List<Order> doInBackground(String... params) {
     try {
-      connectionProperties
-      .load(parent.getAssets().open("connection.properties"));
+      connectionProperties.load(parent.getAssets().open("connection.properties"));
       final DefaultHttpClient httpClient = new DefaultHttpClient();
-      final HttpPost httpPost = new HttpPost(connectionProperties.getProperty("server_url") + connectionProperties
-          .getProperty("getbyownerid_path"));
-      httpPost.addHeader("Cookie",
-          "JSESSIONID=" + Registry.<String> get("JSESSIONID"));
+      final HttpPost httpPost =
+          new HttpPost(connectionProperties.getProperty("server_url")
+              + connectionProperties.getProperty("getbyownerid_path"));
+      httpPost.addHeader("Cookie", "JSESSIONID=" + Registry.<String> get("JSESSIONID"));
       HttpResponse responce = httpClient.execute(httpPost);
       Type listType = new TypeToken<ArrayList<Order>>() {
       }.getType();
-      final GsonBuilder builder = new GsonBuilder(); 
-	  builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() { 
-	    public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-	      return new Date(json.getAsJsonPrimitive().getAsLong()); 
-	    } 
-	  });
+      final GsonBuilder builder = new GsonBuilder();
+      builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+          return new Date(json.getAsJsonPrimitive().getAsLong());
+        }
+      });
       final Gson gson = builder.create();
       List<Order> list = gson.fromJson(EntityUtils.toString(responce.getEntity()), listType);
       return list;
@@ -64,13 +64,13 @@ public class GetOrdersListTask extends AsyncTask<String, Void, List<Order>> {
     }
     return null;
   }
-  
+
   @Override
   protected void onPostExecute(List<Order> result) {
     if (result != null) {
       GlobalMethods.goToOrderList(parent, null, result);
     } else {
-      //Do something horrible here
+      // Do something horrible here
     }
   }
 

@@ -60,13 +60,4 @@ public class AuthorizationActivity extends Activity {
     }
   }
 
-  /**
-   * temp method for testing
-   */
-  public void goToAddBook(View view) {
-    final Intent intent = new Intent(getApplicationContext(),
-        AddBookActivity.class);
-    startActivity(intent);
-  }
-
 }
