@@ -48,11 +48,15 @@ public class OrdersListActivity extends ListActivity {
       new AlertDialog.Builder(this).setMessage("Are you sure you want to exit?").setCancelable(false)
           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-              final String imageFolderPath = GlobalVariables.IMAGE_FOLDER;
-              final File imageFolder = new File(imageFolderPath);
-              File[] listOfFiles = imageFolder.listFiles();
-              for (int i = 0; i < listOfFiles.length; i++) {
-                listOfFiles[i].delete();
+              final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
+              imageFolder.mkdirs();
+              if (imageFolder.exists()) {
+                File[] listOfFiles = imageFolder.listFiles();
+                if (listOfFiles.length != 0) {
+                  for (int i = 0; i < listOfFiles.length; i++) {
+                    listOfFiles[i].delete();
+                  }
+                }
               }
               Intent intent = new Intent(activity, AuthorizationActivity.class);
               intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
