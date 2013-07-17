@@ -189,8 +189,11 @@ public class MultiPhotoSelectActivity extends BaseActivity {
   }
   
   private void saveImage(Bitmap finalBitmap, int position) {
+    File mimoletDir = new File(GlobalVariables.MIMOLET_FOLDER);
+    mimoletDir.mkdirs();
     File myDir = new File(GlobalVariables.IMAGE_FOLDER);
     myDir.mkdirs();
+    
     String fname = "Image-" + (position) + ".png";
     File file = new File(myDir, fname);
     if (file.exists()) {

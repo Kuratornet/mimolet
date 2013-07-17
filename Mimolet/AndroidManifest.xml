@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/launcher_custom_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -49,7 +49,7 @@
     </application>
     <application
         android:name="com.mimolet.android.GlobalVariables"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/launcher_custom_icon"
         android:label="@string/app_name" >
     </application>
 

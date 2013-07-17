@@ -18,6 +18,8 @@ public class GlobalVariables extends Application {
   
   public static final String BUNDLE_ORDER = "ORDER";
   
-  public static final String IMAGE_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
-      + "mimolet_images" + File.separator;
+  public static final String MIMOLET_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
+      + "mimolet" + File.separator;
+  public static final String IMAGE_FOLDER = MIMOLET_FOLDER + "mimolet_imagies" + File.separator;
+  
 }

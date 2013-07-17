@@ -77,15 +77,18 @@ public class AddPhotoFragment extends Fragment {
   }
 
   private void reviewFolder() {
-    final String imageFolderPath = GlobalVariables.IMAGE_FOLDER;
-    final File imageFolder = new File(imageFolderPath);
-    File[] listOfFiles = imageFolder.listFiles();
-    if (listOfFiles.length > imageCounter) {
-      for (int i = imageCounter; i < listOfFiles.length; i++) {
-        if (listOfFiles[imageCounter].isFile()) {
-          myGallery.addView(insertPhoto(listOfFiles[imageCounter].getAbsolutePath()));
+    File file = new File(GlobalVariables.MIMOLET_FOLDER);
+    if (file.exists()) {
+      final String imageFolderPath = GlobalVariables.IMAGE_FOLDER;
+      final File imageFolder = new File(imageFolderPath);
+      File[] listOfFiles = imageFolder.listFiles();
+      if (listOfFiles.length > imageCounter) {
+        for (int i = imageCounter; i < listOfFiles.length; i++) {
+          if (listOfFiles[imageCounter].isFile()) {
+            myGallery.addView(insertPhoto(listOfFiles[imageCounter].getAbsolutePath()));
+          }
+          imageCounter++;
         }
-        imageCounter++;
       }
     }
   }

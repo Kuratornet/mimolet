@@ -18,8 +18,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
+import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.util.Registry;
 
 import entity.Order;
@@ -38,6 +40,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
     this.context = context;
     this.previewPath = previewPath;
     this.order = order;
+    Log.i(TAG, "Send PDF created");
   }
 
   protected void onPreExecute() {
@@ -48,6 +51,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 
   @Override
   protected Void doInBackground(Void... arg0) {
+    Log.i(TAG, "Start on backgraund");
     final HttpClient httpClient = new DefaultHttpClient();
     final Properties connectionProperties = new Properties();
     try {
@@ -73,13 +77,20 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
       reqEntity.addPart("print", new StringBody("1"));
       reqEntity.addPart("blockSize", new StringBody("1"));
       reqEntity.addPart("pages", new StringBody("20"));
+      Log.i(TAG, "Request rdy");
       httpPost.setEntity(reqEntity);
       final HttpResponse response = httpClient.execute(httpPost);
+      Log.i(TAG, "Get responce");
       final BufferedReader rd = new BufferedReader(new InputStreamReader(
           response.getEntity().getContent()));
       String line = "";
       while ((line = rd.readLine()) != null) {
         Log.v(TAG, line);
+        File pdfFile = new File(GlobalVariables.MIMOLET_FOLDER + "Images.pdf");
+        pdfFile.delete();
+        
+        File previewFile = new File(GlobalVariables.MIMOLET_FOLDER + "preview.png");
+        previewFile.delete();
       }
       (new GetOrdersListTask(context)).execute();
     } catch (Exception ex) {
