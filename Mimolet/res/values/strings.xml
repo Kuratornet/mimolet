@@ -21,5 +21,6 @@
     <string name="page_under_work">Страница в стадии разработки</string>
     <string name="auth_data_warning">Неправильное имя пользователя или пароль!</string>
     <string name="order_item_error">Функционал пока не готов</string>
+    <string name="no_image_found">Загрузите хотя бы 1 фотографию</string>
     
 </resources>
