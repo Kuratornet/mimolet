@@ -47,7 +47,7 @@ public class ChooseStyleFragment extends Fragment {
       public void onTextChanged(final CharSequence s, int start, int before, int count) {
         if (s.length() > 40) {
           AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-          builder.setMessage("Название альбома больше 40 символов! Измените название, пожалуйста!")
+          builder.setMessage(R.string.albom_name_warning)
               .setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                   bookName.setText(s.subSequence(0, 40));

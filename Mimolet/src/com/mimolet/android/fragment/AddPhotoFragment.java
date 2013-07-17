@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
@@ -62,7 +63,7 @@ public class AddPhotoFragment extends Fragment {
           case 2:
           case 3:
           default:
-            System.out.println("Only first tab is implemented yet");
+            Toast.makeText(view.getContext(), R.string.loose_internet_connection, Toast.LENGTH_LONG).show();
             break;
         }
 

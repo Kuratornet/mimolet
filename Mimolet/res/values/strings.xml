@@ -6,9 +6,8 @@
     <string name="login">Login:</string>
     <string name="password">Password:</string>
     <string name="signin">Sign in</string>
-    <string name="title_activity_add_book">AddBookActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_phone_gallery">PhoneGalleryActivity</string>
+    <string name="title_activity_add_book">Создание книги</string>
+    <string name="title_activity_phone_gallery">Галерея</string>
     <string name="creating_book">Создание книги</string>
     <string name="book_name">Название книги</string>
     <string name="binding">Переплет:</string>
@@ -16,6 +15,11 @@
     <string name="soft_with_clamp">Мягкий на скобе</string>
     <string name="title_activity_orders_list">Мои книги</string>
     <string name="logo">logo</string>
-    <string name="title_activity_uploaded_photo_gallery">UploadedPhotoGallery</string>
-
+    <string name="loose_internet_connection">Отсутствует интернет соединение</string>
+    <string name="albom_name_warning">Название альбома больше 40 символов! Измените название, пожалуйста!</string>
+    <string name="title_activity_uploaded_photo_gallery">Выберите изображения</string>
+    <string name="page_under_work">Страница в стадии разработки</string>
+    <string name="auth_data_warning">Неправильное имя пользователя или пароль!</string>
+    <string name="order_item_error">Функционал пока не готов</string>
+    
 </resources>

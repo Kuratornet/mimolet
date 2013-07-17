@@ -18,6 +18,6 @@ public class BottomMenu {
   }
   
   public void openMyPaidOrders(Activity activity) {
-    Toast.makeText(activity.getApplicationContext(), "This page is under work now", Toast.LENGTH_LONG).show();
+    Toast.makeText(activity.getApplicationContext(), R.string.page_under_work, Toast.LENGTH_LONG).show();
   }
 }

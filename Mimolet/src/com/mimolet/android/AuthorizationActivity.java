@@ -56,7 +56,7 @@ public class AuthorizationActivity extends Activity {
         Log.v(TAG, "Could not read connection configuration", ex);
       }
     } else {
-      Toast.makeText(getApplicationContext(), "Permission dinied! /n No internet connection. Check your connection.", Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), R.string.loose_internet_connection, Toast.LENGTH_LONG).show();
     }
   }
 

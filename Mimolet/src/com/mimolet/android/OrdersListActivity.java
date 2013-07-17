@@ -38,9 +38,7 @@ public class OrdersListActivity extends ListActivity {
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
 
-    // get selected items
-    String selectedValue = "Unimplimented function";
-    Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, R.string.order_item_error, Toast.LENGTH_SHORT).show();
 
   }
 

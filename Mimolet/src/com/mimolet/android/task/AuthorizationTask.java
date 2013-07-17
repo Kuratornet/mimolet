@@ -19,6 +19,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mimolet.android.AuthorizationActivity;
+import com.mimolet.android.R;
 import com.mimolet.android.util.Registry;
 
 public class AuthorizationTask extends
@@ -78,7 +79,7 @@ public class AuthorizationTask extends
       break;
     case FAIL:
       // do something horrible here
-      Toast.makeText(parent.getApplicationContext(), "Неправильное имя пользователя или пароль!", Toast.LENGTH_LONG).show();
+      Toast.makeText(parent.getApplicationContext(), R.string.auth_data_warning, Toast.LENGTH_LONG).show();
       break;
     }
   }
