@@ -4,19 +4,18 @@ import java.io.File;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.mimolet.android.fragment.AddPhotoFragment;
 import com.mimolet.android.fragment.ChooseStyleFragment;
 import com.mimolet.android.fragment.PreviewFragment;
@@ -26,7 +25,7 @@ import com.mimolet.android.global.ImageUtils;
 
 import entity.Order;
 
-public class AddBookActivity extends SherlockFragmentActivity {
+public class AddBookActivity extends FragmentActivity{
 
   /* These numbers should correlate with tab order */
   private static final int CHOOSE_STYLE_TAB = 1;
@@ -63,11 +62,6 @@ public class AddBookActivity extends SherlockFragmentActivity {
     previewFragment.setOrder(order);
 
     setContentView(R.layout.activity_add_book);
-    final ActionBar actionbar = getSupportActionBar();
-    actionbar.setDisplayShowTitleEnabled(false);
-    actionbar.setDisplayShowHomeEnabled(false);
-    actionbar.setDisplayShowTitleEnabled(true);
-    actionbar.setTitle(R.string.creating_book);
 
     chooseStyleTabClick(null);
 
@@ -81,7 +75,7 @@ public class AddBookActivity extends SherlockFragmentActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    final MenuInflater inflater = getSupportMenuInflater();
+    final MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.add_book, menu);
     return super.onCreateOptionsMenu(menu);
   }
