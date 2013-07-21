@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="0dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".EditPhotoActivity" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerVertical="false"
+        android:measureAllChildren="false" >
+
+        <ImageView
+            android:id="@+id/previewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+
+        <ImageView
+            android:id="@+id/previewCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/book_reversal_right_2" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/editPhotoTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="0dp" >
+
+        <ImageButton
+            android:id="@+id/chooseLayoutTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="160"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edit_photo_tab1"
+            android:clickable="true"
+            android:onClick="chooseLayoutTabClick" />
+
+        <ImageButton
+            android:id="@+id/chooseBackgroundTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="160"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edit_photo_tab2"
+            android:clickable="true"
+            android:onClick="chooseBackgroundTabClick" />
+
+        <ImageButton
+            android:id="@+id/addTextTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="160"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edit_photo_tab3"
+            android:clickable="true"
+            android:onClick="addTextTabClick" />
+
+        <ImageButton
+            android:id="@+id/changePhotoTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="160"
+            android:adjustViewBounds="true"
+            android:background="@drawable/edit_photo_tab4"
+            android:clickable="true"
+            android:onClick="changePhotoTabClick" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -22,5 +22,6 @@
     <string name="auth_data_warning">Неправильное имя пользователя или пароль!</string>
     <string name="order_item_error">Функционал пока не готов</string>
     <string name="no_image_found">Загрузите хотя бы 1 фотографию</string>
+    <string name="edit_photo_activity">Оформление страницы</string>
     
 </resources>
