@@ -28,5 +28,6 @@
     <string name="instagram_label">Instagram</string>
     <string name="google_plus_label">Google +</string>
     <string name="lenguage_choiser_label">Язык</string>
-
+    <string name="edit_photo_activity">Оформление страницы</string>
+   
 </resources>

@@ -51,6 +51,15 @@
             android:label="@string/title_activity_settings"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <activity
+            android:name="com.mimolet.android.EditPhotoActivity"
+            android:label="@string/edit_photo_activity" >
+        </activity>
+    </application>
+    <application
+        android:name="com.mimolet.android.GlobalVariables"
+        android:icon="@drawable/launcher_custom_icon"
+        android:label="@string/app_name" >
     </application>
 
 </manifest>
