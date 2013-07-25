@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.mimolet.android.R;
-import com.mimolet.android.TextWatcherAdapter;
+import com.mimolet.android.adapter.TextWatcherAdapter;
 
 import entity.Binding;
 import entity.Order;

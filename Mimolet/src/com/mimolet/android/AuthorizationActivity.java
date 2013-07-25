@@ -2,22 +2,28 @@ package com.mimolet.android;
 
 import java.util.Properties;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.task.AuthorizationTask;
 
-public class AuthorizationActivity extends Activity {
+public class AuthorizationActivity extends SherlockActivity {
 
   private static final String TAG = "AuthorizationActivity";
   private EditText loginField;
   private EditText passwordField;
+//  private ActionBar actionBar;
+//  private PopupWindow pwindo;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +35,38 @@ public class AuthorizationActivity extends Activity {
       return; // add this to prevent from doing unnecessary stuffs
     }
     
+//    actionBar = getSupportActionBar();
+    
     loginField = (EditText) findViewById(R.id.loginField);
     passwordField = (EditText) findViewById(R.id.passwordField);
   }
-
+  
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.authorization, menu);
+    menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+      
+      @Override
+      public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = new Intent(AuthorizationActivity.this, SettingsActivity.class);
+        startActivityForResult(intent, 1);
+        return true;
+      }
+    }).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     return true;
   }
-
+  
+  @Override
+  public final boolean onKeyDown(int keyCode, KeyEvent event) {
+    if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+      Intent intent = new Intent(AuthorizationActivity.this, SettingsActivity.class);
+      startActivityForResult(intent, 1);
+      return true;
+    } else if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+      finish();
+      return true;
+    }
+    return true;
+  }
   public void authorize(View view) {
     if (GlobalMethods.isOnline(this)) {
       final Properties connectionProperties = new Properties();

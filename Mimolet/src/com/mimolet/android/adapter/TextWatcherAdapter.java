@@ -1,4 +1,4 @@
-package com.mimolet.android;
+package com.mimolet.android.adapter;
 
 import android.text.Editable;
 import android.text.TextWatcher;

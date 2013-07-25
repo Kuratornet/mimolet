@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/launcher_custom_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         <activity
             android:name="com.mimolet.android.AuthorizationActivity"
             android:label="@string/app_name" >
@@ -46,11 +46,11 @@
             android:name="com.mimolet.android.multiphoto.MultiPhotoSelectActivity"
             android:label="@string/title_activity_uploaded_photo_gallery" >
         </activity>
-    </application>
-    <application
-        android:name="com.mimolet.android.GlobalVariables"
-        android:icon="@drawable/launcher_custom_icon"
-        android:label="@string/app_name" >
+        <activity
+            android:name="com.mimolet.android.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>
