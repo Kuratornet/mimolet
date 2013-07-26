@@ -2,40 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background"
-    >
+    android:background="@drawable/background" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_above="@+id/bottom_menu"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="#ffffff"
-        android:padding="5dp"/>
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:paddingBottom="200dp" >
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="0dp"
-        android:layout_weight="196"
-        android:adjustViewBounds="true"
-        android:background="@drawable/createbookbutton"
-        android:clickable="true"
-        android:contentDescription="create button"
-        android:onClick="createBook" />
+        </ListView>
 
-    </LinearLayout>
-    
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:layout_weight="196"
+            android:adjustViewBounds="true"
+            android:background="@drawable/createbookbutton"
+            android:clickable="true"
+            android:contentDescription="create button"
+            android:onClick="createBook" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:gravity="bottom"
