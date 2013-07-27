@@ -52,7 +52,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab1"
             android:clickable="true"
-            android:onClick="chooseLayoutTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/chooseBackgroundTab"
@@ -63,7 +63,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab2"
             android:clickable="true"
-            android:onClick="chooseBackgroundTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/addTextTab"
@@ -74,7 +74,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab3"
             android:clickable="true"
-            android:onClick="addTextTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/changePhotoTab"
@@ -85,7 +85,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab4"
             android:clickable="true"
-            android:onClick="changePhotoTabClick" />
+            android:onClick="bottomMenuButtonClick" />
     </LinearLayout>
 
 </RelativeLayout>
