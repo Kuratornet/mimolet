@@ -5,5 +5,4 @@
         android:icon="@drawable/ic_settings"
         android:showAsAction="always"
         android:title="@string/action_settings"/>
-
-</menu>
+</menu>

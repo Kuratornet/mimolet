@@ -1,13 +1,15 @@
 package com.mimolet.android;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-public class EditPhotoActivity extends Activity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class EditPhotoActivity extends SherlockActivity {
 
 	public static String IS_LEFT = "isLeft";
 
@@ -21,7 +23,7 @@ public class EditPhotoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
-		
+
 		isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
 
 		bottomTabs = new ImageButton[4];
@@ -37,19 +39,32 @@ public class EditPhotoActivity extends Activity {
 				R.drawable.edit_photo_tab2_selected,
 				R.drawable.edit_photo_tab3_selected,
 				R.drawable.edit_photo_tab4_selected };
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.edit_photo, menu);
-		return super.onCreateOptionsMenu(menu);
+		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		getSupportActionBar().setCustomView(R.layout.edit_photo_menu);
+		getSupportActionBar().getCustomView().findViewById(R.id.action_bar_no)
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						EditPhotoActivity.this.onBackPressed();
+					}
+				});
+		getSupportActionBar().getCustomView().findViewById(R.id.action_bar_yes)
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(EditPhotoActivity.this, "Yes", 1000)
+								.show();
+					}
+				});
 	}
 
 	private void renderSelectedButton(int selectedButtonId) {
 		for (int i = 0; i < bottomTabs.length; i++) {
 			final ImageButton bottomTab = bottomTabs[i];
-			if (bottomTab.getId() == selectedButtonId) { 
+			if (bottomTab.getId() == selectedButtonId) {
 				bottomTab.setBackgroundResource(bottomTabsSelectedResources[i]);
 			} else {
 				bottomTab.setBackgroundResource(bottomTabsNormalResources[i]);

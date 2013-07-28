@@ -29,5 +29,6 @@
     <string name="google_plus_label">Google +</string>
     <string name="lenguage_choiser_label">Язык</string>
     <string name="edit_photo_activity">Оформление страницы</string>
+    <string name="edit_photo_title">Оформление страницы</string>
    
 </resources>
