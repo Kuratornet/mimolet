@@ -30,5 +30,6 @@
     <string name="lenguage_choiser_label">Язык</string>
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_title">Оформление страницы</string>
+    <string name="choose_layout_title">Выбор макета</string>
    
 </resources>

@@ -88,4 +88,63 @@
             android:onClick="bottomMenuButtonClick" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/popup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:visibility="invisible"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_header"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/choose_layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/choose_layout_title"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/choose_layout_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/popup_ok"
+                android:onClick="popupOkClick" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efe4d5"
+            android:orientation="horizontal"
+            android:padding="15dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/edit_photo_layout_all" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_photo_layout_rounded" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/edit_photo_layout_center" />
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

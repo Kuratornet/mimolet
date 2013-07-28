@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -18,6 +19,8 @@ public class EditPhotoActivity extends SherlockActivity {
 	private ImageButton[] bottomTabs;
 	private int[] bottomTabsSelectedResources;
 	private int[] bottomTabsNormalResources;
+	
+	private LinearLayout chooseLayoutPopup;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ public class EditPhotoActivity extends SherlockActivity {
 								.show();
 					}
 				});
+		
+		chooseLayoutPopup = (LinearLayout) findViewById(R.id.popup_layout);
 	}
 
 	private void renderSelectedButton(int selectedButtonId) {
@@ -75,10 +80,20 @@ public class EditPhotoActivity extends SherlockActivity {
 	public void bottomMenuButtonClick(View view) {
 		switch (view.getId()) {
 		case R.id.chooseLayoutTab:
+			chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
+			break;
 		case R.id.chooseBackgroundTab:
 		case R.id.addTextTab:
 		case R.id.changePhotoTab:
 		}
 		renderSelectedButton(view.getId());
+	}
+
+	public void popupOkClick(View view) {
+		switch (view.getId()) {
+		case R.id.choose_layout_ok:
+			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+		}
+		renderSelectedButton(-1);
 	}
 }
