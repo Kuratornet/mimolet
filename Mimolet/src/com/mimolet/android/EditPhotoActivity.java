@@ -5,7 +5,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -22,6 +24,18 @@ public class EditPhotoActivity extends SherlockActivity {
 
 	private LinearLayout chooseLayoutPopup;
 	private LinearLayout chooseBackgroundPopup;
+	private LinearLayout addTextPopup;
+
+	private RadioGroup.OnCheckedChangeListener fontToggleListener = new RadioGroup.OnCheckedChangeListener() {
+		@Override
+		public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
+			for (int j = 0; j < radioGroup.getChildCount(); j++) {
+				final ToggleButton view = (ToggleButton) radioGroup
+						.getChildAt(j);
+				view.setChecked(view.getId() == i);
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +80,10 @@ public class EditPhotoActivity extends SherlockActivity {
 
 		chooseLayoutPopup = (LinearLayout) findViewById(R.id.popup_layout);
 		chooseBackgroundPopup = (LinearLayout) findViewById(R.id.popup_background);
+		addTextPopup = (LinearLayout) findViewById(R.id.popup_text);
+
+		((RadioGroup) findViewById(R.id.font_toggle_group))
+				.setOnCheckedChangeListener(fontToggleListener);
 	}
 
 	private void renderSelectedButton(int selectedButtonId) {
@@ -84,12 +102,18 @@ public class EditPhotoActivity extends SherlockActivity {
 		case R.id.chooseLayoutTab:
 			chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
 			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
 			break;
 		case R.id.chooseBackgroundTab:
 			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
 			chooseBackgroundPopup.setVisibility(LinearLayout.VISIBLE);
+			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
 			break;
 		case R.id.addTextTab:
+			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+			addTextPopup.setVisibility(LinearLayout.VISIBLE);
+			break;
 		case R.id.changePhotoTab:
 		}
 		renderSelectedButton(view.getId());
@@ -103,8 +127,16 @@ public class EditPhotoActivity extends SherlockActivity {
 		case R.id.choose_background_ok:
 			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
 			break;
+		case R.id.add_text_ok:
+			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+			break;
 		}
 
 		renderSelectedButton(-1);
+	}
+
+	public void fontToggle(View view) {
+		((RadioGroup) view.getParent()).check(view.getId());
+		// app specific stuff ..
 	}
 }

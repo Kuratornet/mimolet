@@ -34,5 +34,12 @@
     <string name="choose_background_title">Выбор фона</string>
     <string name="background_color">Цвет фона:</string>
     <string name="border_color">Цвет рамки:</string>
+    <string name="add_text">Добавление текста</string>
+    <string name="font_size">Размер шрифта:</string>
+    <string name="font_small">Маленький</string>
+    <string name="font_medium">Средний</string>
+    <string name="font_large">Большой</string>
+    <string name="font">Шрифт:</string>
+    <string name="color">Цвет:</string>
    
 </resources>
