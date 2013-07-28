@@ -31,5 +31,8 @@
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_title">Оформление страницы</string>
     <string name="choose_layout_title">Выбор макета</string>
+    <string name="choose_background_title">Выбор фона</string>
+    <string name="background_color">Цвет фона:</string>
+    <string name="border_color">Цвет рамки:</string>
    
 </resources>

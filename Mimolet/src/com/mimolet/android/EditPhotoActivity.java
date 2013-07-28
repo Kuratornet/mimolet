@@ -19,8 +19,9 @@ public class EditPhotoActivity extends SherlockActivity {
 	private ImageButton[] bottomTabs;
 	private int[] bottomTabsSelectedResources;
 	private int[] bottomTabsNormalResources;
-	
+
 	private LinearLayout chooseLayoutPopup;
+	private LinearLayout chooseBackgroundPopup;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,9 @@ public class EditPhotoActivity extends SherlockActivity {
 								.show();
 					}
 				});
-		
+
 		chooseLayoutPopup = (LinearLayout) findViewById(R.id.popup_layout);
+		chooseBackgroundPopup = (LinearLayout) findViewById(R.id.popup_background);
 	}
 
 	private void renderSelectedButton(int selectedButtonId) {
@@ -81,8 +83,12 @@ public class EditPhotoActivity extends SherlockActivity {
 		switch (view.getId()) {
 		case R.id.chooseLayoutTab:
 			chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
+			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
 			break;
 		case R.id.chooseBackgroundTab:
+			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseBackgroundPopup.setVisibility(LinearLayout.VISIBLE);
+			break;
 		case R.id.addTextTab:
 		case R.id.changePhotoTab:
 		}
@@ -93,7 +99,12 @@ public class EditPhotoActivity extends SherlockActivity {
 		switch (view.getId()) {
 		case R.id.choose_layout_ok:
 			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+			break;
+		case R.id.choose_background_ok:
+			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+			break;
 		}
+
 		renderSelectedButton(-1);
 	}
 }
