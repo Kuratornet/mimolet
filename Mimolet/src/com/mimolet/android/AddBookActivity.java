@@ -185,8 +185,6 @@ public class AddBookActivity extends FragmentActivity {
 			final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
 			stylePageFragment.setImagePathes(imageFolder.list());
 
-			System.out.println(GlobalVariables.IMAGE_FOLDER
-					+ imageFolder.list()[0]);
 			ImageUtils.loadImage(leftImage, GlobalVariables.IMAGE_FOLDER
 					+ imageFolder.list()[0], 300, true);
 			ImageUtils.loadImage(rightImage, GlobalVariables.IMAGE_FOLDER

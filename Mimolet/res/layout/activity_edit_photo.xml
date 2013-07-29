@@ -52,7 +52,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab1"
             android:clickable="true"
-            android:onClick="chooseLayoutTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/chooseBackgroundTab"
@@ -63,7 +63,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab2"
             android:clickable="true"
-            android:onClick="chooseBackgroundTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/addTextTab"
@@ -74,7 +74,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab3"
             android:clickable="true"
-            android:onClick="addTextTabClick" />
+            android:onClick="bottomMenuButtonClick" />
 
         <ImageButton
             android:id="@+id/changePhotoTab"
@@ -85,7 +85,300 @@
             android:adjustViewBounds="true"
             android:background="@drawable/edit_photo_tab4"
             android:clickable="true"
-            android:onClick="changePhotoTabClick" />
+            android:onClick="bottomMenuButtonClick" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/popup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_header"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/choose_layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/choose_layout_title"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/choose_layout_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/popup_ok"
+                android:onClick="popupOkClick" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efe4d5"
+            android:orientation="horizontal"
+            android:padding="15dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/edit_photo_layout_all" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/edit_photo_layout_rounded" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/edit_photo_layout_center" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/popup_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_header"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/choose_background_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/choose_background_title"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/choose_background_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/popup_ok"
+                android:onClick="popupOkClick" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efe4d5"
+            android:orientation="vertical"
+            android:padding="15dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/background_color" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio1" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio2" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio3" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio4" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio5" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/border_color" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio6" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio7" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio8" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio9" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio10" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/popup_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_header"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/add_text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/add_text_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/popup_ok"
+                android:onClick="popupOkClick" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efe4d5"
+            android:orientation="vertical"
+            android:padding="15dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="@string/font"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/bindingSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/font_size" />
+
+            <RadioGroup
+                android:id="@+id/font_toggle_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ToggleButton
+                    android:id="@+id/fontSmallButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="fontToggle"
+                    android:textOff="@string/font_small"
+                    android:textOn="@string/font_small" />
+
+                <ToggleButton
+                    android:id="@+id/fontMediumButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="fontToggle"
+                    android:textOff="@string/font_medium"
+                    android:textOn="@string/font_medium" />
+
+                <ToggleButton
+                    android:id="@+id/fontLargeButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="fontToggle"
+                    android:textOff="@string/font_large"
+                    android:textOn="@string/font_large" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/color" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio1" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio2" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio3" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio4" />
+
+                <RadioButton
+                    android:layout_weight="1"
+                    android:button="@drawable/radio5" />
+            </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
