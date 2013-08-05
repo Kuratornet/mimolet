@@ -26,7 +26,7 @@
     <string name="entered_name_label">Вы зашли как:</string>
     <string name="facebook_label">Facebook</string>
     <string name="instagram_label">Instagram</string>
-    <string name="google_plus_label">Google +</string>
+    <string name="google_plus_label">Google+</string>
     <string name="lenguage_choiser_label">Язык</string>
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_title">Оформление страницы</string>
@@ -41,5 +41,14 @@
     <string name="font_large">Большой</string>
     <string name="font">Шрифт:</string>
     <string name="color">Цвет:</string>
-   
+    <string name="change_photo_title">Изменение фотографии</string>
+    <string name="phone_memory_label">Память телефона</string>
+
+    <string-array name="image_source_labels">
+        <item >Память телефона</item>
+        <item >Facebook</item>
+        <item >Instagram</item>
+        <item >Google+</item>
+    </string-array>
+
 </resources>

@@ -109,7 +109,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/choose_layout_title"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/choose_layout_ok"
@@ -168,7 +169,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/choose_background_title"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/choose_background_ok"
@@ -189,7 +191,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/background_color" />
+                android:text="@string/background_color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -197,22 +201,32 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio1" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio2" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio3" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio4" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio5" />
             </RadioGroup>
@@ -220,7 +234,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/border_color" />
+                android:text="@string/border_color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -228,22 +244,32 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio6" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio7" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio8" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio9" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio10" />
             </RadioGroup>
@@ -271,7 +297,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/add_text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/add_text_ok"
@@ -297,9 +324,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="8dp"
                     android:text="@string/font"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -312,7 +338,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/font_size" />
+                android:text="@string/font_size"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/font_toggle_group"
@@ -351,7 +379,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/color" />
+                android:text="@string/color"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -359,26 +389,72 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio1" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio2" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio3" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio4" />
 
                 <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio5" />
             </RadioGroup>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/popup_change_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPhotoTabBar"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_header"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/change_photo_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/change_photo_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/change_photo_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fdfcfc"
+            android:divider="@drawable/image_source_divider"
+            android:dividerHeight="1dp"
+            android:orientation="vertical" >
+        </ListView>
     </LinearLayout>
 
 </RelativeLayout>
