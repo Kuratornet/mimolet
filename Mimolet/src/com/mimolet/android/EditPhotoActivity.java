@@ -1,6 +1,5 @@
 package com.mimolet.android;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +28,8 @@ public class EditPhotoActivity extends SherlockActivity {
 	private LinearLayout chooseBackgroundPopup;
 	private LinearLayout addTextPopup;
 	private LinearLayout changePhotoPopup;
+
+	private Integer previouslySelectedButton;
 
 	private RadioGroup.OnCheckedChangeListener fontToggleListener = new RadioGroup.OnCheckedChangeListener() {
 		@Override
@@ -98,10 +99,13 @@ public class EditPhotoActivity extends SherlockActivity {
 						.getStringArray(R.array.image_source_labels)));
 	}
 
-	private void renderSelectedButton(int selectedButtonId) {
+	private void renderSelectedButton(Integer selectedButtonId) {
 		for (int i = 0; i < bottomTabs.length; i++) {
 			final ImageButton bottomTab = bottomTabs[i];
-			if (bottomTab.getId() == selectedButtonId) {
+			if (selectedButtonId != null
+					&& bottomTab.getId() == selectedButtonId
+					&& (previouslySelectedButton == null || previouslySelectedButton != bottomTab
+							.getId())) {
 				bottomTab.setBackgroundResource(bottomTabsSelectedResources[i]);
 			} else {
 				bottomTab.setBackgroundResource(bottomTabsNormalResources[i]);
@@ -110,32 +114,43 @@ public class EditPhotoActivity extends SherlockActivity {
 	}
 
 	public void bottomMenuButtonClick(View view) {
-		switch (view.getId()) {
-		case R.id.chooseLayoutTab:
-			chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
-			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-			changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
-			break;
-		case R.id.chooseBackgroundTab:
-			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-			chooseBackgroundPopup.setVisibility(LinearLayout.VISIBLE);
-			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-			changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
-			break;
-		case R.id.addTextTab:
-			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-			addTextPopup.setVisibility(LinearLayout.VISIBLE);
-			changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
-			break;
-		case R.id.changePhotoTab:
-			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-			changePhotoPopup.setVisibility(LinearLayout.VISIBLE);
-		}
 		renderSelectedButton(view.getId());
+		if (previouslySelectedButton != null
+				&& view.getId() == previouslySelectedButton) {
+			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+			changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+			previouslySelectedButton = null;
+		} else {
+			switch (view.getId()) {
+			case R.id.chooseLayoutTab:
+				chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
+				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+				break;
+			case R.id.chooseBackgroundTab:
+				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+				chooseBackgroundPopup.setVisibility(LinearLayout.VISIBLE);
+				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+				break;
+			case R.id.addTextTab:
+				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+				addTextPopup.setVisibility(LinearLayout.VISIBLE);
+				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+				break;
+			case R.id.changePhotoTab:
+				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+				changePhotoPopup.setVisibility(LinearLayout.VISIBLE);
+				break;
+			}
+			previouslySelectedButton = view.getId();
+		}
 	}
 
 	public void popupOkClick(View view) {
@@ -150,7 +165,7 @@ public class EditPhotoActivity extends SherlockActivity {
 			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
 			break;
 		}
-		renderSelectedButton(-1);
+		renderSelectedButton(null);
 	}
 
 	public void fontToggle(View view) {
