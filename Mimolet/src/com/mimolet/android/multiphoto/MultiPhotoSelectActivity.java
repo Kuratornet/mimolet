@@ -1,9 +1,8 @@
 package com.mimolet.android.multiphoto;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,18 +23,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.mimolet.android.R;
-import com.mimolet.android.global.GlobalVariables;
-import com.mimolet.android.global.ImageUtils;
+import com.mimolet.android.task.ResizeImagesTask;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
-public class MultiPhotoSelectActivity extends BaseActivity {
+public class MultiPhotoSelectActivity extends Activity {
   private ArrayList<String> imageUrls;
   private DisplayImageOptions options;
   private ImageAdapter imageAdapter;
+  private ImageLoader imageLoader = ImageLoader.getInstance();
 
   @SuppressWarnings("deprecation")
   @Override
@@ -89,17 +88,17 @@ public class MultiPhotoSelectActivity extends BaseActivity {
   }
 
   public void btnChoosePhotosClick(View v) {
-    ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
-    for (int i = 0; i < selectedItems.size(); i++) {
-      saveImage(ImageUtils.decodeSampledBitmapFromFile(selectedItems.get(i), 1024, 1024, false), i);
-    }
-    Intent intent = new Intent();
-    setResult(RESULT_OK, intent);
-    finish();
+    new ResizeImagesTask(this, imageAdapter.getCheckedItems()).execute(new Void[0]);
     /*ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
     Toast.makeText(MultiPhotoSelectActivity.this, "Total photos selected: " + selectedItems.size(), Toast.LENGTH_SHORT)
         .show();
     Log.d(MultiPhotoSelectActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());*/
+  }
+  
+  public void end() {
+	    Intent intent = new Intent();
+	    setResult(RESULT_OK, intent);
+	    finish();
   }
 
   /*
@@ -186,27 +185,5 @@ public class MultiPhotoSelectActivity extends BaseActivity {
         mSparseBooleanArray.put((Integer) buttonView.getTag(), isChecked);
       }
     };
-  }
-  
-  private void saveImage(Bitmap finalBitmap, int position) {
-    File mimoletDir = new File(GlobalVariables.MIMOLET_FOLDER);
-    mimoletDir.mkdirs();
-    File myDir = new File(GlobalVariables.IMAGE_FOLDER);
-    myDir.mkdirs();
-    
-    String fname = "Image-" + (position) + ".png";
-    File file = new File(myDir, fname);
-    if (file.exists()) {
-      file.delete();
-    }
-    try {
-      FileOutputStream out = new FileOutputStream(file);
-      finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-      out.flush();
-      out.close();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 }

@@ -17,60 +17,6 @@
         android:layout_centerVertical="true"
         android:src="@drawable/orimage" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignRight="@+id/bookName"
-        android:layout_below="@+id/bookName"
-        android:layout_marginTop="19dp"
-        android:background="@drawable/testloginbg"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/password" />
-    
-    <EditText
-        android:id="@+id/loginField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bookName"
-        android:layout_alignRight="@+id/imageView3"
-        android:layout_alignTop="@+id/bookName"
-        android:layout_toRightOf="@+id/bookName"
-        android:background="@drawable/testloginbg"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="8dp" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/bookName"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_below="@+id/imageView3"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/testloginbg"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/login" />
-    
-        <EditText
-            android:id="@+id/passwordField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignLeft="@+id/loginField"
-            android:layout_alignRight="@+id/loginField"
-            android:layout_alignTop="@+id/textView2"
-            android:background="@drawable/testloginbg"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingLeft="8dp" />
-
     <ImageView
         android:id="@+id/imageButton1"
         android:layout_width="140dip"
@@ -78,17 +24,6 @@
         android:layout_alignRight="@+id/imageView3"
         android:layout_alignTop="@+id/imageButton2"
         android:src="@drawable/facebookenter" />
-
-    <ImageView
-        android:id="@+id/signinButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/enterbutton"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:onClick="authorize"
-        android:text="@string/signin" />
 
     <ImageView
         android:id="@+id/imageButton2"
@@ -107,5 +42,43 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
         android:src="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_alignRight="@+id/loginField"
+        android:layout_below="@+id/loginField"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp" />
+
+    <EditText
+        android:id="@+id/loginField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/login"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp" />
+
+    <ImageView
+        android:id="@+id/signinButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:onClick="authorize"
+        android:src="@drawable/enterbutton"
+        android:text="@string/signin" />
 
 </RelativeLayout>
