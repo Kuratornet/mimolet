@@ -21,7 +21,11 @@ public class StylePageFragment extends Fragment {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
+	
+	public Order getOrder() {
+		return order;
+	} 
+	
 	public void setImagePathes(String[] imagePathes) {
 		this.imagePathes = imagePathes;
 	}

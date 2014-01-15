@@ -1,9 +1,8 @@
 package com.mimolet.android;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
-import android.view.Window;
 
 public class SettingsActivity extends Activity {
 

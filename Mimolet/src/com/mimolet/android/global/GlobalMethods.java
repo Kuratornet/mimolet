@@ -66,5 +66,6 @@ public class GlobalMethods {
     intent.putExtra("imageSources", imageSourcesLinks);
     intent.putExtra("createData", ordersDate);
     activity.startActivity(intent);
+    activity.finish();
   }
 }

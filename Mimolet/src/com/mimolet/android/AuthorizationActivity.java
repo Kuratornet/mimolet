@@ -67,6 +67,7 @@ public class AuthorizationActivity extends SherlockActivity {
     }
     return true;
   }
+  
   public void authorize(View view) {
     if (GlobalMethods.isOnline(this)) {
       final Properties connectionProperties = new Properties();
