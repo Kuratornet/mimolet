@@ -5,9 +5,10 @@ import java.util.Properties;
 import org.brickred.socialauth.Profile;
 import org.brickred.socialauth.android.DialogListener;
 import org.brickred.socialauth.android.SocialAuthAdapter;
-import org.brickred.socialauth.android.SocialAuthError;
 import org.brickred.socialauth.android.SocialAuthAdapter.Provider;
+import org.brickred.socialauth.android.SocialAuthError;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.task.AuthorizationTask;
+import com.mimolet.android.task.SocialAuthTask;
 
 public class AuthorizationActivity extends SherlockActivity {
 
@@ -31,6 +33,7 @@ public class AuthorizationActivity extends SherlockActivity {
   /*private GraphUser user;*/
   private EditText loginField;
   private EditText passwordField;
+  private Activity thisActivity;
   Button facebook_button;
   Button googleplus_button;
   SocialAuthAdapter adapter;
@@ -39,6 +42,7 @@ public class AuthorizationActivity extends SherlockActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_authorization);
+    thisActivity = this;
     if( getIntent().getBooleanExtra("Exit me", false)){
       finish();
       return; // add this to prevent from doing unnecessary stuffs
@@ -51,7 +55,8 @@ public class AuthorizationActivity extends SherlockActivity {
 		@Override
 		public void onComplete(Bundle arg0) {
 			Profile profileMap = adapter.getUserProfile();
-			Log.e(TAG, profileMap.getEmail());
+			new SocialAuthTask(thisActivity).execute(profileMap.getEmail(),
+					profileMap.getValidatedId(), profileMap.getProviderId());
 		}
 		@Override
 		public void onCancel() {
@@ -112,17 +117,13 @@ public class AuthorizationActivity extends SherlockActivity {
   }
   
   public void authorize(View view) {
-	  authorization(loginField.getText().toString(), passwordField.getText().toString(), "casual");
-  }
-  
-  public void authorization(String userLogin, String userPassword, String type) {
 	  if (GlobalMethods.isOnline(this)) {
 	      final Properties connectionProperties = new Properties();
 	      try {
 	        connectionProperties.load(getAssets().open("connection.properties"));
 	        final String serverUrl = connectionProperties.getProperty("server_url")
 	            + connectionProperties.getProperty("login_path");
-	        new AuthorizationTask(this).execute(userLogin, userPassword, serverUrl, type);
+	        new AuthorizationTask(this).execute(loginField.getText().toString(), passwordField.getText().toString(), serverUrl);
 	      } catch (Exception ex) {
 	        Log.v(TAG, "Could not read connection configuration", ex);
 	      }
@@ -130,7 +131,7 @@ public class AuthorizationActivity extends SherlockActivity {
 	      Toast.makeText(getApplicationContext(), R.string.loose_internet_connection, Toast.LENGTH_LONG).show();
 	    }
   }
-  
+
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
       super.onActivityResult(requestCode, resultCode, data);

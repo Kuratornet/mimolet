@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -12,9 +11,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.cookie.Cookie;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -60,20 +56,19 @@ public class AuthorizationTask extends
 			final StringWriter writer = new StringWriter();
 			IOUtils.copy(is, writer, "UTF-8");
 			final String serverAnswer = writer.toString();
-			if (params[3].equals("casual")) {
-				if (serverAnswer.equals("false")) {
-					return ExecutionResult.FAIL;
+			if (serverAnswer.equals("false")) {
+				return ExecutionResult.FAIL;
+			}
+			final List<Cookie> cookies = httpClient.getCookieStore()
+					.getCookies();
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("JSESSIONID")) {
+					Registry.register("JSESSIONID", cookie.getValue());
 				}
-				final List<Cookie> cookies = httpClient.getCookieStore()
-						.getCookies();
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equals("JSESSIONID")) {
-						Registry.register("JSESSIONID", cookie.getValue());
-					}
-				}
-				return ExecutionResult.SUCCESS;
-			} else if (params[3].equals("facebook")) {
-				Log.e(TAG, "Register facebook account");
+			}
+			return ExecutionResult.SUCCESS;
+			
+				/*Log.e(TAG, "Register facebook account");
 				if (serverAnswer.equals("false")) {
 					final Properties connectionProperties = new Properties();
 					connectionProperties.load(parent.getAssets().open(
@@ -121,8 +116,7 @@ public class AuthorizationTask extends
 					} else {
 						Log.e(TAG, "WTF?!!");
 					}
-				}
-			}
+				}*/
 		} catch (Exception ex) {
 			Log.v(TAG, "Could not send login request", ex);
 		}
