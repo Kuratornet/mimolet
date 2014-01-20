@@ -10,28 +10,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditPhotoActivity" >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/editPhotoTabBar"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_centerVertical="false"
-        android:measureAllChildren="false" >
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_above="@+id/popup_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true">
 
-        <ImageView
-            android:id="@+id/previewImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+		<ImageView
+                    android:id="@+id/previewImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
 
-        <ImageView
-            android:id="@+id/previewCover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/popup2" />
-    </FrameLayout>
+            <ImageView
+                    android:id="@+id/previewCover"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/book_reversal_right_2" />
+
+        </RelativeLayout>
+        </ScrollView>
 
     <LinearLayout
         android:id="@+id/editPhotoTabBar"
@@ -41,7 +47,8 @@
         android:layout_alignParentLeft="true"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:padding="0dp" >
+        android:padding="0dp" 
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/chooseLayoutTab"
@@ -94,14 +101,15 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editPhotoTabBar"
         android:orientation="vertical"
-        android:visibility="invisible" >
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_header"
             android:paddingBottom="15dp"
-            android:paddingTop="15dp" >
+            android:paddingTop="15dp" 
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/choose_layout_title"
@@ -126,7 +134,8 @@
             android:layout_height="wrap_content"
             android:background="#efe4d5"
             android:orientation="horizontal"
-            android:padding="15dp" >
+            android:padding="15dp" 
+            android:visibility="gone" >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -154,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editPhotoTabBar"
         android:orientation="vertical"
-        android:visibility="invisible" >
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -282,7 +291,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editPhotoTabBar"
         android:orientation="vertical"
-        android:visibility="invisible" >
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -427,7 +436,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editPhotoTabBar"
         android:orientation="vertical"
-        android:visibility="invisible" >
+        android:visibility="gone" >
 
         <RelativeLayout
             android:layout_width="match_parent"
