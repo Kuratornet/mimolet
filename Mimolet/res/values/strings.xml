@@ -45,10 +45,15 @@
     <string name="phone_memory_label">Память телефона</string>
 
     <string-array name="image_source_labels">
-        <item >Память телефона</item>
-        <item >Facebook</item>
-        <item >Instagram</item>
-        <item >Google+</item>
+        <item>Память телефона</item>
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Google+</item>
     </string-array>
+
+    <string name="title_activity_face_book_auth">FaceBookAuth</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="appID">492177964205714</string>
+    <string name="social_password">2921e995a926a2f6ee78f7d5405997e8</string>
 
 </resources>

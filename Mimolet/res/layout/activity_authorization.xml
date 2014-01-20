@@ -17,8 +17,8 @@
         android:layout_centerVertical="true"
         android:src="@drawable/orimage" />
 
-    <ImageView
-        android:id="@+id/imageButton1"
+    <com.facebook.widget.LoginButton
+        android:id="@+id/facebookLoginButton"
         android:layout_width="140dip"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/imageView3"

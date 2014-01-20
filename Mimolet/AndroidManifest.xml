@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/launcher_custom_icon"
+        android:icon="@drawable/ic_launcher2"
         android:label="@string/app_name"
         android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         <activity
@@ -55,10 +55,17 @@
             android:name="com.mimolet.android.EditPhotoActivity"
             android:label="@string/edit_photo_activity" >
         </activity>
+        <activity
+            android:name="com.mimolet.android.FaceBookAuth"
+            android:label="@string/title_activity_face_book_auth" >
+        </activity>
+        <activity android:name="com.facebook.LoginActivity"
+          android:label="@string/app_name" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/appID"/>
     </application>
     <application
         android:name="com.mimolet.android.GlobalVariables"
-        android:icon="@drawable/launcher_custom_icon"
+        android:icon="@drawable/ic_launcher2"
         android:label="@string/app_name" >
     </application>
 
