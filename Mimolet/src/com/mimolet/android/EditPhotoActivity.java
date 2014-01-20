@@ -1,16 +1,11 @@
 package com.mimolet.android;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-
+import android.view.ViewGroup;
+import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -99,7 +94,19 @@ public class EditPhotoActivity extends SherlockActivity {
 						.getStringArray(R.array.image_source_labels)));
 	}
 
-	private void renderSelectedButton(Integer selectedButtonId) {
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        ImageView previewImage = (ImageView) findViewById(R.id.previewImage);
+        ImageView previewCover = (ImageView) findViewById(R.id.previewCover);
+        Log.e("SSAI", String.valueOf(previewImage.getMeasuredWidth()));
+        RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(previewImage.getMeasuredWidth(), previewImage.getMeasuredWidth());
+        previewImage.setLayoutParams(relativeLayoutParams);
+        previewCover.setLayoutParams(relativeLayoutParams);
+    }
+
+    private void renderSelectedButton(Integer selectedButtonId) {
 		for (int i = 0; i < bottomTabs.length; i++) {
 			final ImageButton bottomTab = bottomTabs[i];
 			if (selectedButtonId != null
@@ -117,38 +124,49 @@ public class EditPhotoActivity extends SherlockActivity {
 		renderSelectedButton(view.getId());
 		if (previouslySelectedButton != null
 				&& view.getId() == previouslySelectedButton) {
-			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-			changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseLayoutPopup.setVisibility(View.GONE);
+			chooseBackgroundPopup.setVisibility(View.GONE);
+			addTextPopup.setVisibility(View.GONE);
+			changePhotoPopup.setVisibility(View.GONE);
 			previouslySelectedButton = null;
 		} else {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
 			switch (view.getId()) {
 			case R.id.chooseLayoutTab:
-				chooseLayoutPopup.setVisibility(LinearLayout.VISIBLE);
-				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+                params.addRule(RelativeLayout.ABOVE, R.id.popup_layout);
+				chooseLayoutPopup.setVisibility(View.VISIBLE);
+				chooseBackgroundPopup.setVisibility(View.GONE);
+				addTextPopup.setVisibility(View.GONE);
+				changePhotoPopup.setVisibility(View.GONE);
 				break;
 			case R.id.chooseBackgroundTab:
-				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-				chooseBackgroundPopup.setVisibility(LinearLayout.VISIBLE);
-				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+                params.addRule(RelativeLayout.ABOVE, R.id.popup_background);
+				chooseLayoutPopup.setVisibility(View.GONE);
+				chooseBackgroundPopup.setVisibility(View.VISIBLE);
+				addTextPopup.setVisibility(View.GONE);
+				changePhotoPopup.setVisibility(View.GONE);
 				break;
 			case R.id.addTextTab:
-				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-				addTextPopup.setVisibility(LinearLayout.VISIBLE);
-				changePhotoPopup.setVisibility(LinearLayout.INVISIBLE);
+                params.addRule(RelativeLayout.ABOVE, R.id.popup_text);
+				chooseLayoutPopup.setVisibility(View.GONE);
+				chooseBackgroundPopup.setVisibility(View.GONE);
+				addTextPopup.setVisibility(View.VISIBLE);
+				changePhotoPopup.setVisibility(View.GONE);
 				break;
 			case R.id.changePhotoTab:
-				chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
-				chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
-				addTextPopup.setVisibility(LinearLayout.INVISIBLE);
-				changePhotoPopup.setVisibility(LinearLayout.VISIBLE);
+                params.addRule(RelativeLayout.ABOVE, R.id.popup_change_photo);
+				chooseLayoutPopup.setVisibility(View.GONE);
+				chooseBackgroundPopup.setVisibility(View.GONE);
+				addTextPopup.setVisibility(View.GONE);
+				changePhotoPopup.setVisibility(View.VISIBLE);
 				break;
 			}
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.setLayoutParams(params);
 			previouslySelectedButton = view.getId();
 		}
 	}
@@ -156,13 +174,13 @@ public class EditPhotoActivity extends SherlockActivity {
 	public void popupOkClick(View view) {
 		switch (view.getId()) {
 		case R.id.choose_layout_ok:
-			chooseLayoutPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseLayoutPopup.setVisibility(View.GONE);
 			break;
 		case R.id.choose_background_ok:
-			chooseBackgroundPopup.setVisibility(LinearLayout.INVISIBLE);
+			chooseBackgroundPopup.setVisibility(View.GONE);
 			break;
 		case R.id.add_text_ok:
-			addTextPopup.setVisibility(LinearLayout.INVISIBLE);
+			addTextPopup.setVisibility(View.GONE);
 			break;
 		}
 		renderSelectedButton(null);
