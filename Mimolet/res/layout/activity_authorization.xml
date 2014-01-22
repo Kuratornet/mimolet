@@ -38,20 +38,6 @@
         android:src="@drawable/logo" />
 
     <EditText
-        android:id="@+id/passwordField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/loginField"
-        android:layout_alignRight="@+id/loginField"
-        android:layout_below="@+id/loginField"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/testloginbg"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingLeft="8dp" />
-
-    <EditText
         android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,20 +48,9 @@
         android:ems="10"
         android:hint="@string/login"
         android:inputType="textEmailAddress"
-        android:paddingLeft="8dp" />
-
-    <ImageView
-        android:id="@+id/signinButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:onClick="authorize"
-        android:src="@drawable/enterbutton"
-        android:contentDescription="@string/authorization_loginButton"
-        android:text="@string/signin" />
-
+        android:paddingLeft="8dp" >
+        <requestFocus />
+	</EditText>
     <Button
         android:id="@+id/facebookLoginButton"
         android:layout_width="140dip"
@@ -84,5 +59,69 @@
         android:layout_alignBottom="@+id/googleplusLoginButton"
         android:layout_alignRight="@+id/authorizationORimage"
         android:src="@drawable/facebookenter" />
+
+    <TextView
+        android:id="@+id/registrationTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/authorizationLogoImage"
+        android:text="@string/authorization_registrationTextButton"
+        android:textSize="14sp" />
+
+   <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_below="@+id/loginField"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp" >
+    </EditText>
+
+    <ImageView
+        android:id="@+id/signinButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/forgetPasswordTextButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:contentDescription="@string/authorization_loginButton"
+        android:onClick="authorize"
+        android:src="@drawable/enterbutton"
+        android:text="@string/signin" />
+
+    <ImageView
+        android:id="@+id/forgetPasswordImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/passwordField"
+        android:layout_alignTop="@+id/forgetPasswordTextButton"
+        android:src="@drawable/forgetpasswordimage" 
+        android:contentDescription="@string/authorization_forgetPasswordImageDescript" />
+
+    <TextView
+        android:id="@+id/forgetPasswordTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/registrationTextButton"
+        android:layout_alignBottom="@+id/registrationTextButton"
+        android:layout_toRightOf="@+id/forgetPasswordImage"
+        android:paddingLeft="5dp"
+        android:text="@string/authorization_forgetPasswordTextButton"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/registrationImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signinButton"
+        android:layout_toLeftOf="@+id/registrationTextButton"
+        android:contentDescription="@string/authorization_registrationImageDescript"
+        android:paddingRight="5dp"
+        android:src="@drawable/registretionimage" />
 
 </RelativeLayout>

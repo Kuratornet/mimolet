@@ -13,7 +13,7 @@ public class EditPhotoActivity extends SherlockActivity {
 
 	public static String IS_LEFT = "isLeft";
 
-	private boolean isLeft;
+	//private boolean isLeft;
 
 	private ImageButton[] bottomTabs;
 	private int[] bottomTabsSelectedResources;
@@ -41,8 +41,7 @@ public class EditPhotoActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
-
-		isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
+		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
 
 		bottomTabs = new ImageButton[4];
 		bottomTabs[0] = (ImageButton) findViewById(R.id.chooseLayoutTab);
@@ -70,10 +69,9 @@ public class EditPhotoActivity extends SherlockActivity {
 				});
 		getSupportActionBar().getCustomView().findViewById(R.id.action_bar_yes)
 				.setOnClickListener(new OnClickListener() {
-
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(EditPhotoActivity.this, "Yes", 1000)
+						Toast.makeText(EditPhotoActivity.this, "Yes", Toast.LENGTH_SHORT)
 								.show();
 					}
 				});
@@ -130,7 +128,8 @@ public class EditPhotoActivity extends SherlockActivity {
 			changePhotoPopup.setVisibility(View.GONE);
 			previouslySelectedButton = null;
 		} else {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+            @SuppressWarnings("deprecation")
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);

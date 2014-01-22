@@ -58,5 +58,9 @@
 	<string name="authorization_loginButton">Login button</string>
 	<string name="authotization_logoImageDescript">Logo Image</string>
 	<string name="authorization_ORimageDescript">OR image</string>
+	<string name="authorization_registrationTextButton">Регистрация</string>
+	<string name="authorization_forgetPasswordTextButton">Забыли пароль?</string>
+	<string name="authorization_forgetPasswordImageDescript">ForgetPassword Image</string>
+	<string name="authorization_registrationImageDescript">Registration Image</string>
     
 </resources>

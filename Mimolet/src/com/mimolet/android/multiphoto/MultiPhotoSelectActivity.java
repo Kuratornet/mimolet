@@ -176,7 +176,7 @@ public class MultiPhotoSelectActivity extends Activity {
 			final CheckBox mCheckBox = (CheckBox) convertView
 					.findViewById(R.id.checkBox1);
 			final ImageView imageView = (ImageView) convertView
-					.findViewById(R.id.imageView1);
+					.findViewById(R.id.forgetPasswordImage);
 
 			imageLoader.displayImage("file://" + imageUrls.get(position),
 					imageView, options, new SimpleImageLoadingListener() {
