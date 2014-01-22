@@ -42,6 +42,7 @@ public class AuthorizationActivity extends SherlockActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_authorization);
+    GlobalMethods.checkConnectionToServer(this);
     thisActivity = this;
     if( getIntent().getBooleanExtra("Exit me", false)){
       finish();

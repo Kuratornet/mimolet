@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="title_activity_add_book">Создание книги</string>
@@ -54,5 +53,7 @@
     <string name="title_activity_face_book_auth">FaceBookAuth</string>
     <string name="hello_world">Hello world!</string>
     <string name="appID">492177964205714</string>
-
+    <string name="server_unavailable">В данный момент сервер недоступен по указанному IP-адресу</string>
+	<string name="unidentified_error">Неопознання ошибка. Сообщите о ней разработчикам пожалуйста!</string>
+    
 </resources>

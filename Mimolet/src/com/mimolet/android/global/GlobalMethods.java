@@ -3,9 +3,14 @@ package com.mimolet.android.global;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,8 +18,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mimolet.android.OrdersListActivity;
+import com.mimolet.android.R;
 
 import entity.Order;
 
@@ -67,5 +74,30 @@ public class GlobalMethods {
     intent.putExtra("createData", ordersDate);
     activity.startActivity(intent);
     activity.finish();
+  }
+  
+  public static void checkConnectionToServer(final Activity activity) {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					HttpClient httpClient = new DefaultHttpClient();
+					Properties connectionProperties = new Properties();
+					connectionProperties.load(activity.getAssets().open(
+							"connection.properties"));
+					String serverUrl = connectionProperties
+							.getProperty("server_url") + "ping";
+					HttpGet httpPost = new HttpGet(serverUrl);
+					httpClient.execute(httpPost);
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(activity.getApplicationContext(),
+							R.string.server_unavailable, Toast.LENGTH_LONG)
+							.show();
+				}
+			}
+		});
+
+		thread.start();
   }
 }

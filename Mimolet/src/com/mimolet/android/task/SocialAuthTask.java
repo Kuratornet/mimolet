@@ -18,10 +18,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.mimolet.android.R;
 import com.mimolet.android.task.AuthorizationTask.ExecutionResult;
+import com.mimolet.android.util.DataBaseLoginUtil;
 import com.mimolet.android.util.Registry;
 
 public class SocialAuthTask extends AsyncTask<String, Void, AuthorizationTask.ExecutionResult> {
@@ -55,11 +59,9 @@ public class SocialAuthTask extends AsyncTask<String, Void, AuthorizationTask.Ex
 			Log.i(TAG, "Get responce");
 			final BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
-			String line = "";
-			while ((line = rd.readLine()) != null) {
-				Log.v(TAG, line);
-			}
-			if (new String("true").equals(line)) {
+			final String line = rd.readLine();
+			Log.v(TAG, "Server answer line value = " + line);
+			if (line.equals("true")) {
 				final List<Cookie> cookies = ((AbstractHttpClient) httpClient).getCookieStore()
 						.getCookies();
 				for (Cookie cookie : cookies) {
@@ -88,6 +90,19 @@ public class SocialAuthTask extends AsyncTask<String, Void, AuthorizationTask.Ex
 	protected void onPostExecute(AuthorizationTask.ExecutionResult result) {
 		if (this.dialog.isShowing()) {
 			this.dialog.dismiss();
+		}
+		switch (result) {
+		case SUCCESS:
+			DataBaseLoginUtil sqh = new DataBaseLoginUtil(parent);
+			SQLiteDatabase sqdb = sqh.getWritableDatabase();
+			sqdb.close();
+			sqh.close();
+			new GetOrdersListTask(parent).execute();
+			break;
+		case FAIL:
+			Toast.makeText(parent.getApplicationContext(),
+					R.string.unidentified_error, Toast.LENGTH_LONG).show();
+			break;
 		}
 	}
 

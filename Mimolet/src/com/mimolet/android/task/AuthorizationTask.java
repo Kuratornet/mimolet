@@ -67,56 +67,6 @@ public class AuthorizationTask extends
 				}
 			}
 			return ExecutionResult.SUCCESS;
-			
-				/*Log.e(TAG, "Register facebook account");
-				if (serverAnswer.equals("false")) {
-					final Properties connectionProperties = new Properties();
-					connectionProperties.load(parent.getAssets().open(
-							"connection.properties"));
-					final String serverUrl = connectionProperties
-							.getProperty("server_url")
-							+ connectionProperties.getProperty("add_user_url");
-					final HttpPost httpPost2 = new HttpPost(serverUrl);
-					final MultipartEntity reqEntity = new MultipartEntity(
-							HttpMultipartMode.BROWSER_COMPATIBLE);
-					reqEntity.addPart("login", new StringBody(params[0]));
-					reqEntity.addPart("password", new StringBody(params[1]));
-					reqEntity.addPart("enabled", new StringBody("true"));
-					Log.i(TAG, "Request rdy");
-					httpPost2.setEntity(reqEntity);
-					Log.i(TAG, "Get responce");
-					final HttpResponse response2 = httpClient.execute(httpPost2);
-					final InputStream is2 = response2.getEntity().getContent();
-					final StringWriter writer2 = new StringWriter();
-					IOUtils.copy(is2, writer2, "UTF-8");
-					final String serverAnswer2 = writer2.toString();
-					if (serverAnswer2 == "done") {
-
-					final HttpPost httpPost3 = new HttpPost(params[2]);
-					nameValuePairs = new ArrayList<NameValuePair>(2);
-					nameValuePairs.add(new BasicNameValuePair("j_username", params[0]));
-					nameValuePairs.add(new BasicNameValuePair("j_password", params[1]));
-					httpPost3.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-					final HttpResponse response3 = httpClient.execute(httpPost3);
-					final InputStream is3 = response3.getEntity().getContent();
-					final StringWriter writer3 = new StringWriter();
-					IOUtils.copy(is3, writer3, "UTF-8");
-					final String serverAnswer3 = writer3.toString();
-					if (serverAnswer3.equals("false")) {
-						return ExecutionResult.FAIL;
-					}
-					final List<Cookie> cookies = httpClient.getCookieStore()
-							.getCookies();
-					for (Cookie cookie : cookies) {
-						if (cookie.getName().equals("JSESSIONID")) {
-							Registry.register("JSESSIONID", cookie.getValue());
-						}
-					}
-					return ExecutionResult.SUCCESS;
-					} else {
-						Log.e(TAG, "WTF?!!");
-					}
-				}*/
 		} catch (Exception ex) {
 			Log.v(TAG, "Could not send login request", ex);
 		}
