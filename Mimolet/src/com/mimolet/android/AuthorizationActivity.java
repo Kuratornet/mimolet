@@ -56,7 +56,9 @@ public class AuthorizationActivity extends SherlockActivity {
 		public void onComplete(Bundle arg0) {
 			Profile profileMap = adapter.getUserProfile();
 			new SocialAuthTask(thisActivity).execute(profileMap.getEmail(),
-					profileMap.getValidatedId(), profileMap.getProviderId());
+					profileMap.getValidatedId(), 
+					adapter.getCurrentProvider().getAccessGrant().getKey(),
+					profileMap.getProviderId());
 		}
 		@Override
 		public void onCancel() {
