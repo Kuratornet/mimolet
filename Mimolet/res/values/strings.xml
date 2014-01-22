@@ -55,5 +55,8 @@
     <string name="appID">492177964205714</string>
     <string name="server_unavailable">В данный момент сервер недоступен по указанному IP-адресу</string>
 	<string name="unidentified_error">Неопознання ошибка. Сообщите о ней разработчикам пожалуйста!</string>
+	<string name="authorization_loginButton">Login button</string>
+	<string name="authotization_logoImageDescript">Logo Image</string>
+	<string name="authorization_ORimageDescript">OR image</string>
     
 </resources>

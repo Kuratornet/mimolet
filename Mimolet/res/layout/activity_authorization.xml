@@ -10,29 +10,31 @@
     tools:context=".AuthorizationActivity" >
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/authorizationORimage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/authorization_ORimageDescript"
         android:src="@drawable/orimage" />
 
     <Button
         android:id="@+id/googleplusLoginButton"
         android:layout_width="140dip"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView3"
-        android:layout_alignLeft="@+id/imageView3"
+        android:layout_above="@+id/authorizationORimage"
+        android:layout_alignLeft="@+id/authorizationORimage"
         android:layout_marginBottom="19dp"
         android:src="@drawable/googleplusenter" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/authorizationLogoImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
+        android:contentDescription="@string/authotization_logoImageDescript"
         android:src="@drawable/logo" />
 
     <EditText
@@ -53,8 +55,8 @@
         android:id="@+id/loginField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/authorizationORimage"
+        android:layout_below="@+id/authorizationORimage"
         android:layout_marginTop="18dp"
         android:background="@drawable/testloginbg"
         android:ems="10"
@@ -71,6 +73,7 @@
         android:layout_marginBottom="18dp"
         android:onClick="authorize"
         android:src="@drawable/enterbutton"
+        android:contentDescription="@string/authorization_loginButton"
         android:text="@string/signin" />
 
     <Button
@@ -79,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/googleplusLoginButton"
         android:layout_alignBottom="@+id/googleplusLoginButton"
-        android:layout_alignRight="@+id/imageView3"
+        android:layout_alignRight="@+id/authorizationORimage"
         android:src="@drawable/facebookenter" />
 
 </RelativeLayout>

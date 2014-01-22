@@ -27,6 +27,7 @@ import entity.Order;
 
 public class GlobalMethods {
   final private static long DELAY = 60 * 1000 * 10;
+  private static final String TAG = "GlobalMethods";
   
   public static void startTimer (final String url) {
     final ScheduledExecutorService scheduler = Executors
@@ -77,6 +78,7 @@ public class GlobalMethods {
   }
   
   public static void checkConnectionToServer(final Activity activity) {
+		Log.i(TAG, "Test internet connection");
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -89,15 +91,18 @@ public class GlobalMethods {
 							.getProperty("server_url") + "ping";
 					HttpGet httpPost = new HttpGet(serverUrl);
 					httpClient.execute(httpPost);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
-					Toast.makeText(activity.getApplicationContext(),
-							R.string.server_unavailable, Toast.LENGTH_LONG)
-							.show();
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(activity, R.string.server_unavailable, Toast.LENGTH_LONG).show();
+						}
+					});
 				}
 			}
 		});
-
 		thread.start();
   }
 }
