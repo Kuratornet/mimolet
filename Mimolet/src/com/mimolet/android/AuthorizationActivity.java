@@ -30,7 +30,6 @@ import com.mimolet.android.task.SocialAuthTask;
 public class AuthorizationActivity extends SherlockActivity {
 
   private static final String TAG = "AuthorizationActivity";
-  /*private GraphUser user;*/
   private EditText loginField;
   private EditText passwordField;
   private Activity thisActivity;
@@ -46,7 +45,7 @@ public class AuthorizationActivity extends SherlockActivity {
     thisActivity = this;
     if( getIntent().getBooleanExtra("Exit me", false)){
       finish();
-      return; // add this to prevent from doing unnecessary stuffs
+      return;
     }
     adapter = new SocialAuthAdapter(new DialogListener() {
 		@Override
