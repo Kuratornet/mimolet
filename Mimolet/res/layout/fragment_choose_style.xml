@@ -50,15 +50,15 @@
                 android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/forgetPasswordTextButton"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="8dp"
                     android:text="@string/binding"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/bindingSpinner"

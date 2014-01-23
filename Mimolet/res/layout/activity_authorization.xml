@@ -83,18 +83,6 @@
     </EditText>
 
     <ImageView
-        android:id="@+id/signinButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/forgetPasswordTextButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:contentDescription="@string/authorization_loginButton"
-        android:onClick="authorize"
-        android:src="@drawable/enterbutton"
-        android:text="@string/signin" />
-
-    <ImageView
         android:id="@+id/forgetPasswordImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,5 +111,17 @@
         android:contentDescription="@string/authorization_registrationImageDescript"
         android:paddingRight="5dp"
         android:src="@drawable/registretionimage" />
+
+    <ImageView
+        android:id="@+id/signinButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/registrationTextButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:contentDescription="@string/authorization_loginButton"
+        android:onClick="authorize"
+        android:src="@drawable/enterbutton"
+        android:text="@string/signin" />
 
 </RelativeLayout>
