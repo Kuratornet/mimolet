@@ -75,6 +75,8 @@ public class RegistrationTask extends AsyncTask<String, Void, RegistrationTask.E
 		case SUCCESS:
 			break;
 		case WRONG_LOGIN:
+			Toast.makeText(parent.getApplicationContext(),
+					R.string.registration_wrongLoginToast, Toast.LENGTH_LONG).show();
 			break;
 		case FAIL:
 			Toast.makeText(parent.getApplicationContext(),
