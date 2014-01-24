@@ -2,22 +2,28 @@ package com.mimolet.android.task;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.mimolet.android.R;
+import com.mimolet.android.util.DataBaseLoginUtil;
+import com.mimolet.android.util.Registry;
 
 public class RegistrationTask extends AsyncTask<String, Void, RegistrationTask.ExecutionResult> {
 	private static final String TAG = "RegistrationTask";
@@ -47,6 +53,13 @@ public class RegistrationTask extends AsyncTask<String, Void, RegistrationTask.E
 			final String line = rd.readLine();
 			Log.v(TAG, "Server answer line value = " + line);
 			if (line.equals("true")) {
+				final List<Cookie> cookies = ((AbstractHttpClient) httpClient).getCookieStore()
+						.getCookies();
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("JSESSIONID")) {
+						Registry.register("JSESSIONID", cookie.getValue());
+					}
+				}
 				return ExecutionResult.SUCCESS;
 			} else if (line.equals("wronglogin")) {
 				return ExecutionResult.WRONG_LOGIN;
@@ -73,6 +86,11 @@ public class RegistrationTask extends AsyncTask<String, Void, RegistrationTask.E
 		}
 		switch (result) {
 		case SUCCESS:
+			DataBaseLoginUtil sqh = new DataBaseLoginUtil(parent);
+			SQLiteDatabase sqdb = sqh.getWritableDatabase();
+			sqdb.close();
+			sqh.close();
+			new GetOrdersListTask(parent).execute();
 			break;
 		case WRONG_LOGIN:
 			Toast.makeText(parent.getApplicationContext(),
