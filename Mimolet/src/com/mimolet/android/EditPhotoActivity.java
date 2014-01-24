@@ -3,7 +3,6 @@ package com.mimolet.android;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -31,7 +30,7 @@ public class EditPhotoActivity extends SherlockActivity {
     private int currentFrameMode = FULL_SCREEN_MODE;
     private int currentTextMode = WITHOUT_TEXT;
 
-    private Bitmap photoBitmap = Bitmap.createBitmap(1024, 1024, Bitmap.Config.ARGB_8888);
+    private Bitmap photoBitmap = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_8888);
 
 	//private boolean isLeft;
 
@@ -236,7 +235,6 @@ public class EditPhotoActivity extends SherlockActivity {
     private void setLayoutMode(int frameMode, int textMode) {
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
         ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
-        ImageView backgroundFrame = (ImageView) findViewById(R.id.backgroundFrame);
         ImageView photo = (ImageView) findViewById(R.id.photo);
 
         // mainFrame
@@ -251,38 +249,32 @@ public class EditPhotoActivity extends SherlockActivity {
         backgroundRectDImage.getPaint().setColor(Color.GREEN);
         backgroundRect.setBackgroundDrawable(backgroundRectDImage);
 
-        // backgroundFrame
-        ShapeDrawable backgroundFrameDImage = new ShapeDrawable();
-        backgroundFrameDImage.setShape(new RectShape());
-        backgroundFrameDImage.getPaint().setColor(Color.BLUE);
-        backgroundFrame.setBackgroundDrawable(backgroundFrameDImage);
-
         switch (frameMode) {
             case FULL_SCREEN_MODE:
                 fullScreenMode(backgroundRect,
-                        backgroundFrame,
                         photo);
                 break;
             case FULL_SCREEN_WITH_CORNER_MODE:
                 fullScreenWithCornerMode(backgroundRect,
-                        backgroundFrame,
                         photo);
                 break;
             case IN_FRAME_MODE:
                 inFrameMode(backgroundRect,
-                        backgroundFrame,
                         photo);
                 break;
             default:
                 throw new IllegalStateException("setLayoutMode: undefined frameMode");
         }
 
+        EditText editText = (EditText) findViewById(R.id.editText1);
         switch (textMode) {
             case WITHOUT_TEXT:
                 // do nothing
+                editText.setVisibility(View.GONE);
                 break;
             case WITH_TEXT:
                 // update backgroundFrame and photo size
+                editText.setVisibility(View.VISIBLE);
                 break;
             default:
                 throw new IllegalStateException("setLayoutMode: undefined textMode");
@@ -290,7 +282,6 @@ public class EditPhotoActivity extends SherlockActivity {
     }
 
     private void fullScreenMode(ImageView backgroundRect,
-                                ImageView backgroundFrame,
                                 ImageView photo) {
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
         // backgroundRect
@@ -305,25 +296,24 @@ public class EditPhotoActivity extends SherlockActivity {
         );
         backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
 
-
-        backgroundFrame.setVisibility(View.GONE);
-
         // photo
-        int photoRelativeLayoutParamsMargin = 30;
-        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        photoRelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
+        int photoImageLinearLayoutMargin = 30;
+        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
+        photoImageLinearLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
         );
-        photo.setLayoutParams(photoRelativeLayoutParams);
+        photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+        photo.setPadding(0, 0, 0, 0);
+        photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(photoBitmap);
     }
 
     private void fullScreenWithCornerMode(ImageView backgroundRect,
-                                          ImageView backgroundFrame,
                                           ImageView photo) {
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
         // backgroundRect
@@ -338,25 +328,24 @@ public class EditPhotoActivity extends SherlockActivity {
         );
         backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
 
-
-        backgroundFrame.setVisibility(View.GONE);
-
         // photo
-        int photoRelativeLayoutParamsMargin = 30;
-        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        photoRelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
+        int photoImageLinearLayoutMargin = 30;
+        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
+        photoImageLinearLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
         );
-        photo.setLayoutParams(photoRelativeLayoutParams);
+        photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+        photo.setPadding(0, 0, 0, 0);
+        photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(ImageHelper.getRoundedCornerBitmap(photoBitmap, 50));
     }
 
     private void inFrameMode(ImageView backgroundRect,
-                             ImageView backgroundFrame,
                              ImageView photo) {
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
         // backgroundRect
@@ -371,31 +360,20 @@ public class EditPhotoActivity extends SherlockActivity {
         );
         backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
 
-
-        // backgroundFrame
-        backgroundFrame.setVisibility(View.VISIBLE);
-        int backgroundFrameRelativeLayoutParamsMargin = 45;
-        RelativeLayout.LayoutParams backgroundFrameRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        backgroundFrameRelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
-        );
-        backgroundFrame.setLayoutParams(backgroundFrameRelativeLayoutParams);
-
         // photo
-        int photoRelativeLayoutParamsMargin = backgroundFrameRelativeLayoutParamsMargin + 10;
-        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        photoRelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
+        int photoImageLinearLayoutMargin = 55;
+        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
+        photoImageLinearLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
         );
-        photo.setLayoutParams(photoRelativeLayoutParams);
+        photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+        photo.setPadding(20, 20, 20, 20);
+        photo.setBackgroundColor(Color.BLACK);
         photo.setImageBitmap(photoBitmap);
     }
 }
