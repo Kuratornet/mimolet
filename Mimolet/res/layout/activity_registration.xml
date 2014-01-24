@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegistrationActivity" >
+
+    <EditText
+        android:id="@+id/registrationEnerFirstPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/registrationLoginField"
+        android:layout_below="@+id/registrationLoginField"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/registration_enterPassword"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp" />
+
+        
+
+
+    <EditText
+        android:id="@+id/registrationEnerSecondPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/registrationEnerFirstPassword"
+        android:layout_below="@+id/registrationEnerFirstPassword"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/registration_repeatPassword"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp" />
+
+    <Button
+        android:id="@+id/registrationRegistrationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registrationEnerSecondPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/registration_bt"
+        android:text="@string/registration_registrationButtonText"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:contentDescription="@string/authotization_logoImageDescript"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/registrationLoginField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/testloginbg"
+        android:ems="10"
+        android:hint="@string/registration_enterYourLoginHere"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp" >
+         
+        <requestFocus />
+        </EditText>
+
+</RelativeLayout>

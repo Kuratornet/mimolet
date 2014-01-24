@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -30,9 +32,10 @@ import com.mimolet.android.task.SocialAuthTask;
 public class AuthorizationActivity extends SherlockActivity {
 
   private static final String TAG = "AuthorizationActivity";
-  /*private GraphUser user;*/
   private EditText loginField;
   private EditText passwordField;
+  private TextView registrationText;
+  private ImageView registrationImage;
   private Activity thisActivity;
   Button facebook_button;
   Button googleplus_button;
@@ -46,7 +49,7 @@ public class AuthorizationActivity extends SherlockActivity {
     thisActivity = this;
     if( getIntent().getBooleanExtra("Exit me", false)){
       finish();
-      return; // add this to prevent from doing unnecessary stuffs
+      return;
     }
     adapter = new SocialAuthAdapter(new DialogListener() {
 		@Override
@@ -90,6 +93,10 @@ public class AuthorizationActivity extends SherlockActivity {
 	});
     loginField = (EditText) findViewById(R.id.loginField);
     passwordField = (EditText) findViewById(R.id.passwordField);
+    registrationImage = (ImageView) findViewById(R.id.registrationImage);
+    registrationText = (TextView) findViewById(R.id.registrationTextButton);
+    registrationImage.setOnClickListener(new RegistrationFieldsOnClickListener());
+    registrationText.setOnClickListener(new RegistrationFieldsOnClickListener());
   }
   
   @Override
@@ -138,5 +145,14 @@ public class AuthorizationActivity extends SherlockActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
       super.onActivityResult(requestCode, resultCode, data);
-  } 
+  }
+  
+  private class RegistrationFieldsOnClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(AuthorizationActivity.this, RegistrationActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
 }
