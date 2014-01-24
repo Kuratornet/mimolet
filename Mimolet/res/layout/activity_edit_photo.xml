@@ -22,22 +22,41 @@
         <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-		<ImageView
-                    android:id="@+id/previewImage"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
 
             <ImageView
-                    android:id="@+id/previewCover"
+                    android:id="@+id/backgroundRect"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+            <ImageView
+                    android:id="@+id/backgroundFrame"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+            <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+            <ImageView
+                    android:id="@+id/mainFrame"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@drawable/book_reversal_right_2" />
+                    android:src="@drawable/book_reversal_right3" />
+
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
-        </ScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/editPhotoTabBar"
@@ -135,18 +154,21 @@
             android:padding="15dp" >
 
             <ImageView
+                android:id="@+id/edit_photo_layout_all_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/edit_photo_layout_all" />
 
             <ImageView
+                android:id="@+id/edit_photo_layout_rounded_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/edit_photo_layout_rounded" />
 
             <ImageView
+                android:id="@+id/edit_photo_layout_center_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

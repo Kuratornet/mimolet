@@ -1,17 +1,37 @@
 package com.mimolet.android;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.mimolet.android.util.ImageHelper;
 
 public class EditPhotoActivity extends SherlockActivity {
 
+    private static final String TAG = "EditPhotoActivity";
+
 	public static String IS_LEFT = "isLeft";
+
+    private static final int FULL_SCREEN_MODE = 0;
+    private static final int FULL_SCREEN_WITH_CORNER_MODE = 1;
+    private static final int IN_FRAME_MODE = 2;
+
+    private static final int WITHOUT_TEXT = 0;
+    private static final int WITH_TEXT = 1;
+
+    private int currentFrameMode = FULL_SCREEN_MODE;
+    private int currentTextMode = WITHOUT_TEXT;
+
+    private Bitmap photoBitmap = Bitmap.createBitmap(1024, 1024, Bitmap.Config.ARGB_8888);
 
 	//private boolean isLeft;
 
@@ -42,6 +62,8 @@ public class EditPhotoActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
 		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
+
+        photoBitmap.eraseColor(Color.RED);
 
 		bottomTabs = new ImageButton[4];
 		bottomTabs[0] = (ImageButton) findViewById(R.id.chooseLayoutTab);
@@ -90,18 +112,39 @@ public class EditPhotoActivity extends SherlockActivity {
 				R.layout.image_source_list_item,
 				R.id.image_source_list_item_text, getResources()
 						.getStringArray(R.array.image_source_labels)));
+
+        // init buttons
+        ImageView editPhotoLayoutAllButton = (ImageView) findViewById(R.id.edit_photo_layout_all_button);
+        editPhotoLayoutAllButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentFrameMode = FULL_SCREEN_MODE;
+                setLayoutMode(currentFrameMode, currentTextMode);
+            }
+        });
+        ImageView editPhotoLayoutRoundeButton = (ImageView) findViewById(R.id.edit_photo_layout_rounded_button);
+        editPhotoLayoutRoundeButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentFrameMode = FULL_SCREEN_WITH_CORNER_MODE;
+                setLayoutMode(currentFrameMode, currentTextMode);
+            }
+        });
+        ImageView editPhotoLayoutCenterButton = (ImageView) findViewById(R.id.edit_photo_layout_center_button);
+        editPhotoLayoutCenterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentFrameMode = IN_FRAME_MODE;
+                setLayoutMode(currentFrameMode, currentTextMode);
+            }
+        });
 	}
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        ImageView previewImage = (ImageView) findViewById(R.id.previewImage);
-        ImageView previewCover = (ImageView) findViewById(R.id.previewCover);
-        Log.e("SSAI", String.valueOf(previewImage.getMeasuredWidth()));
-        RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(previewImage.getMeasuredWidth(), previewImage.getMeasuredWidth());
-        previewImage.setLayoutParams(relativeLayoutParams);
-        previewCover.setLayoutParams(relativeLayoutParams);
+        setLayoutMode(currentFrameMode, currentTextMode);
     }
 
     private void renderSelectedButton(Integer selectedButtonId) {
@@ -189,4 +232,170 @@ public class EditPhotoActivity extends SherlockActivity {
 		((RadioGroup) view.getParent()).check(view.getId());
 		// app specific stuff ..
 	}
+
+    private void setLayoutMode(int frameMode, int textMode) {
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
+        ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+        ImageView backgroundFrame = (ImageView) findViewById(R.id.backgroundFrame);
+        ImageView photo = (ImageView) findViewById(R.id.photo);
+
+        // mainFrame
+        RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(), mainFrame.getMeasuredWidth());
+        mainFrame.setLayoutParams(relativeLayoutParams);
+
+        // backgroundRect
+        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
+        backgroundRectDImage.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+                null,
+                null));
+        backgroundRectDImage.getPaint().setColor(Color.GREEN);
+        backgroundRect.setBackgroundDrawable(backgroundRectDImage);
+
+        // backgroundFrame
+        ShapeDrawable backgroundFrameDImage = new ShapeDrawable();
+        backgroundFrameDImage.setShape(new RectShape());
+        backgroundFrameDImage.getPaint().setColor(Color.BLUE);
+        backgroundFrame.setBackgroundDrawable(backgroundFrameDImage);
+
+        switch (frameMode) {
+            case FULL_SCREEN_MODE:
+                fullScreenMode(backgroundRect,
+                        backgroundFrame,
+                        photo);
+                break;
+            case FULL_SCREEN_WITH_CORNER_MODE:
+                fullScreenWithCornerMode(backgroundRect,
+                        backgroundFrame,
+                        photo);
+                break;
+            case IN_FRAME_MODE:
+                inFrameMode(backgroundRect,
+                        backgroundFrame,
+                        photo);
+                break;
+            default:
+                throw new IllegalStateException("setLayoutMode: undefined frameMode");
+        }
+
+        switch (textMode) {
+            case WITHOUT_TEXT:
+                // do nothing
+                break;
+            case WITH_TEXT:
+                // update backgroundFrame and photo size
+                break;
+            default:
+                throw new IllegalStateException("setLayoutMode: undefined textMode");
+        }
+    }
+
+    private void fullScreenMode(ImageView backgroundRect,
+                                ImageView backgroundFrame,
+                                ImageView photo) {
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
+        // backgroundRect
+        int backgroundRectrelativeLayoutParamsMargin = 5;
+        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        backgroundRectrelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
+
+
+        backgroundFrame.setVisibility(View.GONE);
+
+        // photo
+        int photoRelativeLayoutParamsMargin = 30;
+        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        photoRelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        photo.setLayoutParams(photoRelativeLayoutParams);
+        photo.setImageBitmap(photoBitmap);
+    }
+
+    private void fullScreenWithCornerMode(ImageView backgroundRect,
+                                          ImageView backgroundFrame,
+                                          ImageView photo) {
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
+        // backgroundRect
+        int backgroundRectrelativeLayoutParamsMargin = 5;
+        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        backgroundRectrelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
+
+
+        backgroundFrame.setVisibility(View.GONE);
+
+        // photo
+        int photoRelativeLayoutParamsMargin = 30;
+        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        photoRelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        photo.setLayoutParams(photoRelativeLayoutParams);
+        photo.setImageBitmap(ImageHelper.getRoundedCornerBitmap(photoBitmap, 50));
+    }
+
+    private void inFrameMode(ImageView backgroundRect,
+                             ImageView backgroundFrame,
+                             ImageView photo) {
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
+        // backgroundRect
+        int backgroundRectrelativeLayoutParamsMargin = 5;
+        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        backgroundRectrelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
+
+
+        // backgroundFrame
+        backgroundFrame.setVisibility(View.VISIBLE);
+        int backgroundFrameRelativeLayoutParamsMargin = 45;
+        RelativeLayout.LayoutParams backgroundFrameRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        backgroundFrameRelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundFrameRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        backgroundFrame.setLayoutParams(backgroundFrameRelativeLayoutParams);
+
+        // photo
+        int photoRelativeLayoutParamsMargin = backgroundFrameRelativeLayoutParamsMargin + 10;
+        RelativeLayout.LayoutParams photoRelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        photoRelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoRelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        photo.setLayoutParams(photoRelativeLayoutParams);
+        photo.setImageBitmap(photoBitmap);
+    }
 }
