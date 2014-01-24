@@ -48,9 +48,14 @@ public class RegistrationActivity extends Activity {
 			String fPasswordString = firstPasswordField.getText().toString();
 			String sPasswwordString = secondPasswordField.getText().toString();
 			if (!fPasswordString.equals(sPasswwordString)) {
-			      Toast.makeText(getApplicationContext(), R.string.registration_passwordNotEqual, 
-			    		  Toast.LENGTH_LONG).show();
-			      return;
+			    Toast.makeText(getApplicationContext(), R.string.registration_passwordNotEqual, 
+			    		Toast.LENGTH_LONG).show();
+			    return;
+			}
+			if (fPasswordString.length() < 6) {
+				Toast.makeText(getApplicationContext(), R.string.registration_passwordToShort, 
+						Toast.LENGTH_LONG).show();
+				return;
 			}
 			try {
 				final Properties connectionProperties = new Properties();
