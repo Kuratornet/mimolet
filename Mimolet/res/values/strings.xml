@@ -70,6 +70,7 @@
     <string name="registration_registrationButtonText">Регистрация</string>
     <string name="registration_passwordNotEqual">Введенные пароли не совпадают</string>
     <string name="registration_passwordToShort">Веденный пароль слишком короткий. В пароле должно быть минимум 6 символов.</string>
+    <string name="registration_thisIsNotEmail">Введите пожалуйста электонный адрес в первое поле</string>
     <string name="registration_wrongLoginToast">Пользователь с таким E-mail уже существует, попробуйте восстановить пароль к нему или выберете другой электронный адрес</string>
 
 </resources>

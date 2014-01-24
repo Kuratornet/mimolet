@@ -2,6 +2,8 @@ package com.mimolet.android;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -47,24 +49,31 @@ public class RegistrationActivity extends Activity {
 			String login = loginField.getText().toString();
 			String fPasswordString = firstPasswordField.getText().toString();
 			String sPasswwordString = secondPasswordField.getText().toString();
-			if (!fPasswordString.equals(sPasswwordString)) {
-			    Toast.makeText(getApplicationContext(), R.string.registration_passwordNotEqual, 
-			    		Toast.LENGTH_LONG).show();
-			    return;
-			}
-			if (fPasswordString.length() < 6) {
-				Toast.makeText(getApplicationContext(), R.string.registration_passwordToShort, 
+			Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+			Matcher m = p.matcher(login);
+			if (m.matches()) {
+				if (!fPasswordString.equals(sPasswwordString)) {
+				    Toast.makeText(getApplicationContext(), R.string.registration_passwordNotEqual, 
+				    		Toast.LENGTH_LONG).show();
+				    return;
+				}
+				if (fPasswordString.length() < 6) {
+					Toast.makeText(getApplicationContext(), R.string.registration_passwordToShort, 
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+				try {
+					final Properties connectionProperties = new Properties();
+					connectionProperties.load(getAssets().open("connection.properties"));
+					String serverUrl = connectionProperties.getProperty("server_url")
+							+ connectionProperties.getProperty("registration");
+					new RegistrationTask(thisActivity).execute(login, firstPasswordField.getText().toString(), serverUrl);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.registration_thisIsNotEmail, 
 						Toast.LENGTH_LONG).show();
-				return;
-			}
-			try {
-				final Properties connectionProperties = new Properties();
-				connectionProperties.load(getAssets().open("connection.properties"));
-				String serverUrl = connectionProperties.getProperty("server_url")
-						+ connectionProperties.getProperty("registration");
-				new RegistrationTask(thisActivity).execute(login, firstPasswordField.getText().toString(), serverUrl);
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 	}
