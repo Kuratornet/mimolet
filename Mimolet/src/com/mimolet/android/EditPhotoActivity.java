@@ -191,7 +191,6 @@ public class EditPhotoActivity extends SherlockActivity {
 			changePhotoPopup.setVisibility(View.GONE);
             if (previouslySelectedButton.equals(R.id.addTextTab) &&
                     "".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
-                // remove text label
                 currentTextMode = WITHOUT_TEXT;
                 updateLayoutMode();
             }
@@ -210,6 +209,10 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.GONE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.GONE);
+                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                    currentTextMode = WITHOUT_TEXT;
+                    updateLayoutMode();
+                }
 				break;
 			case R.id.chooseBackgroundTab:
                 params.addRule(RelativeLayout.ABOVE, R.id.popup_background);
@@ -217,6 +220,10 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.VISIBLE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.GONE);
+                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                    currentTextMode = WITHOUT_TEXT;
+                    updateLayoutMode();
+                }
 				break;
 			case R.id.addTextTab:
                 params.addRule(RelativeLayout.ABOVE, R.id.popup_text);
@@ -233,6 +240,10 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.GONE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.VISIBLE);
+                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                    currentTextMode = WITHOUT_TEXT;
+                    updateLayoutMode();
+                }
 				break;
 			}
             ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
@@ -291,6 +302,7 @@ public class EditPhotoActivity extends SherlockActivity {
             case WITH_TEXT:
                 // update backgroundFrame and photo size
                 editText.setVisibility(View.VISIBLE);
+                editText.requestFocus();
                 break;
             default:
                 throw new IllegalStateException("setLayoutMode: undefined textMode");
@@ -334,19 +346,17 @@ public class EditPhotoActivity extends SherlockActivity {
             default:
                 throw new IllegalStateException("updatePhotoLayout: undefined frameMode");
         }
-        EditText editText = (EditText) findViewById(R.id.editText1);
-        switch (currentTextMode) {
-            case WITHOUT_TEXT:
-                break;
-            case WITH_TEXT:
-                break;
-            default:
-                throw new IllegalStateException("setLayoutMode: undefined textMode");
-        }
+        //EditText editText = (EditText) findViewById(R.id.editText1);
 
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
+        RelativeLayout.LayoutParams photoImageLinearLayoutParams = null;
+        if (currentTextMode == WITHOUT_TEXT) {
+            photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                    mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
+        } else {
+            photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            photoImageLinearLayoutParams.addRule(RelativeLayout.ABOVE, R.id.editText1);
+        }
         photoImageLinearLayoutParams.setMargins(
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
