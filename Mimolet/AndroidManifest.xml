@@ -61,6 +61,7 @@
         <activity
             android:name="com.mimolet.android.EditPhotoActivity"
             android:label="@string/edit_photo_activity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
