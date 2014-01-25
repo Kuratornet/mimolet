@@ -118,7 +118,7 @@ public class EditPhotoActivity extends SherlockActivity {
             @Override
             public void onClick(View view) {
                 currentFrameMode = FULL_SCREEN_MODE;
-                setLayoutMode(currentFrameMode, currentTextMode);
+                updateLayoutMode();
             }
         });
         ImageView editPhotoLayoutRoundeButton = (ImageView) findViewById(R.id.edit_photo_layout_rounded_button);
@@ -126,7 +126,7 @@ public class EditPhotoActivity extends SherlockActivity {
             @Override
             public void onClick(View view) {
                 currentFrameMode = FULL_SCREEN_WITH_CORNER_MODE;
-                setLayoutMode(currentFrameMode, currentTextMode);
+                updateLayoutMode();
             }
         });
         ImageView editPhotoLayoutCenterButton = (ImageView) findViewById(R.id.edit_photo_layout_center_button);
@@ -134,7 +134,7 @@ public class EditPhotoActivity extends SherlockActivity {
             @Override
             public void onClick(View view) {
                 currentFrameMode = IN_FRAME_MODE;
-                setLayoutMode(currentFrameMode, currentTextMode);
+                updateLayoutMode();
             }
         });
 	}
@@ -143,7 +143,28 @@ public class EditPhotoActivity extends SherlockActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        setLayoutMode(currentFrameMode, currentTextMode);
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
+        ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+        // backgroundRect once
+        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
+        backgroundRectDImage.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+                null,
+                null));
+        backgroundRectDImage.getPaint().setColor(Color.GREEN);
+        backgroundRect.setBackgroundDrawable(backgroundRectDImage);
+
+        int backgroundRectrelativeLayoutParamsMargin = 5;
+        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
+                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
+        backgroundRectrelativeLayoutParams.setMargins(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
+        );
+        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
+
+        updateLayoutMode();
     }
 
     private void renderSelectedButton(Integer selectedButtonId) {
@@ -168,6 +189,12 @@ public class EditPhotoActivity extends SherlockActivity {
 			chooseBackgroundPopup.setVisibility(View.GONE);
 			addTextPopup.setVisibility(View.GONE);
 			changePhotoPopup.setVisibility(View.GONE);
+            if (previouslySelectedButton.equals(R.id.addTextTab) &&
+                    "".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                // remove text label
+                currentTextMode = WITHOUT_TEXT;
+                updateLayoutMode();
+            }
 			previouslySelectedButton = null;
 		} else {
             @SuppressWarnings("deprecation")
@@ -197,6 +224,8 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.GONE);
 				addTextPopup.setVisibility(View.VISIBLE);
 				changePhotoPopup.setVisibility(View.GONE);
+                currentTextMode = WITH_TEXT;
+                updateLayoutMode();
 				break;
 			case R.id.changePhotoTab:
                 params.addRule(RelativeLayout.ABOVE, R.id.popup_change_photo);
@@ -232,44 +261,31 @@ public class EditPhotoActivity extends SherlockActivity {
 		// app specific stuff ..
 	}
 
-    private void setLayoutMode(int frameMode, int textMode) {
+    private void updateLayoutMode() {
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
         ImageView photo = (ImageView) findViewById(R.id.photo);
 
         // mainFrame
         RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(), mainFrame.getMeasuredWidth());
         mainFrame.setLayoutParams(relativeLayoutParams);
 
-        // backgroundRect
-        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
-        backgroundRectDImage.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-                null,
-                null));
-        backgroundRectDImage.getPaint().setColor(Color.GREEN);
-        backgroundRect.setBackgroundDrawable(backgroundRectDImage);
-
-        switch (frameMode) {
+        switch (currentFrameMode) {
             case FULL_SCREEN_MODE:
-                fullScreenMode(backgroundRect,
-                        photo);
+                fullScreenMode(photo);
                 break;
             case FULL_SCREEN_WITH_CORNER_MODE:
-                fullScreenWithCornerMode(backgroundRect,
-                        photo);
+                fullScreenWithCornerMode(photo);
                 break;
             case IN_FRAME_MODE:
-                inFrameMode(backgroundRect,
-                        photo);
+                inFrameMode(photo);
                 break;
             default:
                 throw new IllegalStateException("setLayoutMode: undefined frameMode");
         }
 
         EditText editText = (EditText) findViewById(R.id.editText1);
-        switch (textMode) {
+        switch (currentTextMode) {
             case WITHOUT_TEXT:
-                // do nothing
                 editText.setVisibility(View.GONE);
                 break;
             case WITH_TEXT:
@@ -281,88 +297,54 @@ public class EditPhotoActivity extends SherlockActivity {
         }
     }
 
-    private void fullScreenMode(ImageView backgroundRect,
-                                ImageView photo) {
-        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        // backgroundRect
-        int backgroundRectrelativeLayoutParamsMargin = 5;
-        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        backgroundRectrelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
-        );
-        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
-
-        // photo
-        LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
-        int photoImageLinearLayoutMargin = 30;
-        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
-        photoImageLinearLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
-        );
-        photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+    private void fullScreenMode(ImageView photo) {
+        updatePhotoLayout(photo);
         photo.setPadding(0, 0, 0, 0);
         photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(photoBitmap);
     }
 
-    private void fullScreenWithCornerMode(ImageView backgroundRect,
-                                          ImageView photo) {
-        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        // backgroundRect
-        int backgroundRectrelativeLayoutParamsMargin = 5;
-        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        backgroundRectrelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
-        );
-        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
-
-        // photo
-        LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
-        int photoImageLinearLayoutMargin = 30;
-        RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
-        photoImageLinearLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
-        );
-        photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+    private void fullScreenWithCornerMode(ImageView photo) {
+        updatePhotoLayout(photo);
         photo.setPadding(0, 0, 0, 0);
         photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(ImageHelper.getRoundedCornerBitmap(photoBitmap, 50));
     }
 
-    private void inFrameMode(ImageView backgroundRect,
-                             ImageView photo) {
-        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        // backgroundRect
-        int backgroundRectrelativeLayoutParamsMargin = 5;
-        RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
-                mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
-        backgroundRectrelativeLayoutParams.setMargins(
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()),
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics())
-        );
-        backgroundRect.setLayoutParams(backgroundRectrelativeLayoutParams);
+    private void inFrameMode(ImageView photo) {
+        updatePhotoLayout(photo);
+        photo.setPadding(20, 20, 20, 20);
+        photo.setBackgroundColor(Color.BLACK);
+        photo.setImageBitmap(photoBitmap);
+    }
 
-        // photo
+    private void updatePhotoLayout(ImageView photo) {
         LinearLayout photoImageLinearLayout = (LinearLayout) findViewById(R.id.photoImageLinearLayout);
-        int photoImageLinearLayoutMargin = 55;
+        int photoImageLinearLayoutMargin = 0;
+        switch (currentFrameMode) {
+            case FULL_SCREEN_MODE:
+                photoImageLinearLayoutMargin = 30;
+                break;
+            case FULL_SCREEN_WITH_CORNER_MODE:
+                photoImageLinearLayoutMargin = 30;
+                break;
+            case IN_FRAME_MODE:
+                photoImageLinearLayoutMargin = 55;
+                break;
+            default:
+                throw new IllegalStateException("updatePhotoLayout: undefined frameMode");
+        }
+        EditText editText = (EditText) findViewById(R.id.editText1);
+        switch (currentTextMode) {
+            case WITHOUT_TEXT:
+                break;
+            case WITH_TEXT:
+                break;
+            default:
+                throw new IllegalStateException("setLayoutMode: undefined textMode");
+        }
+
+        ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
         RelativeLayout.LayoutParams photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
                 mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
         photoImageLinearLayoutParams.setMargins(
@@ -372,8 +354,5 @@ public class EditPhotoActivity extends SherlockActivity {
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
         );
         photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
-        photo.setPadding(20, 20, 20, 20);
-        photo.setBackgroundColor(Color.BLACK);
-        photo.setImageBitmap(photoBitmap);
     }
 }
