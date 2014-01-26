@@ -91,6 +91,7 @@ public class RegistrationTask extends AsyncTask<String, Void, RegistrationTask.E
 			sqdb.close();
 			sqh.close();
 			new GetOrdersListTask(parent).execute();
+			parent.finish();
 			break;
 		case WRONG_LOGIN:
 			Toast.makeText(parent.getApplicationContext(),
