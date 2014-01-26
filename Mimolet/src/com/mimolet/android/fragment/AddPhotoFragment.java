@@ -25,8 +25,8 @@ public class AddPhotoFragment extends Fragment {
 
 	private Order order;
 
-	private final String[] listviewItems = new String[] { "Phone memory",
-			"Facebook", "Instagram", "Google+" };
+	private final String[] listviewItems = new String[] { "Phone memory"/*,
+			"Facebook", "Instagram", "Google+" */};
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
