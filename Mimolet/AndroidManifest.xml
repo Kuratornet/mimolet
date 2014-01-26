@@ -75,6 +75,10 @@
             android:name="com.mimolet.android.RegistrationActivity"
             android:label="@string/title_activity_registration" >
         </activity>
+        <activity
+            android:name="com.mimolet.android.RestorePasswordActivity"
+            android:label="@string/title_activity_restore_password" >
+        </activity>
     </application>
     <application
         android:name="com.mimolet.android.GlobalVariables"

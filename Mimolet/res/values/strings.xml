@@ -72,5 +72,9 @@
     <string name="registration_passwordToShort">Веденный пароль слишком короткий. В пароле должно быть минимум 6 символов.</string>
     <string name="registration_thisIsNotEmail">Введите пожалуйста электонный адрес в первое поле</string>
     <string name="registration_wrongLoginToast">Пользователь с таким E-mail уже существует, попробуйте восстановить пароль к нему или выберете другой электронный адрес</string>
+    <string name="restore_restoreButtonText">Восстановить пароль</string>
+    <string name="restore_thisIsNotEmail">Вы ввели не электронный адрес, повторите ввод!</string>
+    <string name="restore_restoreRestoreText">Для восстановления пароля введите e-mail</string>
+    <string name="title_activity_restore_password">RestorePassword</string>
 
 </resources>
