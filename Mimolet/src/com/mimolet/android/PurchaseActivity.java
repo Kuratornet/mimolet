@@ -1,16 +1,15 @@
 package com.mimolet.android;
 
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.mimolet.android.task.PreviwImageShowTask;
 
 public class PurchaseActivity extends Activity {
 	  private static final String TAG = "PurchaseActivity";
@@ -33,11 +32,12 @@ public class PurchaseActivity extends Activity {
 	TextView additionalPagesPrice;
 	TextView overalPrice;
 	
-	protected Bitmap coverFromURL;
 	boolean checker = true;
 	
-	protected void setBitmap(Bitmap image) {
-		this.coverFromURL = image;
+	public void setCoverImage(Bitmap image) {
+		if (image != null) {
+			orderCover.setImageBitmap(image);
+		}
 	}
 	
 	@Override
@@ -47,14 +47,8 @@ public class PurchaseActivity extends Activity {
 	    Intent itemIntent = getIntent();
 	    orderCover = (ImageView) findViewById(R.id.purchaseOrderCover);
 	    final String imageURL = itemIntent.getStringExtra("image");
-	    NotUiThread noUI = new NotUiThread(imageURL);
-	    noUI.start();
-	    while (checker) {
-	    	if (coverFromURL != null) {
-	    		orderCover.setImageBitmap(coverFromURL);
-	    		checker = false;
-	    	}
-	    }
+	    Log.i(TAG, "Try to get image");
+	    new PreviwImageShowTask(this).execute(imageURL);
 //	    (new Thread() {
 //	    	@Override
 //			public void run() {
@@ -100,26 +94,5 @@ public class PurchaseActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.purchase, menu);
 		return true;
-	}
-
-	private class NotUiThread extends Thread {
-		String urlPath;
-		
-		public NotUiThread (String path) {
-			this.urlPath = path;
-		}
-		
-		@Override
-		public void run() {
-            try {
-                InputStream in = new java.net.URL(urlPath).openStream();
-                coverFromURL = BitmapFactory.decodeStream(in);
-                //orderCover.setImageBitmap(coverFromURL);
-            } catch (Exception e) {
-                Log.e(TAG, "Something goes wrong!");
-                checker = false;
-                e.printStackTrace();
-            }
-		}
 	}
 }
