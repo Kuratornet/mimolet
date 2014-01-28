@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.task.PreviwImageShowTask;
 
 public class PurchaseActivity extends Activity {
@@ -49,31 +50,18 @@ public class PurchaseActivity extends Activity {
 	    final String imageURL = itemIntent.getStringExtra("image");
 	    Log.i(TAG, "Try to get image");
 	    new PreviwImageShowTask(this).execute(imageURL);
-//	    (new Thread() {
-//	    	@Override
-//			public void run() {
-//	            try {
-//	                InputStream in = new java.net.URL(imageURL).openStream();
-//	                coverFromURL = BitmapFactory.decodeStream(in);
-//	                orderCover.setImageBitmap(coverFromURL);
-//	            } catch (Exception e) {
-//	                Log.e(TAG, "Something goes wrong!");
-//	                e.printStackTrace();
-//	            }
-//			}
-//	    }).start();
         orderName = (TextView) findViewById(R.id.purchaseOrderName);
 		orderName.setText(itemIntent.getStringExtra("orderName"));
 		bindingType = (TextView) findViewById(R.id.purchaseBindingValueText);
-		bindingType.setText(itemIntent.getStringExtra("binding"));
+		bindingType.setText(GlobalVariables.bindingType[Integer.valueOf(itemIntent.getStringExtra("binding"))]);
 		coverType = (TextView) findViewById(R.id.purchaseCoverValueText);
-		coverType.setText(itemIntent.getStringExtra("cover"));
+		coverType.setText(GlobalVariables.coverType[Integer.valueOf(itemIntent.getStringExtra("cover"))]);
 		paperType = (TextView) findViewById(R.id.purchasePaperValueText);
-		paperType.setText(itemIntent.getStringExtra("paper"));
+		paperType.setText(GlobalVariables.paperType[Integer.valueOf(itemIntent.getStringExtra("paper"))]);
 		printType = (TextView) findViewById(R.id.purchasePrintValueText);
-		printType.setText(itemIntent.getStringExtra("print"));
+		printType.setText(GlobalVariables.printType[Integer.valueOf(itemIntent.getStringExtra("print"))]);
 		blockSize = (TextView) findViewById(R.id.purchaseBlockSizeValueText);
-		blockSize.setText(itemIntent.getStringExtra("blockSize"));
+		blockSize.setText(GlobalVariables.blockSizeType[Integer.valueOf(itemIntent.getStringExtra("blockSize"))]);
 		pagesCount = (TextView) findViewById(R.id.purchasePagesValueTextText);
 		pagesCount.setText(itemIntent.getStringExtra("pages"));
 		amountValue = (TextView) findViewById(R.id.purchaseAmountValueText);
