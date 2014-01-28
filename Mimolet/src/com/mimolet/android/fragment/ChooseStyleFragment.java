@@ -16,9 +16,7 @@ import android.widget.Spinner;
 import com.mimolet.android.R;
 import com.mimolet.android.adapter.TextWatcherAdapter;
 
-import entity.Binding;
 import entity.Order;
-import entity.Size;
 
 public class ChooseStyleFragment extends Fragment {
 
@@ -76,7 +74,7 @@ public class ChooseStyleFragment extends Fragment {
       @Override
       public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         if (bindingSpinner.getSelectedItemPosition() == 0) {
-          order.setBinding(Binding.SOFT_ON_SKOBA);
+          order.setBinding(1);
         }
       }
 
@@ -97,7 +95,7 @@ public class ChooseStyleFragment extends Fragment {
       @Override
       public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         if (sizeSpinner.getSelectedItem().equals("20x20")) {
-          order.setPaper(Size.TWENTY_X_TWENTY);
+          order.setPaper(1);
         }
       }
 

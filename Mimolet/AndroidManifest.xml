@@ -61,8 +61,8 @@
         <activity
             android:name="com.mimolet.android.EditPhotoActivity"
             android:label="@string/edit_photo_activity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
@@ -79,6 +79,10 @@
         <activity
             android:name="com.mimolet.android.RestorePasswordActivity"
             android:label="@string/title_activity_restore_password" >
+        </activity>
+        <activity
+            android:name="com.mimolet.android.PurchaseActivity"
+            android:label="@string/title_activity_purchase" >
         </activity>
     </application>
     <application

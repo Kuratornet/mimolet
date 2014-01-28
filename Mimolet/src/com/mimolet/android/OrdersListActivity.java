@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mimolet.android.adapter.OrderArrayAdapter;
 import com.mimolet.android.global.GlobalVariables;
@@ -19,6 +18,15 @@ import com.mimolet.android.global.GlobalVariables;
 public class OrdersListActivity extends ListActivity {
 
   private final Activity activity = this;
+  String[] orders;
+  String[] images;
+  String[] createData;
+  String[] bindingsDate;
+  String[] paperData;
+  String[] printData;
+  String[] coverData;
+  String[] blockSizeData;
+  String[] pagesData;
 
   final BottomMenu bottomMenu = new BottomMenu();
 
@@ -28,9 +36,15 @@ public class OrdersListActivity extends ListActivity {
     setContentView(R.layout.activity_orders_list);
 
     Intent intent = getIntent();
-    String[] orders = intent.getStringArrayExtra("orders");
-    String[] images = intent.getStringArrayExtra("imageSources");
-    String[] createData = intent.getStringArrayExtra("createData");
+    orders = intent.getStringArrayExtra("orders");
+    images = intent.getStringArrayExtra("imageSources");
+    createData = intent.getStringArrayExtra("createData");
+    bindingsDate = intent.getStringArrayExtra("bindingsDate");
+    paperData = intent.getStringArrayExtra("paperData");
+    printData = intent.getStringArrayExtra("printData");
+    coverData = intent.getStringArrayExtra("coverData");
+    blockSizeData = intent.getStringArrayExtra("blockSizeData");
+    pagesData = intent.getStringArrayExtra("pagesData");
     // in call activity use intent.putExtra("")
     getListView().setAdapter(new OrderArrayAdapter(this, R.id.undobar, orders, images, createData));
   }
@@ -38,7 +52,17 @@ public class OrdersListActivity extends ListActivity {
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
 
-    Toast.makeText(this, R.string.order_item_error, Toast.LENGTH_SHORT).show();
+    Intent itemIntent = new Intent(OrdersListActivity.this, PurchaseActivity.class);
+    itemIntent.putExtra("orderName", orders[position]);
+    itemIntent.putExtra("image", images[position]);
+    itemIntent.putExtra("createData", createData[position]);
+    itemIntent.putExtra("binding", bindingsDate[position]);
+    itemIntent.putExtra("paper", paperData[position]);
+    itemIntent.putExtra("print", printData[position]);
+    itemIntent.putExtra("cover", coverData[position]);
+    itemIntent.putExtra("blockSize", blockSizeData[position]);
+    itemIntent.putExtra("pages", pagesData[position]);
+    startActivity(itemIntent);
 
   }
 

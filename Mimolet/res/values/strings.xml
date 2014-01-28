@@ -78,5 +78,18 @@
     <string name="restore_thisIsNotEmail">Вы ввели не электронный адрес, повторите ввод!</string>
     <string name="restore_restoreRestoreText">Для восстановления пароля введите e-mail</string>
     <string name="title_activity_restore_password">RestorePassword</string>
+    <string name="title_activity_purchase">PurchaseActivity</string>
+    <string name="purchase_imageDescription">PurchaseFrontImage</string>
+    <string name="purchase_bindingDescript">Переплет:</string>
+    <string name="purchase_coverDescription">Обложка:</string>
+    <string name="purchase_paperDescription">Бумага:</string>
+    <string name="purchase_printDescription">Печать:</string>
+    <string name="purchase_blockSizeDescription">Размер блока:</string>
+    <string name="purchase_pagesAmountDescription">Старниц:</string>
+    <string name="purchase_amountDescription">Экземпляры</string>
+    <string name="purchase_additionalPagesDescription">Доп страницы</string>
+    <string name="purchase_togetherDescription">ВСЕГО</string>
+    <string name="purchase_buttonPurchaseText">Заказать книгу</string>
+    <string name="purchase_testString">Needset</string>
 
 </resources>

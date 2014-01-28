@@ -1,0 +1,335 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".PurchaseActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_menu"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignParentTop="true"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/purchaseOrderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:text="@string/purchase_testString"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/firebrick" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/purchaseOrderCover"
+            android:layout_toRightOf="@+id/purchaseOrderCover"
+            android:paddingLeft="5dp"
+            android:text="@string/purchase_bindingDescript"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_toRightOf="@+id/purchaseOrderCover"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_coverDescription"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_paperDescription"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_below="@+id/textView4"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_printDescription"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_blockSizeDescription"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_pagesAmountDescription"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/registration_bt"
+            android:text="@string/purchase_buttonPurchaseText"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/purchaseBindingValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:text="@string/purchase_testString" />
+
+        <TextView
+            android:id="@+id/purchaseCoverValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/purchaseBindingValueText"
+            android:text="@string/purchase_testString" />
+
+        <TextView
+            android:id="@+id/purchasePaperValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView5"
+            android:layout_alignLeft="@+id/purchaseCoverValueText"
+            android:text="@string/purchase_testString" />
+
+        <TextView
+            android:id="@+id/purchasePrintValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView6"
+            android:layout_alignLeft="@+id/purchasePaperValueText"
+            android:text="@string/purchase_testString" />
+
+        <TextView
+            android:id="@+id/purchasePagesValueTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView7"
+            android:layout_alignLeft="@+id/purchasePrintValueText"
+            android:text="@string/purchase_testString" />
+
+        <TextView
+            android:id="@+id/purchaseBlockSizeValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_toRightOf="@+id/textView6"
+            android:paddingLeft="3dp"
+            android:text="@string/purchase_testString" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/purchaseOrderName"
+            android:contentDescription="@string/purchase_imageDescription"
+            android:focusable="true"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/line_3" />
+
+        <ImageView
+            android:id="@+id/purchaseOrderCover"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView2"
+            android:contentDescription="@string/purchase_imageDescription"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/purchaseOrderCover"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/purchase_amountDescription"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView9"
+            android:contentDescription="@string/purchase_imageDescription"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/line_3" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView8"
+            android:contentDescription="@string/purchase_imageDescription"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/line_3" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView3"
+            android:paddingLeft="5dp"
+            android:text="@string/purchase_additionalPagesDescription"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView4"
+            android:paddingLeft="5dp"
+            android:text="@string/purchase_togetherDescription"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/purchaseAmountValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_centerHorizontal="true"
+            android:text="@string/purchase_testString"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/purchaseAdditionalPagesPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:text="@string/purchase_testString"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/purchaseSingleBookPriceValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageView3"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:text="@string/purchase_testString"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/purchaseOveralPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView10"
+            android:layout_alignBottom="@+id/textView10"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:text="@string/purchase_testString"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/purchaseAdditionalPagesValueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageView4"
+            android:layout_alignLeft="@+id/purchaseAmountValueText"
+            android:text="@string/purchase_testString"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="0dp" >
+
+        <ImageButton
+            android:id="@+id/bottomtab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="205"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab1"
+            android:clickable="true"
+            android:onClick="myOrders" />
+
+        <ImageButton
+            android:id="@+id/bottomtab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="239"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab2"
+            android:clickable="true"
+            android:onClick="createBook" />
+
+        <ImageButton
+            android:id="@+id/bottomtab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="196"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bottom_tab3"
+            android:clickable="true"
+            android:onClick="paidOrders" />
+    </LinearLayout>
+
+</RelativeLayout>

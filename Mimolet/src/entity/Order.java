@@ -19,9 +19,9 @@ public class Order implements Serializable {
 
   private Integer ownerId;
 
-  private Binding binding;
+  private Integer binding;
 
-  private Size paper;
+  private Integer paper;
 
   private Integer print;
 
@@ -79,19 +79,19 @@ public class Order implements Serializable {
     this.description = description;
   }
 
-  public Binding getBinding() {
+  public Integer getBinding() {
     return binding;
   }
 
-  public void setBinding(Binding binding) {
+  public void setBinding(Integer binding) {
     this.binding = binding;
   }
 
-  public Size getPaper() {
+  public Integer getPaper() {
     return paper;
   }
 
-  public void setPaper(Size paper) {
+  public void setPaper(Integer paper) {
     this.paper = paper;
   }
 

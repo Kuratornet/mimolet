@@ -63,16 +63,35 @@ public class GlobalMethods {
     final String[] ordersName = new String[orders.size()];
     final String[] imageSourcesLinks = new String[orders.size()];
     final String[] ordersDate = new String[orders.size()];
+    final String[] bindingsDate = new String[orders.size()];
+    final String[] paperData = new String[orders.size()];
+    final String[] printData = new String[orders.size()];
+    final String[] coverData = new String[orders.size()];
+    final String[] blockSizeData = new String[orders.size()];
+    final String[] pagesData = new String[orders.size()];
+    
     for (int i = 0; i < orders.size(); i++) {
       ordersName[i] = orders.get(i).getDescription();
       imageSourcesLinks[i] = orders.get(i).getImagelink();
       ordersDate[i] = orders.get(i).getCreateData().toString();
+      bindingsDate[i] = orders.get(i).getBinding().toString();
+      paperData[i] = orders.get(i).getPaper().toString();
+      printData[i] = orders.get(i).getPrint().toString();
+      coverData[i] = orders.get(i).getBinding().toString();
+      blockSizeData[i] = orders.get(i).getBlocksize().toString();
+      pagesData[i] = orders.get(i).getPages().toString();
     }
     final Intent intent = new Intent(activity.getApplicationContext(),
         OrdersListActivity.class);
     intent.putExtra("orders", ordersName);
     intent.putExtra("imageSources", imageSourcesLinks);
     intent.putExtra("createData", ordersDate);
+    intent.putExtra("bindingsDate", bindingsDate);
+    intent.putExtra("paperData", paperData);
+    intent.putExtra("printData", printData);
+    intent.putExtra("coverData", coverData);
+    intent.putExtra("blockSizeData", blockSizeData);
+    intent.putExtra("pagesData", pagesData);
     activity.startActivity(intent);
     activity.finish();
   }

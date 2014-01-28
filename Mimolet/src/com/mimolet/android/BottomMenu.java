@@ -15,6 +15,7 @@ public class BottomMenu {
     final Intent intent = new Intent(activity.getApplicationContext(),
         AddBookActivity.class);
     activity.startActivity(intent);
+    activity.finish();
   }
   
   public void openMyPaidOrders(Activity activity) {
