@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.task.PreviwImageShowTask;
 import com.mimolet.android.task.PurchaseOrderTask;
+import com.mimolet.android.util.Registry;
 
 public class PurchaseActivity extends Activity {
 	private static final String TAG = "PurchaseActivity";
@@ -114,7 +115,7 @@ public class PurchaseActivity extends Activity {
 						.getProperty("server_url")
 						+ connectionProperties.getProperty("purchaseorder");
 				new PurchaseOrderTask(thisActivity).execute(serverUrl,
-						String.valueOf(orderID));
+						String.valueOf(orderID), (String) Registry.get("email"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

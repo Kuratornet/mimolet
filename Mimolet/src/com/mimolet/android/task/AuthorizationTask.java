@@ -61,6 +61,7 @@ public class AuthorizationTask extends
 			}
 			final List<Cookie> cookies = httpClient.getCookieStore()
 					.getCookies();
+			Registry.register("email", params[0]);
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("JSESSIONID")) {
 					Registry.register("JSESSIONID", cookie.getValue());

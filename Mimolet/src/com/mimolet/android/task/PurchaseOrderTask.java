@@ -27,18 +27,21 @@ public class PurchaseOrderTask extends AsyncTask<String, Void, PurchaseOrderTask
 	private Activity parent;
 	
 	public PurchaseOrderTask(Activity activity) {
-		dialog = new ProgressDialog(this.parent);
 		this.parent = activity;  
+		dialog = new ProgressDialog(parent);
 	}
 	
 	@Override
 	protected ExecutionResult doInBackground(String... params) {
 		try {
+			
 			final HttpClient httpClient = new DefaultHttpClient();
 			final HttpPost httpPost = new HttpPost(params[0]);
 			final MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 			reqEntity.addPart("id", new StringBody(params[1]));
-			Log.i(TAG, "Request rdy");
+			reqEntity.addPart("email", new StringBody(params[2]));
+			Log.i(TAG, "Request rdy for order id " + params[1] + " and email " + params[2] + 
+					" to " + params[0]);
 			httpPost.setEntity(reqEntity);
 			final HttpResponse response = httpClient.execute(httpPost);
 			Log.i(TAG, "Get responce");

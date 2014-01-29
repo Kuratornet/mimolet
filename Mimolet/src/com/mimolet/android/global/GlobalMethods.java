@@ -13,12 +13,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mimolet.android.OrdersListActivity;
 import com.mimolet.android.R;
@@ -61,7 +62,7 @@ public class GlobalMethods {
 
 	public static void goToOrderList(Activity activity, View view,
 			List<Order> orders) {
-		final Integer[] ordersId = new Integer[orders.size()];
+		final int[] ordersId = new int[orders.size()];
 		final String[] ordersName = new String[orders.size()];
 		final String[] imageSourcesLinks = new String[orders.size()];
 		final String[] ordersDate = new String[orders.size()];
@@ -120,9 +121,14 @@ public class GlobalMethods {
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							Toast.makeText(activity,
-									R.string.server_unavailable,
-									Toast.LENGTH_LONG).show();
+							new AlertDialog.Builder(activity)
+					           .setMessage(R.string.server_unavailable)
+					           .setCancelable(false)
+					           .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					               public void onClick(DialogInterface dialog, int id) {
+					            	   activity.finish();
+					               }
+					           }).show();
 						}
 					});
 				}

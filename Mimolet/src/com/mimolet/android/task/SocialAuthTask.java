@@ -62,6 +62,7 @@ public class SocialAuthTask extends AsyncTask<String, Void, AuthorizationTask.Ex
 			final String line = rd.readLine();
 			Log.v(TAG, "Server answer line value = " + line);
 			if (line.equals("true")) {
+				Registry.register("email", params[0]);
 				final List<Cookie> cookies = ((AbstractHttpClient) httpClient).getCookieStore()
 						.getCookies();
 				for (Cookie cookie : cookies) {
