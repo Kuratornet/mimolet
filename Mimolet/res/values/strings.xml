@@ -91,5 +91,6 @@
     <string name="purchase_togetherDescription">ВСЕГО</string>
     <string name="purchase_buttonPurchaseText">Заказать книгу</string>
     <string name="purchase_testString">Needset</string>
+    <string name="purchase_orderPurchaseSuccesfull">Спасибо за Ваш заказ! Ожидайте уведомления на e-mail с инструкциями по оплате.</string>
 
 </resources>

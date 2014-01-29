@@ -18,6 +18,7 @@ import com.mimolet.android.global.GlobalVariables;
 public class OrdersListActivity extends ListActivity {
 
   private final Activity activity = this;
+  int[] ordersId;
   String[] orders;
   String[] images;
   String[] createData;
@@ -36,6 +37,7 @@ public class OrdersListActivity extends ListActivity {
     setContentView(R.layout.activity_orders_list);
 
     Intent intent = getIntent();
+    ordersId = intent.getIntArrayExtra("ids");
     orders = intent.getStringArrayExtra("orders");
     images = intent.getStringArrayExtra("imageSources");
     createData = intent.getStringArrayExtra("createData");
@@ -53,6 +55,7 @@ public class OrdersListActivity extends ListActivity {
   protected void onListItemClick(ListView l, View v, int position, long id) {
 
     Intent itemIntent = new Intent(OrdersListActivity.this, PurchaseActivity.class);
+    itemIntent.putExtra("id", ordersId[position]);
     itemIntent.putExtra("orderName", orders[position]);
     itemIntent.putExtra("image", images[position]);
     itemIntent.putExtra("createData", createData[position]);
