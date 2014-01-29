@@ -367,7 +367,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
-                    android:id="@+id/bindingSpinner"
+                    android:id="@+id/textFontBindingSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

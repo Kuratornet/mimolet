@@ -2,15 +2,31 @@ package com.mimolet.android;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -31,6 +47,8 @@ public class EditPhotoActivity extends SherlockActivity {
     private static final int WITHOUT_TEXT = 0;
     private static final int WITH_TEXT = 1;
 
+    
+    private String[] fontBindingArray = { "Corinthia" };
     private int currentFrameMode = FULL_SCREEN_MODE;
     private int currentTextMode = WITHOUT_TEXT;
 
@@ -141,6 +159,9 @@ public class EditPhotoActivity extends SherlockActivity {
                 updateLayoutMode();
             }
         });
+        
+        //Text color changing
+        Log.i(TAG, "Set listeners to text color radio buttons");
         RadioButton whiteRadioButton = (RadioButton) findViewById(R.id.whiteColorCheckBox);
         whiteRadioButton.setChecked(true);
         RadioButton blackRadioButton = (RadioButton) findViewById(R.id.blackColorCheckBox);
@@ -152,6 +173,29 @@ public class EditPhotoActivity extends SherlockActivity {
         biegeRadioButton.setOnCheckedChangeListener(new BiegeTextCheckBoxOnChangeListener());
         orangeRadioButton.setOnCheckedChangeListener(new OrangeTextCheckBoxOnChangeListener());
         brownRadioButton.setOnCheckedChangeListener(new BrownTextCheckBoxOnChangeListener());
+        
+        //Text font changing
+        Log.i(TAG, "Set listeners to text font spinner");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Coronet.ttf");
+		addingTextField.setTypeface(font);
+        ArrayAdapter<String> fontBindingAdapter =
+                new ArrayAdapter<String>(this, R.layout.spinner_item, fontBindingArray);
+		final Spinner fontBindingSpinner = (Spinner) findViewById(R.id.textFontBindingSpinner);
+		fontBindingSpinner.setAdapter(fontBindingAdapter);
+		fontBindingSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+					@Override
+					public void onItemSelected(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						if (fontBindingSpinner.getSelectedItemPosition() == 0) {
+							Typeface font = Typeface.createFromAsset(getAssets(), "Coronet.ttf");
+							addingTextField.setTypeface(font);
+						}
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+					}
+				});
 	}
 
     @SuppressWarnings("deprecation")
