@@ -50,17 +50,20 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/book_reversal_right3" />
 
-            <EditText android:layout_width="fill_parent"
-                      android:id="@+id/editText1"
-                      android:background="@drawable/edit_photo_text_style"
-                      android:layout_height="80dp"
-                      android:layout_marginBottom="20dp"
-                      android:layout_marginLeft="30dp"
-                      android:layout_marginRight="30dp"
-                      android:layout_alignBottom="@+id/mainFrame"
-                      android:layout_alignParentLeft="true"
-                      android:visibility="gone"
-                      android:layout_alignParentRight="true"/>
+            <EditText
+                android:id="@+id/addingTextField"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:layout_alignBottom="@+id/mainFrame"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/edit_photo_text_style"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
         </RelativeLayout>
     </ScrollView>
@@ -424,30 +427,35 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
+                    android:id="@+id/whiteColorCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio1" />
 
                 <RadioButton
+                    android:id="@+id/blackColorCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio2" />
 
                 <RadioButton
+                    android:id="@+id/biegeColorCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio3" />
 
                 <RadioButton
+                    android:id="@+id/orangeColorCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio4" />
 
                 <RadioButton
+                    android:id="@+id/brownColorCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

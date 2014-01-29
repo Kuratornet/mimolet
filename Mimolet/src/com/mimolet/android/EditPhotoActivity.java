@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.mimolet.android.util.ImageHelper;
@@ -17,9 +19,11 @@ import com.mimolet.android.util.ImageHelper;
 public class EditPhotoActivity extends SherlockActivity {
 
     private static final String TAG = "EditPhotoActivity";
-
+    
 	public static String IS_LEFT = "isLeft";
 
+	private EditText addingTextField;
+	
     private static final int FULL_SCREEN_MODE = 0;
     private static final int FULL_SCREEN_WITH_CORNER_MODE = 1;
     private static final int IN_FRAME_MODE = 2;
@@ -61,7 +65,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
 		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
-
+		addingTextField = (EditText) findViewById(R.id.addingTextField);
         photoBitmap.eraseColor(Color.RED);
 
 		bottomTabs = new ImageButton[4];
@@ -137,9 +141,21 @@ public class EditPhotoActivity extends SherlockActivity {
                 updateLayoutMode();
             }
         });
+        RadioButton whiteRadioButton = (RadioButton) findViewById(R.id.whiteColorCheckBox);
+        whiteRadioButton.setChecked(true);
+        RadioButton blackRadioButton = (RadioButton) findViewById(R.id.blackColorCheckBox);
+        RadioButton biegeRadioButton = (RadioButton) findViewById(R.id.biegeColorCheckBox);
+        RadioButton orangeRadioButton = (RadioButton) findViewById(R.id.orangeColorCheckBox);
+        RadioButton brownRadioButton = (RadioButton) findViewById(R.id.brownColorCheckBox);
+        whiteRadioButton.setOnCheckedChangeListener(new WhiteTextCheckBoxOnChangeListener());
+        blackRadioButton.setOnCheckedChangeListener(new BlackTextCheckBoxOnChangeListener());
+        biegeRadioButton.setOnCheckedChangeListener(new BiegeTextCheckBoxOnChangeListener());
+        orangeRadioButton.setOnCheckedChangeListener(new OrangeTextCheckBoxOnChangeListener());
+        brownRadioButton.setOnCheckedChangeListener(new BrownTextCheckBoxOnChangeListener());
 	}
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
@@ -190,7 +206,7 @@ public class EditPhotoActivity extends SherlockActivity {
 			addTextPopup.setVisibility(View.GONE);
 			changePhotoPopup.setVisibility(View.GONE);
             if (previouslySelectedButton.equals(R.id.addTextTab) &&
-                    "".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                    "".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
                 currentTextMode = WITHOUT_TEXT;
                 updateLayoutMode();
             }
@@ -209,7 +225,7 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.GONE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.GONE);
-                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                if ("".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
                     currentTextMode = WITHOUT_TEXT;
                     updateLayoutMode();
                 }
@@ -220,7 +236,7 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.VISIBLE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.GONE);
-                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                if ("".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
                     currentTextMode = WITHOUT_TEXT;
                     updateLayoutMode();
                 }
@@ -240,7 +256,7 @@ public class EditPhotoActivity extends SherlockActivity {
 				chooseBackgroundPopup.setVisibility(View.GONE);
 				addTextPopup.setVisibility(View.GONE);
 				changePhotoPopup.setVisibility(View.VISIBLE);
-                if ("".equals(((EditText) findViewById(R.id.editText1)).getText().toString())) {
+                if ("".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
                     currentTextMode = WITHOUT_TEXT;
                     updateLayoutMode();
                 }
@@ -294,7 +310,7 @@ public class EditPhotoActivity extends SherlockActivity {
                 throw new IllegalStateException("setLayoutMode: undefined frameMode");
         }
 
-        EditText editText = (EditText) findViewById(R.id.editText1);
+        EditText editText = (EditText) findViewById(R.id.addingTextField);
         switch (currentTextMode) {
             case WITHOUT_TEXT:
                 editText.setVisibility(View.GONE);
@@ -355,7 +371,7 @@ public class EditPhotoActivity extends SherlockActivity {
                     mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()));
         } else {
             photoImageLinearLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            photoImageLinearLayoutParams.addRule(RelativeLayout.ABOVE, R.id.editText1);
+            photoImageLinearLayoutParams.addRule(RelativeLayout.ABOVE, R.id.addingTextField);
         }
         photoImageLinearLayoutParams.setMargins(
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics()),
@@ -364,5 +380,51 @@ public class EditPhotoActivity extends SherlockActivity {
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, photoImageLinearLayoutMargin, getResources().getDisplayMetrics())
         );
         photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
+    }
+    
+    private class WhiteTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextColor(getResources().getColor(R.color.white));
+			}
+		}
+    }
+    private class BlackTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextColor(getResources().getColor(R.color.black));
+			}
+		}
+    }
+    private class BiegeTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextColor(getResources().getColor(R.color.biege));
+			}
+		}
+    }
+    private class OrangeTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextColor(getResources().getColor(R.color.orange));
+			}
+		}
+    }
+    private class BrownTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextColor(getResources().getColor(R.color.brown));
+			}
+		}
     }
 }
