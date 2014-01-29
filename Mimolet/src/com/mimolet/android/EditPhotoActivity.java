@@ -35,6 +35,7 @@ import com.mimolet.android.util.ImageHelper;
 public class EditPhotoActivity extends SherlockActivity {
 
     private static final String TAG = "EditPhotoActivity";
+//    private Activity thisActivity;
     
 	public static String IS_LEFT = "isLeft";
 
@@ -47,6 +48,10 @@ public class EditPhotoActivity extends SherlockActivity {
     private static final int WITHOUT_TEXT = 0;
     private static final int WITH_TEXT = 1;
 
+    //TextSize
+    private static final float TEXT_SIZE_SMALL = 22;
+    private static final float TEXT_SIZE_MEDIUM = 30;
+    private static final float TEXT_SIZE_LARGE = 38;
     
     private String[] fontBindingArray = { "Corinthia" };
     private int currentFrameMode = FULL_SCREEN_MODE;
@@ -82,6 +87,7 @@ public class EditPhotoActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
+		//thisActivity = this;
 		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
         photoBitmap.eraseColor(Color.RED);
@@ -196,6 +202,16 @@ public class EditPhotoActivity extends SherlockActivity {
 					public void onNothingSelected(AdapterView<?> arg0) {
 					}
 				});
+		
+		//Text size changing
+		Log.i(TAG, "Set listeners to text size toggle buttons");
+		addingTextField.setTextSize(TEXT_SIZE_MEDIUM);
+		ToggleButton fontSizeSmall = (ToggleButton) findViewById(R.id.fontSmallButton);
+		ToggleButton fontSizeMedium = (ToggleButton) findViewById(R.id.fontMediumButton);
+		ToggleButton fontSizeLarge = (ToggleButton) findViewById(R.id.fontLargeButton);
+		fontSizeSmall.setOnCheckedChangeListener(new SmallTextCheckBoxOnChangeListener());
+		fontSizeMedium.setOnCheckedChangeListener(new MediumTextCheckBoxOnChangeListener());
+		fontSizeLarge.setOnCheckedChangeListener(new LargeTextCheckBoxOnChangeListener());
 	}
 
     @SuppressWarnings("deprecation")
@@ -468,6 +484,33 @@ public class EditPhotoActivity extends SherlockActivity {
 				boolean isChecked) {
 			if (isChecked) {
 				addingTextField.setTextColor(getResources().getColor(R.color.brown));
+			}
+		}
+    }
+    private class SmallTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextSize(TEXT_SIZE_SMALL);
+			}
+		}
+    }
+    private class MediumTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextSize(TEXT_SIZE_MEDIUM);
+			}
+		}
+    }
+    private class LargeTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+				addingTextField.setTextSize(TEXT_SIZE_LARGE);
 			}
 		}
     }
