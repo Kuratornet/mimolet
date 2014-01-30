@@ -1,6 +1,7 @@
 package com.mimolet.android;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,6 +54,14 @@ public class AddBookActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		order = new Order();
+		GlobalVariables.imagesList = new ArrayList<Integer>();
+		File imagesDir = new File(GlobalVariables.IMAGE_FOLDER);
+		if (imagesDir.exists()) {
+			File[] files = imagesDir.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				files[i].delete();
+			}
+		}
 		chooseStyleFragment = new ChooseStyleFragment();
 		addPhotoFragment = new AddPhotoFragment();
 		stylePageFragment = new StylePageFragment();
@@ -183,7 +192,7 @@ public class AddBookActivity extends FragmentActivity {
 					.findViewById(R.id.previewRightImage);
 
 			final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
-			stylePageFragment.setImagePathes(imageFolder.list());
+			stylePageFragment.setImagePathes(imageFolder);
 
 			ImageUtils.loadImage(leftImage, GlobalVariables.IMAGE_FOLDER
 					+ imageFolder.list()[0], 300, true);
@@ -232,7 +241,7 @@ public class AddBookActivity extends FragmentActivity {
 				.findViewById(R.id.rightImage);
 
 		final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
-		stylePageFragment.setImagePathes(imageFolder.list());
+		stylePageFragment.setImagePathes(imageFolder);
 		ImageUtils.loadImage(bookCover, GlobalVariables.IMAGE_FOLDER
 				+ stylePageFragment.getPreviewImagePath());
 

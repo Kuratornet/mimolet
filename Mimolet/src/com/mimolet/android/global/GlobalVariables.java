@@ -1,6 +1,7 @@
 package com.mimolet.android.global;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Application;
 import android.os.Environment;
@@ -15,6 +16,8 @@ public class GlobalVariables extends Application {
   public void setOwnerID(Integer ownerID) {
     this.ownerID = ownerID;
   }
+  
+  public static ArrayList<Integer> imagesList;
   
   public static final String BUNDLE_ORDER = "ORDER";
   

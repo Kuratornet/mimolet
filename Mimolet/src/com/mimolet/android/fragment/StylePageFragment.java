@@ -1,7 +1,10 @@
 package com.mimolet.android.fragment;
 
+import java.io.File;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +14,12 @@ import com.mimolet.android.R;
 import entity.Order;
 
 public class StylePageFragment extends Fragment {
+	private static final String TAG = "StylePageFragment";
 
 	private Order order;
 
 	private String[] imagePathes;
+	private File imageFolder;
 
 	private int currentImageIndex = 0;
 
@@ -26,8 +31,11 @@ public class StylePageFragment extends Fragment {
 		return order;
 	} 
 	
-	public void setImagePathes(String[] imagePathes) {
-		this.imagePathes = imagePathes;
+	public void setImagePathes(File file) {
+		imageFolder = file;
+		this.imagePathes = imageFolder.list();
+		Log.i(TAG, imagePathes.toString());
+		
 	}
 
 	public String[] getImagePathes() {
@@ -40,6 +48,14 @@ public class StylePageFragment extends Fragment {
 		final View view = inflater.inflate(R.layout.fragment_style_page,
 				container, false);
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (imageFolder != null) {
+			this.imagePathes = imageFolder.list();
+		}
 	}
 	
 	public String getPreviewImagePath() {

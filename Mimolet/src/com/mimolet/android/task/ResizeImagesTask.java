@@ -34,7 +34,7 @@ public class ResizeImagesTask extends AsyncTask<Void, Void, Void> {
 	protected Void doInBackground(Void... arg0) {
 	    try {
 		    for (int i = 0; i < selectedItems.size(); i++) {
-		      saveImage(ImageUtils.decodeSampledBitmapFromFile(selectedItems.get(i), 1024, 1024, false), i);
+		      saveImage(ImageUtils.decodeSampledBitmapFromFile(selectedItems.get(i), 1024, 1024, false));
 		    }
 	    } catch (Exception e) {
 	    	e.printStackTrace();
@@ -50,13 +50,18 @@ public class ResizeImagesTask extends AsyncTask<Void, Void, Void> {
 		activity.end();
 	}
 
-	private void saveImage(Bitmap finalBitmap, int position) {
+	private void saveImage(Bitmap finalBitmap) {
 		File mimoletDir = new File(GlobalVariables.MIMOLET_FOLDER);
 		mimoletDir.mkdirs();
 		File myDir = new File(GlobalVariables.IMAGE_FOLDER);
 		myDir.mkdirs();
-
-		String fname = "Image-" + (position) + ".png";
+		ArrayList<Integer> currentList = GlobalVariables.imagesList; 
+		Integer nextImageIndex = 0;
+		if (currentList.size() != 0) {
+			nextImageIndex = currentList.get(currentList.size() - 1) + 1;
+		}
+		String fname = "Image-" + (nextImageIndex) + ".png";
+		currentList.add(nextImageIndex);
 		File file = new File(myDir, fname);
 		if (file.exists()) {
 			file.delete();
