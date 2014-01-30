@@ -2,6 +2,7 @@ package com.mimolet.android;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -31,12 +32,14 @@ import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.util.ImageHelper;
 
 public class EditPhotoActivity extends SherlockActivity {
 
     private static final String TAG = "EditPhotoActivity";
     private Activity thisActivity;
+    private Bitmap photoBitmap;
     
 	public static String IS_LEFT = "isLeft";
 
@@ -58,7 +61,7 @@ public class EditPhotoActivity extends SherlockActivity {
     private int currentFrameMode = FULL_SCREEN_MODE;
     private int currentTextMode = WITHOUT_TEXT;
 
-    private Bitmap photoBitmap = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_8888);
+    //private Bitmap photoBitmap = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_8888);
 
 	//private boolean isLeft;
 
@@ -89,9 +92,10 @@ public class EditPhotoActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
 		thisActivity = this;
-		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		photoBitmap = BitmapFactory.decodeFile(GlobalVariables.IMAGE_FOLDER + getIntent().getStringExtra("imageIndex"), options);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
-        photoBitmap.eraseColor(Color.RED);
 
 		bottomTabs = new ImageButton[4];
 		bottomTabs[0] = (ImageButton) findViewById(R.id.chooseLayoutTab);

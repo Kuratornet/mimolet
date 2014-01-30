@@ -222,6 +222,7 @@ public class AddBookActivity extends FragmentActivity {
 		final Intent intent = new Intent(getApplicationContext(),
 				EditPhotoActivity.class);
 		intent.putExtra(EditPhotoActivity.IS_LEFT, true);
+		intent.putExtra("imageIndex", stylePageFragment.getLeftImagePath());
 		startActivity(intent);
 	}
 
@@ -229,6 +230,7 @@ public class AddBookActivity extends FragmentActivity {
 		final Intent intent = new Intent(getApplicationContext(),
 				EditPhotoActivity.class);
 		intent.putExtra(EditPhotoActivity.IS_LEFT, false);
+		intent.putExtra("imageIndex", stylePageFragment.getRightImagePath());
 		startActivity(intent);
 	}
 
