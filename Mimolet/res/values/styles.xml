@@ -22,5 +22,8 @@
     <color name="orange">#FF4500</color>
     <color name="biege">#F5F5DC</color>
     <color name="brown">#190B07</color>
+    <color name="grey">#8B8989</color>
+    <color name="darkgrey">#8B8378</color>
+    <color name="peach">#FFDAB9</color>
 
 </resources>

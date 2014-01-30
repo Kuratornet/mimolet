@@ -1,5 +1,6 @@
 package com.mimolet.android;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -35,7 +36,7 @@ import com.mimolet.android.util.ImageHelper;
 public class EditPhotoActivity extends SherlockActivity {
 
     private static final String TAG = "EditPhotoActivity";
-//    private Activity thisActivity;
+    private Activity thisActivity;
     
 	public static String IS_LEFT = "isLeft";
 
@@ -87,7 +88,7 @@ public class EditPhotoActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
-		//thisActivity = this;
+		thisActivity = this;
 		//isLeft = getIntent().getBooleanExtra(IS_LEFT, true);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
         photoBitmap.eraseColor(Color.RED);
@@ -174,50 +175,82 @@ public class EditPhotoActivity extends SherlockActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+				ShapeDrawable backgroundRectDImageWhite = new ShapeDrawable();
+				backgroundRectDImageWhite.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+		                null,
+		                null));
+				backgroundRectDImageWhite.getPaint().setColor(getResources().getColor(R.color.white));
+				ShapeDrawable backgroundRectDImageBlack = new ShapeDrawable();
+				backgroundRectDImageBlack.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+		                null,
+		                null));
+				backgroundRectDImageBlack.getPaint().setColor(getResources().getColor(R.color.black));
+				ShapeDrawable backgroundRectDImageBiege = new ShapeDrawable();
+				backgroundRectDImageBiege.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+		                null,
+		                null));
+				backgroundRectDImageBiege.getPaint().setColor(getResources().getColor(R.color.biege));
+				ShapeDrawable backgroundColorChangerOrange = new ShapeDrawable();
+				backgroundColorChangerOrange.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+		                null,
+		                null));
+				backgroundColorChangerOrange.getPaint().setColor(getResources().getColor(R.color.orange));
+				ShapeDrawable backgroundRectDImageBrown = new ShapeDrawable();
+				backgroundRectDImageBrown.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+		                null,
+		                null));
+				backgroundRectDImageBrown.getPaint().setColor(getResources().getColor(R.color.brown));
 				switch (checkedId) {
 					case R.id.backgroundColorChangerWhite:
-						ShapeDrawable backgroundRectDImageWhite = new ShapeDrawable();
-						backgroundRectDImageWhite.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-				                null,
-				                null));
-						backgroundRectDImageWhite.getPaint().setColor(getResources().getColor(R.color.white));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
 						break;
 					case R.id.backgroundColorChangerBlack:
-						ShapeDrawable backgroundRectDImageBlack = new ShapeDrawable();
-						backgroundRectDImageBlack.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-				                null,
-				                null));
-						backgroundRectDImageBlack.getPaint().setColor(getResources().getColor(R.color.black));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBlack);
 						break;
 					case R.id.backgroundColorChangerBiege:
-						ShapeDrawable backgroundRectDImageBiege = new ShapeDrawable();
-						backgroundRectDImageBiege.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-				                null,
-				                null));
-						backgroundRectDImageBiege.getPaint().setColor(getResources().getColor(R.color.biege));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBiege);
 						break;
 					case R.id.backgroundColorChangerOrange:
-						ShapeDrawable backgroundColorChangerOrange = new ShapeDrawable();
-						backgroundColorChangerOrange.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-				                null,
-				                null));
-						backgroundColorChangerOrange.getPaint().setColor(getResources().getColor(R.color.orange));
 				        backgroundRect.setBackgroundDrawable(backgroundColorChangerOrange);
 						break;
 					case R.id.backgroundColorChangerBrown:
-						ShapeDrawable backgroundRectDImageBrown = new ShapeDrawable();
-						backgroundRectDImageBrown.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-				                null,
-				                null));
-						backgroundRectDImageBrown.getPaint().setColor(getResources().getColor(R.color.brown));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBrown);
 						break;
 				}
 			}
 		});
+        
+        //Border color changer
+        RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
+        borderColorChangerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (currentFrameMode == 2) {
+					ImageView photo = (ImageView) findViewById(R.id.photo);
+					switch (checkedId) {
+						case R.id.borderColorChangerWhite:
+							photo.setBackgroundColor(getResources().getColor(R.color.white));
+							break;
+						case R.id.borderColorChangerGrey:
+							photo.setBackgroundColor(getResources().getColor(R.color.grey));
+							break;
+						case R.id.borderColorChangerBiege:
+							photo.setBackgroundColor(getResources().getColor(R.color.biege));
+							break;
+						case R.id.borderColorChangerPeach:
+							photo.setBackgroundColor(getResources().getColor(R.color.peach));
+							break;
+						case R.id.borderColorChangerDarkGrey:
+							photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
+							break;
+					}
+				} else {
+					Toast.makeText(thisActivity,
+							R.string.editphoto_withoutBroderMode, Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+        
         
         //Text color changing
         Log.i(TAG, "Set listeners to text color radio buttons");
@@ -276,13 +309,14 @@ public class EditPhotoActivity extends SherlockActivity {
         ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
         // backgroundRect once
         ShapeDrawable backgroundRectDImage = new ShapeDrawable();
-        backgroundRectDImage.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+        float corner = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+        backgroundRectDImage.setShape(new RoundRectShape(new float[] {corner, corner, corner, corner, corner, corner, corner, corner},
                 null,
                 null));
         backgroundRectDImage.getPaint().setColor(getResources().getColor(R.color.orange));
         backgroundRect.setBackgroundDrawable(backgroundRectDImage);
 
-        int backgroundRectrelativeLayoutParamsMargin = 5;
+        int backgroundRectrelativeLayoutParamsMargin = 4;
         RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
                 mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
         backgroundRectrelativeLayoutParams.setMargins(
@@ -441,6 +475,8 @@ public class EditPhotoActivity extends SherlockActivity {
     private void fullScreenMode(ImageView photo) {
         updatePhotoLayout(photo);
         photo.setPadding(0, 0, 0, 0);
+        RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
+        borderColorChangerGroup.clearCheck();
         photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(photoBitmap);
     }
@@ -448,6 +484,8 @@ public class EditPhotoActivity extends SherlockActivity {
     private void fullScreenWithCornerMode(ImageView photo) {
         updatePhotoLayout(photo);
         photo.setPadding(0, 0, 0, 0);
+        RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
+        borderColorChangerGroup.clearCheck();
         photo.setBackgroundColor(Color.TRANSPARENT);
         photo.setImageBitmap(ImageHelper.getRoundedCornerBitmap(photoBitmap, 50));
     }
@@ -455,7 +493,9 @@ public class EditPhotoActivity extends SherlockActivity {
     private void inFrameMode(ImageView photo) {
         updatePhotoLayout(photo);
         photo.setPadding(20, 20, 20, 20);
-        photo.setBackgroundColor(Color.BLACK);
+        photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
+        RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
+        borderColorChangerGroup.check(R.id.borderColorChangerDarkGrey);
         photo.setImageBitmap(photoBitmap);
     }
 
