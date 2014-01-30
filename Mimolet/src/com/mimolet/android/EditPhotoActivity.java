@@ -166,6 +166,59 @@ public class EditPhotoActivity extends SherlockActivity {
             }
         });
         
+        //Background color changer
+        RadioGroup backgroundColorChangerGroup = (RadioGroup) findViewById(R.id.backgroundColorChangerGroup);
+        backgroundColorChangerGroup.check(R.id.backgroundColorChangerOrange);
+        backgroundColorChangerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+				switch (checkedId) {
+					case R.id.backgroundColorChangerWhite:
+						ShapeDrawable backgroundRectDImageWhite = new ShapeDrawable();
+						backgroundRectDImageWhite.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+				                null,
+				                null));
+						backgroundRectDImageWhite.getPaint().setColor(getResources().getColor(R.color.white));
+				        backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
+						break;
+					case R.id.backgroundColorChangerBlack:
+						ShapeDrawable backgroundRectDImageBlack = new ShapeDrawable();
+						backgroundRectDImageBlack.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+				                null,
+				                null));
+						backgroundRectDImageBlack.getPaint().setColor(getResources().getColor(R.color.black));
+				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBlack);
+						break;
+					case R.id.backgroundColorChangerBiege:
+						ShapeDrawable backgroundRectDImageBiege = new ShapeDrawable();
+						backgroundRectDImageBiege.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+				                null,
+				                null));
+						backgroundRectDImageBiege.getPaint().setColor(getResources().getColor(R.color.biege));
+				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBiege);
+						break;
+					case R.id.backgroundColorChangerOrange:
+						ShapeDrawable backgroundColorChangerOrange = new ShapeDrawable();
+						backgroundColorChangerOrange.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+				                null,
+				                null));
+						backgroundColorChangerOrange.getPaint().setColor(getResources().getColor(R.color.orange));
+				        backgroundRect.setBackgroundDrawable(backgroundColorChangerOrange);
+						break;
+					case R.id.backgroundColorChangerBrown:
+						ShapeDrawable backgroundRectDImageBrown = new ShapeDrawable();
+						backgroundRectDImageBrown.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
+				                null,
+				                null));
+						backgroundRectDImageBrown.getPaint().setColor(getResources().getColor(R.color.brown));
+				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBrown);
+						break;
+				}
+			}
+		});
+        
         //Text color changing
         Log.i(TAG, "Set listeners to text color radio buttons");
         RadioButton whiteRadioButton = (RadioButton) findViewById(R.id.whiteColorCheckBox);
@@ -226,7 +279,7 @@ public class EditPhotoActivity extends SherlockActivity {
         backgroundRectDImage.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
                 null,
                 null));
-        backgroundRectDImage.getPaint().setColor(Color.GREEN);
+        backgroundRectDImage.getPaint().setColor(getResources().getColor(R.color.orange));
         backgroundRect.setBackgroundDrawable(backgroundRectDImage);
 
         int backgroundRectrelativeLayoutParamsMargin = 5;

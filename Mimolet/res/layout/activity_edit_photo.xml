@@ -234,35 +234,41 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/backgroundColorChangerGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
                 <RadioButton
+                    android:id="@+id/backgroundColorChangerWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio1" />
 
                 <RadioButton
+                    android:id="@+id/backgroundColorChangerBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio2" />
 
                 <RadioButton
+                    android:id="@+id/backgroundColorChangerBiege"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio3" />
 
                 <RadioButton
+                    android:id="@+id/backgroundColorChangerOrange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:button="@drawable/radio4" />
 
                 <RadioButton
+                    android:id="@+id/backgroundColorChangerBrown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
