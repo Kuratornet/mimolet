@@ -2,7 +2,9 @@ package com.mimolet.android;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +28,7 @@ import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.global.ImageUtils;
 
 import entity.Order;
+import entity.PhotoData;
 
 public class AddBookActivity extends FragmentActivity {
 
@@ -49,12 +52,14 @@ public class AddBookActivity extends FragmentActivity {
 
 	private final BottomMenu bottomMenu = new BottomMenu();
 
+	@SuppressLint("UseSparseArrays")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		order = new Order();
 		GlobalVariables.imagesList = new ArrayList<Integer>();
+		GlobalVariables.imagesListData = new HashMap<Integer, PhotoData>();
 		File imagesDir = new File(GlobalVariables.IMAGE_FOLDER);
 		if (imagesDir.exists()) {
 			File[] files = imagesDir.listFiles();

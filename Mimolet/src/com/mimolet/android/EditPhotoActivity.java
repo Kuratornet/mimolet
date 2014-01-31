@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -35,16 +34,27 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.util.ImageHelper;
 
+import entity.PhotoData;
+
 public class EditPhotoActivity extends SherlockActivity {
 
     private static final String TAG = "EditPhotoActivity";
     private Activity thisActivity;
     private Bitmap photoBitmap;
+    private int imageIndex;
+    private PhotoData photoData;
+    private int currentBorderColor;
+    
+    //Color change radiogroups
+    private RadioGroup backgroundColorChangerGroup;
+    private RadioGroup borderColorChangerGroup;
+    private RadioGroup textColorChangeGroup;
     
 	public static String IS_LEFT = "isLeft";
 
 	private EditText addingTextField;
 	
+	// Screen mode
     private static final int FULL_SCREEN_MODE = 0;
     private static final int FULL_SCREEN_WITH_CORNER_MODE = 1;
     private static final int IN_FRAME_MODE = 2;
@@ -57,13 +67,9 @@ public class EditPhotoActivity extends SherlockActivity {
     private static final float TEXT_SIZE_MEDIUM = 30;
     private static final float TEXT_SIZE_LARGE = 38;
     
-    private String[] fontBindingArray = { "Corinthia" };
+    private String[] fontBindingArray = { "Ludvig" };
     private int currentFrameMode = FULL_SCREEN_MODE;
     private int currentTextMode = WITHOUT_TEXT;
-
-    //private Bitmap photoBitmap = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_8888);
-
-	//private boolean isLeft;
 
 	private ImageButton[] bottomTabs;
 	private int[] bottomTabsSelectedResources;
@@ -87,16 +93,21 @@ public class EditPhotoActivity extends SherlockActivity {
 		}
 	};
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photo);
 		thisActivity = this;
+		// Load image and get image path and index
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-		photoBitmap = BitmapFactory.decodeFile(GlobalVariables.IMAGE_FOLDER + getIntent().getStringExtra("imageIndex"), options);
+		String imagePath = getIntent().getStringExtra("imageIndex");
+		String imageIndexString = imagePath.replaceAll("\\D+","");
+		imageIndex = Integer.valueOf(imageIndexString);
+		photoBitmap = BitmapFactory.decodeFile(GlobalVariables.IMAGE_FOLDER + imagePath, options);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
-
+		
 		bottomTabs = new ImageButton[4];
 		bottomTabs[0] = (ImageButton) findViewById(R.id.chooseLayoutTab);
 		bottomTabs[1] = (ImageButton) findViewById(R.id.chooseBackgroundTab);
@@ -125,8 +136,8 @@ public class EditPhotoActivity extends SherlockActivity {
 				.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(EditPhotoActivity.this, "Yes", Toast.LENGTH_SHORT)
-								.show();
+						photoData.setText(addingTextField.getText().toString());
+						EditPhotoActivity.this.onBackPressed();
 					}
 				});
 
@@ -151,6 +162,7 @@ public class EditPhotoActivity extends SherlockActivity {
             @Override
             public void onClick(View view) {
                 currentFrameMode = FULL_SCREEN_MODE;
+                photoData.setPhotoStyle(FULL_SCREEN_MODE);
                 updateLayoutMode();
             }
         });
@@ -158,6 +170,7 @@ public class EditPhotoActivity extends SherlockActivity {
         editPhotoLayoutRoundeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+            	photoData.setPhotoStyle(FULL_SCREEN_WITH_CORNER_MODE);
                 currentFrameMode = FULL_SCREEN_WITH_CORNER_MODE;
                 updateLayoutMode();
             }
@@ -166,58 +179,55 @@ public class EditPhotoActivity extends SherlockActivity {
         editPhotoLayoutCenterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+            	photoData.setPhotoStyle(IN_FRAME_MODE);
                 currentFrameMode = IN_FRAME_MODE;
                 updateLayoutMode();
             }
         });
         
         //Background color changer
-        RadioGroup backgroundColorChangerGroup = (RadioGroup) findViewById(R.id.backgroundColorChangerGroup);
-        backgroundColorChangerGroup.check(R.id.backgroundColorChangerOrange);
+        backgroundColorChangerGroup = (RadioGroup) findViewById(R.id.backgroundColorChangerGroup);
         backgroundColorChangerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
 				ShapeDrawable backgroundRectDImageWhite = new ShapeDrawable();
-				backgroundRectDImageWhite.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-		                null,
-		                null));
+				float corner = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+				RoundRectShape shapeWithCorners = new RoundRectShape(new float[] {corner, corner, corner, corner, corner, corner, corner, corner},
+		                null, null);
+				backgroundRectDImageWhite.setShape(shapeWithCorners);
 				backgroundRectDImageWhite.getPaint().setColor(getResources().getColor(R.color.white));
 				ShapeDrawable backgroundRectDImageBlack = new ShapeDrawable();
-				backgroundRectDImageBlack.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-		                null,
-		                null));
+				backgroundRectDImageBlack.setShape(shapeWithCorners);
 				backgroundRectDImageBlack.getPaint().setColor(getResources().getColor(R.color.black));
 				ShapeDrawable backgroundRectDImageBiege = new ShapeDrawable();
-				backgroundRectDImageBiege.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-		                null,
-		                null));
+				backgroundRectDImageBiege.setShape(shapeWithCorners);
 				backgroundRectDImageBiege.getPaint().setColor(getResources().getColor(R.color.biege));
 				ShapeDrawable backgroundColorChangerOrange = new ShapeDrawable();
-				backgroundColorChangerOrange.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-		                null,
-		                null));
+				backgroundColorChangerOrange.setShape(shapeWithCorners);
 				backgroundColorChangerOrange.getPaint().setColor(getResources().getColor(R.color.orange));
 				ShapeDrawable backgroundRectDImageBrown = new ShapeDrawable();
-				backgroundRectDImageBrown.setShape(new RoundRectShape(new float[] {50,50,50,50,50,50,50,50},
-		                null,
-		                null));
+				backgroundRectDImageBrown.setShape(shapeWithCorners);
 				backgroundRectDImageBrown.getPaint().setColor(getResources().getColor(R.color.brown));
 				switch (checkedId) {
 					case R.id.backgroundColorChangerWhite:
+						photoData.setBackgroundColor(getResources().getColor(R.color.white));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
 						break;
 					case R.id.backgroundColorChangerBlack:
+						photoData.setBackgroundColor(getResources().getColor(R.color.black));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBlack);
 						break;
 					case R.id.backgroundColorChangerBiege:
+						photoData.setBackgroundColor(getResources().getColor(R.color.biege));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBiege);
 						break;
 					case R.id.backgroundColorChangerOrange:
+						photoData.setBackgroundColor(getResources().getColor(R.color.orange));
 				        backgroundRect.setBackgroundDrawable(backgroundColorChangerOrange);
 						break;
 					case R.id.backgroundColorChangerBrown:
+						photoData.setBackgroundColor(getResources().getColor(R.color.brown));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBrown);
 						break;
 				}
@@ -225,32 +235,39 @@ public class EditPhotoActivity extends SherlockActivity {
 		});
         
         //Border color changer
-        RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
+        borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
         borderColorChangerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				if (currentFrameMode == 2) {
-					ImageView photo = (ImageView) findViewById(R.id.photo);
-					switch (checkedId) {
-						case R.id.borderColorChangerWhite:
-							photo.setBackgroundColor(getResources().getColor(R.color.white));
-							break;
-						case R.id.borderColorChangerGrey:
-							photo.setBackgroundColor(getResources().getColor(R.color.grey));
-							break;
-						case R.id.borderColorChangerBiege:
-							photo.setBackgroundColor(getResources().getColor(R.color.biege));
-							break;
-						case R.id.borderColorChangerPeach:
-							photo.setBackgroundColor(getResources().getColor(R.color.peach));
-							break;
-						case R.id.borderColorChangerDarkGrey:
-							photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
-							break;
+				if (borderColorChangerGroup.equals(group)) {
+					if (currentFrameMode == 2) {
+						ImageView photo = (ImageView) findViewById(R.id.photo);
+						switch (checkedId) {
+							case R.id.borderColorChangerWhite:
+								photoData.setBorderColor(getResources().getColor(R.color.white));
+								photo.setBackgroundColor(getResources().getColor(R.color.white));
+								break;
+							case R.id.borderColorChangerGrey:
+								photoData.setBorderColor(getResources().getColor(R.color.grey));
+								photo.setBackgroundColor(getResources().getColor(R.color.grey));
+								break;
+							case R.id.borderColorChangerBiege:
+								photoData.setBorderColor(getResources().getColor(R.color.biege));
+								photo.setBackgroundColor(getResources().getColor(R.color.biege));
+								break;
+							case R.id.borderColorChangerPeach:
+								photoData.setBorderColor(getResources().getColor(R.color.peach));
+								photo.setBackgroundColor(getResources().getColor(R.color.peach));
+								break;
+							case R.id.borderColorChangerDarkGrey:
+								photoData.setBorderColor(getResources().getColor(R.color.darkgrey));
+								photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
+								break;
+						}
+					} else {
+						Toast.makeText(thisActivity,
+								R.string.editphoto_withoutBroderMode, Toast.LENGTH_LONG).show();
 					}
-				} else {
-					Toast.makeText(thisActivity,
-							R.string.editphoto_withoutBroderMode, Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -258,21 +275,39 @@ public class EditPhotoActivity extends SherlockActivity {
         
         //Text color changing
         Log.i(TAG, "Set listeners to text color radio buttons");
-        RadioButton whiteRadioButton = (RadioButton) findViewById(R.id.whiteColorCheckBox);
-        whiteRadioButton.setChecked(true);
-        RadioButton blackRadioButton = (RadioButton) findViewById(R.id.blackColorCheckBox);
-        RadioButton biegeRadioButton = (RadioButton) findViewById(R.id.biegeColorCheckBox);
-        RadioButton orangeRadioButton = (RadioButton) findViewById(R.id.orangeColorCheckBox);
-        RadioButton brownRadioButton = (RadioButton) findViewById(R.id.brownColorCheckBox);
-        whiteRadioButton.setOnCheckedChangeListener(new WhiteTextCheckBoxOnChangeListener());
-        blackRadioButton.setOnCheckedChangeListener(new BlackTextCheckBoxOnChangeListener());
-        biegeRadioButton.setOnCheckedChangeListener(new BiegeTextCheckBoxOnChangeListener());
-        orangeRadioButton.setOnCheckedChangeListener(new OrangeTextCheckBoxOnChangeListener());
-        brownRadioButton.setOnCheckedChangeListener(new BrownTextCheckBoxOnChangeListener());
+        textColorChangeGroup = (RadioGroup) findViewById(R.id.textColorChangeRadioGroup);
+        textColorChangeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.whiteColorTextCheckBox:
+					photoData.setTextTextColor(getResources().getColor(R.color.white));
+					addingTextField.setTextColor(getResources().getColor(R.color.white));
+					break;
+				case R.id.blackColorTextCheckBox:
+					photoData.setTextTextColor(getResources().getColor(R.color.black));
+					addingTextField.setTextColor(getResources().getColor(R.color.black));
+					break;
+				case R.id.biegeColorTextCheckBox:
+					photoData.setTextTextColor(getResources().getColor(R.color.biege));
+					addingTextField.setTextColor(getResources().getColor(R.color.biege));
+					break;
+				case R.id.orangeColorTextCheckBox:
+					photoData.setTextTextColor(getResources().getColor(R.color.orange));
+					addingTextField.setTextColor(getResources().getColor(R.color.orange));
+					break;
+				case R.id.brownColorTextCheckBox:
+					photoData.setTextTextColor(getResources().getColor(R.color.brown));
+					addingTextField.setTextColor(getResources().getColor(R.color.brown));
+					break;
+				}
+				
+			}
+        });
         
         //Text font changing
         Log.i(TAG, "Set listeners to text font spinner");
-        Typeface font = Typeface.createFromAsset(getAssets(), "Coronet.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Ludvig.ttf");
 		addingTextField.setTypeface(font);
         ArrayAdapter<String> fontBindingAdapter =
                 new ArrayAdapter<String>(this, R.layout.spinner_item, fontBindingArray);
@@ -283,7 +318,7 @@ public class EditPhotoActivity extends SherlockActivity {
 					public void onItemSelected(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
 						if (fontBindingSpinner.getSelectedItemPosition() == 0) {
-							Typeface font = Typeface.createFromAsset(getAssets(), "Coronet.ttf");
+							Typeface font = Typeface.createFromAsset(getAssets(), "Ludvig.ttf");
 							addingTextField.setTypeface(font);
 						}
 					}
@@ -302,24 +337,58 @@ public class EditPhotoActivity extends SherlockActivity {
 		fontSizeSmall.setOnCheckedChangeListener(new SmallTextCheckBoxOnChangeListener());
 		fontSizeMedium.setOnCheckedChangeListener(new MediumTextCheckBoxOnChangeListener());
 		fontSizeLarge.setOnCheckedChangeListener(new LargeTextCheckBoxOnChangeListener());
+		
+		// Initialize and set up previous data. Main frame! 
+		if (GlobalVariables.imagesListData.containsKey(imageIndex)) {
+			photoData = GlobalVariables.imagesListData.get(imageIndex);
+			currentFrameMode = photoData.getPhotoStyle();
+			if (photoData.getPhotoStyle() == IN_FRAME_MODE) {
+				currentBorderColor = photoData.getBorderColor();
+			}
+			if (photoData.getText() != null) {
+				currentTextMode = WITH_TEXT;
+				addingTextField.setTextSize(photoData.getTextFontSyze());
+				addingTextField.setTextColor(photoData.getTextTextColor());
+				addingTextField.setText(photoData.getText());
+			}
+			ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+			ShapeDrawable backgroundRectDImageWhite = new ShapeDrawable();
+			float corner = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+			RoundRectShape shapeWithCorners = new RoundRectShape(new float[] {corner, corner, corner, corner, corner, corner, corner, corner},
+	                null, null);
+			backgroundRectDImageWhite.setShape(shapeWithCorners);
+			backgroundRectDImageWhite.getPaint().setColor(photoData.getBackgroundColor());
+			backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
+		} else {
+			photoData = new PhotoData();
+			GlobalVariables.imagesListData.put(imageIndex, photoData);
+			ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
+	        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
+	        float corner = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+	        backgroundRectDImage.setShape(new RoundRectShape(new float[] {corner, corner, corner, corner, corner, corner, corner, corner},
+	                null,
+	                null));
+	        backgroundRectDImage.getPaint().setColor(getResources().getColor(R.color.orange));
+	        backgroundRect.setBackgroundDrawable(backgroundRectDImage);
+	        currentBorderColor = getResources().getColor(R.color.darkgrey);
+			photoData.setBackgroundColor(getResources().getColor(R.color.orange));
+			photoData.setBorderColor(getResources().getColor(R.color.darkgrey));
+			photoData.setTextTextColor(getResources().getColor(R.color.white));
+			photoData.setTextFontType(fontBindingArray[0]);
+			photoData.setTextFontSyze(TEXT_SIZE_MEDIUM);
+			photoData.setPhotoStyle(FULL_SCREEN_MODE);
+			backgroundColorChangerGroup.check(R.id.backgroundColorChangerOrange);
+			textColorChangeGroup.check(R.id.whiteColorTextCheckBox);
+		}
+		// End of initializing
 	}
 
-    @SuppressWarnings("deprecation")
 	@Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
         ImageView mainFrame = (ImageView) findViewById(R.id.mainFrame);
-        ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
-        // backgroundRect once
-        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
-        float corner = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-        backgroundRectDImage.setShape(new RoundRectShape(new float[] {corner, corner, corner, corner, corner, corner, corner, corner},
-                null,
-                null));
-        backgroundRectDImage.getPaint().setColor(getResources().getColor(R.color.orange));
-        backgroundRect.setBackgroundDrawable(backgroundRectDImage);
-
+		ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
         int backgroundRectrelativeLayoutParamsMargin = 4;
         RelativeLayout.LayoutParams backgroundRectrelativeLayoutParams = new RelativeLayout.LayoutParams(mainFrame.getMeasuredWidth(),
                 mainFrame.getMeasuredWidth() - 2*(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, backgroundRectrelativeLayoutParamsMargin, getResources().getDisplayMetrics()));
@@ -455,7 +524,7 @@ public class EditPhotoActivity extends SherlockActivity {
                 fullScreenWithCornerMode(photo);
                 break;
             case IN_FRAME_MODE:
-                inFrameMode(photo);
+                inFrameMode(photo, currentBorderColor);
                 break;
             default:
                 throw new IllegalStateException("setLayoutMode: undefined frameMode");
@@ -494,10 +563,10 @@ public class EditPhotoActivity extends SherlockActivity {
         photo.setImageBitmap(ImageHelper.getRoundedCornerBitmap(photoBitmap, 50));
     }
 
-    private void inFrameMode(ImageView photo) {
+    private void inFrameMode(ImageView photo, int color) {
         updatePhotoLayout(photo);
         photo.setPadding(20, 20, 20, 20);
-        photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
+        photo.setBackgroundColor(color);
         RadioGroup borderColorChangerGroup = (RadioGroup) findViewById(R.id.borderColorChangerGroup);
         borderColorChangerGroup.check(R.id.borderColorChangerDarkGrey);
         photo.setImageBitmap(photoBitmap);
@@ -539,56 +608,12 @@ public class EditPhotoActivity extends SherlockActivity {
         photoImageLinearLayout.setLayoutParams(photoImageLinearLayoutParams);
     }
     
-    private class WhiteTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			if (isChecked) {
-				addingTextField.setTextColor(getResources().getColor(R.color.white));
-			}
-		}
-    }
-    private class BlackTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			if (isChecked) {
-				addingTextField.setTextColor(getResources().getColor(R.color.black));
-			}
-		}
-    }
-    private class BiegeTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			if (isChecked) {
-				addingTextField.setTextColor(getResources().getColor(R.color.biege));
-			}
-		}
-    }
-    private class OrangeTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			if (isChecked) {
-				addingTextField.setTextColor(getResources().getColor(R.color.orange));
-			}
-		}
-    }
-    private class BrownTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			if (isChecked) {
-				addingTextField.setTextColor(getResources().getColor(R.color.brown));
-			}
-		}
-    }
     private class SmallTextCheckBoxOnChangeListener implements CompoundButton.OnCheckedChangeListener {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
+				photoData.setTextFontSyze(TEXT_SIZE_SMALL);
 				addingTextField.setTextSize(TEXT_SIZE_SMALL);
 			}
 		}
@@ -598,6 +623,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
+				photoData.setTextFontSyze(TEXT_SIZE_MEDIUM);
 				addingTextField.setTextSize(TEXT_SIZE_MEDIUM);
 			}
 		}
@@ -607,6 +633,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
+				photoData.setTextFontSyze(TEXT_SIZE_LARGE);
 				addingTextField.setTextSize(TEXT_SIZE_LARGE);
 			}
 		}
