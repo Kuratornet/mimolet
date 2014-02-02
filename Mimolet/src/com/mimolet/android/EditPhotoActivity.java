@@ -1,6 +1,10 @@
 package com.mimolet.android;
 
+import java.io.File;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -41,6 +45,7 @@ public class EditPhotoActivity extends SherlockActivity {
     private static final String TAG = "EditPhotoActivity";
     private Activity thisActivity;
     private Bitmap photoBitmap;
+    private String imageFullPath;
     private int imageIndex;
     private PhotoData photoData;
     private int currentBorderColor;
@@ -103,9 +108,9 @@ public class EditPhotoActivity extends SherlockActivity {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		String imagePath = getIntent().getStringExtra("imageIndex");
-		String imageIndexString = imagePath.replaceAll("\\D+","");
-		imageIndex = Integer.valueOf(imageIndexString);
-		photoBitmap = BitmapFactory.decodeFile(GlobalVariables.IMAGE_FOLDER + imagePath, options);
+		imageFullPath = GlobalVariables.IMAGE_FOLDER + imagePath;
+		imageIndex = Integer.valueOf(imagePath.replaceAll("\\D+",""));
+		photoBitmap = BitmapFactory.decodeFile(imageFullPath, options);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
 		
 		bottomTabs = new ImageButton[4];
@@ -375,7 +380,7 @@ public class EditPhotoActivity extends SherlockActivity {
 			backgroundRectDImageWhite.getPaint().setColor(photoData.getBackgroundColor());
 			backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
 		} else {
-			photoData = new PhotoData();
+			photoData = new PhotoData(imageIndex);
 			GlobalVariables.imagesListData.put(imageIndex, photoData);
 			ImageView backgroundRect = (ImageView) findViewById(R.id.backgroundRect);
 	        ShapeDrawable backgroundRectDImage = new ShapeDrawable();
@@ -486,16 +491,34 @@ public class EditPhotoActivity extends SherlockActivity {
                 updateLayoutMode();
 				break;
 			case R.id.changePhotoTab:
-                params.addRule(RelativeLayout.ABOVE, R.id.popup_change_photo);
-				chooseLayoutPopup.setVisibility(View.GONE);
-				chooseBackgroundPopup.setVisibility(View.GONE);
-				addTextPopup.setVisibility(View.GONE);
-				changePhotoPopup.setVisibility(View.VISIBLE);
-                if ("".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
-                    currentTextMode = WITHOUT_TEXT;
-                    updateLayoutMode();
-                }
-				break;
+				new AlertDialog.Builder(this)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setTitle("Удаление изображения")
+						.setMessage("Вы действительно хотите удалить это изображение?")
+						.setPositiveButton("Да",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										File file = new File(imageFullPath);
+										file.delete();
+										GlobalVariables.imagesListData.remove(imageIndex);
+										GlobalVariables.imagesList.remove(imageIndex);
+										thisActivity.finish();
+									}
+
+								}).setNegativeButton("Нет", null).create()
+						.show();
+//                params.addRule(RelativeLayout.ABOVE, R.id.popup_change_photo);
+//				chooseLayoutPopup.setVisibility(View.GONE);
+//				chooseBackgroundPopup.setVisibility(View.GONE);
+//				addTextPopup.setVisibility(View.GONE);
+//				changePhotoPopup.setVisibility(View.VISIBLE);
+//                if ("".equals(((EditText) findViewById(R.id.addingTextField)).getText().toString())) {
+//                    currentTextMode = WITHOUT_TEXT;
+//                    updateLayoutMode();
+//                }
+//				break;
 			}
             ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
             scrollView.setLayoutParams(params);

@@ -1,6 +1,7 @@
 package entity;
 
 public class PhotoData {
+	private int pageId;
 	private int photoStyle;
 	private String backgroundColorString;
 	private String borderColorString;
@@ -11,6 +12,11 @@ public class PhotoData {
 	private int backgroundColor;
 	private int borderColor;
 	private int textTextColor;
+	
+	public PhotoData(int pageId) {
+		this.pageId = pageId;
+	}
+	
 	public int getPhotoStyle() {
 		return photoStyle;
 	}
@@ -70,6 +76,9 @@ public class PhotoData {
 	}
 	public void setTextTextColor(int textTextColor) {
 		this.textTextColor = textTextColor;
+	}
+	public int getPageId() {
+		return pageId;
 	}
 	
 }
