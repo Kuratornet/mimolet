@@ -20,6 +20,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.util.Registry;
 
@@ -61,6 +63,9 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 					.getProperty("server_url")
 					+ connectionProperties.getProperty("pdf_upload_path");
 			final HttpPost httpPost = new HttpPost(serverUrl);
+			Gson gson = new GsonBuilder().create();
+			String imagesDescriptionJson = gson.toJson(GlobalVariables.imagesListData);
+			Log.i(TAG, imagesDescriptionJson);
 			final byte[] bytes = FileUtils.readFileToByteArray(new File(
 					filePath));
 			final byte[] previewBytes = FileUtils.readFileToByteArray(new File(
@@ -72,6 +77,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 			reqEntity.addPart("file", new ByteArrayBody(bytes, "img.pdf"));
 			reqEntity.addPart("preview", new ByteArrayBody(previewBytes,
 					"img.png"));
+			reqEntity.addPart("imagesDescription", new StringBody(imagesDescriptionJson));
 			reqEntity.addPart("description",
 					new StringBody(order.getDescription()));
 			reqEntity.addPart("binding", new StringBody("1"));

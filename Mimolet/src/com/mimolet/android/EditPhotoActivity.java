@@ -211,22 +211,27 @@ public class EditPhotoActivity extends SherlockActivity {
 				backgroundRectDImageBrown.getPaint().setColor(getResources().getColor(R.color.brown));
 				switch (checkedId) {
 					case R.id.backgroundColorChangerWhite:
+						photoData.setBackgroundColorString("#FFFFFF");
 						photoData.setBackgroundColor(getResources().getColor(R.color.white));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageWhite);
 						break;
 					case R.id.backgroundColorChangerBlack:
+						photoData.setBackgroundColorString("#000000");
 						photoData.setBackgroundColor(getResources().getColor(R.color.black));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBlack);
 						break;
 					case R.id.backgroundColorChangerBiege:
+						photoData.setBackgroundColorString("#F5F5DC");
 						photoData.setBackgroundColor(getResources().getColor(R.color.biege));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBiege);
 						break;
 					case R.id.backgroundColorChangerOrange:
+						photoData.setBackgroundColorString("#FF4500");
 						photoData.setBackgroundColor(getResources().getColor(R.color.orange));
 				        backgroundRect.setBackgroundDrawable(backgroundColorChangerOrange);
 						break;
 					case R.id.backgroundColorChangerBrown:
+						photoData.setBackgroundColorString("#190B07");
 						photoData.setBackgroundColor(getResources().getColor(R.color.brown));
 				        backgroundRect.setBackgroundDrawable(backgroundRectDImageBrown);
 						break;
@@ -239,27 +244,32 @@ public class EditPhotoActivity extends SherlockActivity {
         borderColorChangerGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				if (borderColorChangerGroup.equals(group)) {
+				if (checkedId != -1) {
 					if (currentFrameMode == 2) {
 						ImageView photo = (ImageView) findViewById(R.id.photo);
 						switch (checkedId) {
 							case R.id.borderColorChangerWhite:
+								photoData.setBorderColorString("#FFFFFF");
 								photoData.setBorderColor(getResources().getColor(R.color.white));
 								photo.setBackgroundColor(getResources().getColor(R.color.white));
 								break;
 							case R.id.borderColorChangerGrey:
+								photoData.setBorderColorString("#8B8989");
 								photoData.setBorderColor(getResources().getColor(R.color.grey));
 								photo.setBackgroundColor(getResources().getColor(R.color.grey));
 								break;
 							case R.id.borderColorChangerBiege:
+								photoData.setBorderColorString("#F5F5DC");
 								photoData.setBorderColor(getResources().getColor(R.color.biege));
 								photo.setBackgroundColor(getResources().getColor(R.color.biege));
 								break;
 							case R.id.borderColorChangerPeach:
+								photoData.setBorderColorString("#FFDAB9");
 								photoData.setBorderColor(getResources().getColor(R.color.peach));
 								photo.setBackgroundColor(getResources().getColor(R.color.peach));
 								break;
 							case R.id.borderColorChangerDarkGrey:
+								photoData.setBorderColorString("#8B8378");
 								photoData.setBorderColor(getResources().getColor(R.color.darkgrey));
 								photo.setBackgroundColor(getResources().getColor(R.color.darkgrey));
 								break;
@@ -281,22 +291,27 @@ public class EditPhotoActivity extends SherlockActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch (checkedId) {
 				case R.id.whiteColorTextCheckBox:
+					photoData.setTextTextColorString("#FFFFFF");
 					photoData.setTextTextColor(getResources().getColor(R.color.white));
 					addingTextField.setTextColor(getResources().getColor(R.color.white));
 					break;
 				case R.id.blackColorTextCheckBox:
+					photoData.setTextTextColorString("#000000");
 					photoData.setTextTextColor(getResources().getColor(R.color.black));
 					addingTextField.setTextColor(getResources().getColor(R.color.black));
 					break;
 				case R.id.biegeColorTextCheckBox:
+					photoData.setTextTextColorString("#F5F5DC");
 					photoData.setTextTextColor(getResources().getColor(R.color.biege));
 					addingTextField.setTextColor(getResources().getColor(R.color.biege));
 					break;
 				case R.id.orangeColorTextCheckBox:
+					photoData.setTextTextColorString("#FF4500");
 					photoData.setTextTextColor(getResources().getColor(R.color.orange));
 					addingTextField.setTextColor(getResources().getColor(R.color.orange));
 					break;
 				case R.id.brownColorTextCheckBox:
+					photoData.setTextTextColorString("#190B07");
 					photoData.setTextTextColor(getResources().getColor(R.color.brown));
 					addingTextField.setTextColor(getResources().getColor(R.color.brown));
 					break;
@@ -347,7 +362,7 @@ public class EditPhotoActivity extends SherlockActivity {
 			}
 			if (photoData.getText() != null) {
 				currentTextMode = WITH_TEXT;
-				addingTextField.setTextSize(photoData.getTextFontSyze());
+				addingTextField.setTextSize(photoData.getTextFontSize());
 				addingTextField.setTextColor(photoData.getTextTextColor());
 				addingTextField.setText(photoData.getText());
 			}
@@ -375,7 +390,7 @@ public class EditPhotoActivity extends SherlockActivity {
 			photoData.setBorderColor(getResources().getColor(R.color.darkgrey));
 			photoData.setTextTextColor(getResources().getColor(R.color.white));
 			photoData.setTextFontType(fontBindingArray[0]);
-			photoData.setTextFontSyze(TEXT_SIZE_MEDIUM);
+			photoData.setTextFontSize(TEXT_SIZE_MEDIUM);
 			photoData.setPhotoStyle(FULL_SCREEN_MODE);
 			backgroundColorChangerGroup.check(R.id.backgroundColorChangerOrange);
 			textColorChangeGroup.check(R.id.whiteColorTextCheckBox);
@@ -613,7 +628,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
-				photoData.setTextFontSyze(TEXT_SIZE_SMALL);
+				photoData.setTextFontSize(TEXT_SIZE_SMALL);
 				addingTextField.setTextSize(TEXT_SIZE_SMALL);
 			}
 		}
@@ -623,7 +638,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
-				photoData.setTextFontSyze(TEXT_SIZE_MEDIUM);
+				photoData.setTextFontSize(TEXT_SIZE_MEDIUM);
 				addingTextField.setTextSize(TEXT_SIZE_MEDIUM);
 			}
 		}
@@ -633,7 +648,7 @@ public class EditPhotoActivity extends SherlockActivity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
-				photoData.setTextFontSyze(TEXT_SIZE_LARGE);
+				photoData.setTextFontSize(TEXT_SIZE_LARGE);
 				addingTextField.setTextSize(TEXT_SIZE_LARGE);
 			}
 		}
