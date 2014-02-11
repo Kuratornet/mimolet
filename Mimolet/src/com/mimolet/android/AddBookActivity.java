@@ -108,20 +108,25 @@ public class AddBookActivity extends FragmentActivity {
 	}
 
 	public void chooseStyleTabClick(View view) {
-		if (isTabAccessible(CHOOSE_STYLE_TAB)) {
-			selectedTab = CHOOSE_STYLE_TAB;
-			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
-			chooseStyleTab
-					.setBackgroundResource(R.drawable.choose_style_tab_selected);
-			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
-			addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab);
-			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
-			stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
-			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
-			previewTab.setBackgroundResource(R.drawable.preview_tab);
-
-			switchFragment(chooseStyleFragment);
-		}
+		//if (order.getDescription() != null && order.getDescription().length() != 0) {
+			if (isTabAccessible(CHOOSE_STYLE_TAB)) {
+				selectedTab = CHOOSE_STYLE_TAB;
+				final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+				chooseStyleTab
+						.setBackgroundResource(R.drawable.choose_style_tab_selected);
+				final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+				addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab);
+				final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+				stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
+				final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+				previewTab.setBackgroundResource(R.drawable.preview_tab);
+	
+				switchFragment(chooseStyleFragment);
+			}
+		/*} else {
+			Toast.makeText(this,
+					R.string.add_photo_albomwithoutname, Toast.LENGTH_LONG).show();
+		}*/
 	}
 
 	public void addPhotoTabClick(View view) {
@@ -163,8 +168,8 @@ public class AddBookActivity extends FragmentActivity {
 					previewTab.setBackgroundResource(R.drawable.preview_tab);
 
 					switchFragment(stylePageFragment);
-
 					loadPreviewImages();
+					stylePageFragment.previwImageCreate();
 				}
 			} else {
 				Toast.makeText(getApplicationContext(),

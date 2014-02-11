@@ -2,14 +2,18 @@ package com.mimolet.android.fragment;
 
 import java.io.File;
 
+import android.graphics.Bitmap.Config;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.MeasureSpec;
+import android.widget.FrameLayout;
 
 import com.mimolet.android.R;
+import com.mimolet.android.global.GlobalVariables;
 
 import entity.Order;
 
@@ -17,6 +21,7 @@ public class StylePageFragment extends Fragment {
 	private static final String TAG = "StylePageFragment";
 
 	private Order order;
+	private View thisView;
 
 	private String[] imagePathes;
 	private File imageFolder;
@@ -48,6 +53,24 @@ public class StylePageFragment extends Fragment {
 		final View view = inflater.inflate(R.layout.fragment_style_page,
 				container, false);
 		return view;
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		this.thisView = view;
+		Log.d(TAG, view.getMeasuredWidth() + " " + view.getMeasuredHeight());
+	}
+	
+	public void previwImageCreate() {
+		FrameLayout previewImageLayout = (FrameLayout) this.getView().findViewById(R.id.previewImageFrame);
+		previewImageLayout.setDrawingCacheEnabled(true);
+		thisView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), 
+	            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		thisView.layout(0, 0, thisView.getMeasuredWidth(), thisView.getMeasuredHeight());
+		previewImageLayout.buildDrawingCache();
+		GlobalVariables.previewImageBitmap = previewImageLayout.getDrawingCache(true).copy(Config.RGB_565, false);
+		previewImageLayout.destroyDrawingCache();
 	}
 	
 	@Override

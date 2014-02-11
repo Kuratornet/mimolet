@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import entity.PhotoData;
 
@@ -21,6 +22,7 @@ public class GlobalVariables extends Application {
   
   public static ArrayList<Integer> imagesList;
   public static HashMap<Integer, PhotoData> imagesListData;
+  public static Bitmap previewImageBitmap;
   
   public static final String BUNDLE_ORDER = "ORDER";
   

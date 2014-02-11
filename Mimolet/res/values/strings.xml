@@ -28,6 +28,7 @@
     <string name="instagram_label">Instagram</string>
     <string name="google_plus_label">Google+</string>
     <string name="lenguage_choiser_label">Язык</string>
+    <string name="add_photo_albomwithoutname">Введите название для Вашего альбома</string>
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_title">Оформление страницы</string>
     <string name="choose_layout_title">Выбор макета</string>
@@ -90,6 +91,7 @@
     <string name="purchase_additionalPagesDescription">Доп страницы</string>
     <string name="purchase_togetherDescription">ВСЕГО</string>
     <string name="purchase_buttonPurchaseText">Заказать книгу</string>
+    <string name="purchase_buttonDeleteText">Удалить книгу</string>
     <string name="purchase_testString">Needset</string>
     <string name="purchase_orderPurchaseSuccesfull">Спасибо за Ваш заказ! Ожидайте уведомления на e-mail с инструкциями по оплате.</string>
     <string name="editphoto_withoutBroderMode">Для указания цвета рамки включите отображение рамки в первом меню</string>

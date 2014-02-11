@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mimolet.android.global.GlobalVariables;
+import com.mimolet.android.task.DeleteOrderTask;
 import com.mimolet.android.task.PreviwImageShowTask;
 import com.mimolet.android.task.PurchaseOrderTask;
 import com.mimolet.android.util.Registry;
@@ -43,6 +44,7 @@ public class PurchaseActivity extends Activity {
 	private TextView additionalPagesPrice;
 	private TextView overalPrice;
 	private Button purchaseButton;
+	private Button deleteButton;
 
 	public void setCoverImage(Bitmap image) {
 		if (image != null) {
@@ -95,6 +97,8 @@ public class PurchaseActivity extends Activity {
 				+ (additionalPagesValueFromIntent * PAGE_PRICE) + ".00 $");
 		purchaseButton = (Button) findViewById(R.id.purchasePurchaseButton);
 		purchaseButton.setOnClickListener(new PurchaseOnClickListener());
+		deleteButton = (Button) findViewById(R.id.purchaseDeleteButton);
+		deleteButton.setOnClickListener(new DeleteOnClickListener());
 	}
 
 	@Override
@@ -116,6 +120,23 @@ public class PurchaseActivity extends Activity {
 						+ connectionProperties.getProperty("purchaseorder");
 				new PurchaseOrderTask(thisActivity).execute(serverUrl,
 						String.valueOf(orderID), (String) Registry.get("email"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private class DeleteOnClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			try {
+				final Properties connectionProperties = new Properties();
+				connectionProperties.load(getAssets().open(
+						"connection.properties"));
+				String serverUrl = connectionProperties
+						.getProperty("server_url")
+						+ connectionProperties.getProperty("deleteorder");
+				new DeleteOrderTask(thisActivity).execute(serverUrl, String.valueOf(orderID));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

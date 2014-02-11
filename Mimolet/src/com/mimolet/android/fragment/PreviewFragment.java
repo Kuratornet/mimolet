@@ -66,16 +66,17 @@ public class PreviewFragment extends Fragment {
 					if (!preview.exists()) {
 						preview.createNewFile();
 					}
-					final String previewUrl = "Image-0.png";
+					/*final String previewUrl = "Image-0.png";
 					final Bitmap previewBitmap = ImageUtils
 							.decodeSampledBitmapFromFile(
 									GlobalVariables.IMAGE_FOLDER + previewUrl,
-									200, 200, false);
+									200, 200, false);*/
+					
 					FileOutputStream fOut = new FileOutputStream(preview);
-					previewBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+					GlobalVariables.previewImageBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
 					fOut.flush();
 					fOut.close();
-					previewBitmap.recycle();
+					/*previewBitmap.recycle();*/
 					PdfWriter.getInstance(document, new FileOutputStream(
 							targetFile));
 					document.open();

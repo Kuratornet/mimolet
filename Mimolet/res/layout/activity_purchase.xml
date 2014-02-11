@@ -97,18 +97,6 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/purchasePurchaseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="21dp"
-            android:background="@drawable/registration_bt"
-            android:text="@string/purchase_buttonPurchaseText"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
         <TextView
             android:id="@+id/purchaseBindingValueText"
             android:layout_width="wrap_content"
@@ -284,6 +272,29 @@
             android:layout_alignLeft="@+id/purchaseAmountValueText"
             android:text="@string/purchase_testString"
             android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/purchasePurchaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/purchaseOveralPriceText"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/registration_bt"
+            android:text="@string/purchase_buttonPurchaseText"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/purchaseDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/purchasePurchaseButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registration_bt"
+            android:text="@string/purchase_buttonDeleteText"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </RelativeLayout>
     

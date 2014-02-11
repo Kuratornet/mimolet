@@ -24,8 +24,10 @@
             android:weightSum="1.0" >
 
             <FrameLayout
+                android:id="@+id/previewImageFrame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_weight=".5" >
 
                 <ImageView
