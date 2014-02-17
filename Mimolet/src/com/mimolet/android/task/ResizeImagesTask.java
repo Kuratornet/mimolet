@@ -55,6 +55,8 @@ public class ResizeImagesTask extends AsyncTask<Void, Void, Void> {
 		mimoletDir.mkdirs();
 		File myDir = new File(GlobalVariables.IMAGE_FOLDER);
 		myDir.mkdirs();
+		File myPreviews = new File(GlobalVariables.PREVIEW_FOLDER);
+		myPreviews.mkdirs();
 		ArrayList<Integer> currentList = GlobalVariables.imagesList; 
 		Integer nextImageIndex = 0;
 		if (currentList.size() != 0) {
@@ -63,14 +65,22 @@ public class ResizeImagesTask extends AsyncTask<Void, Void, Void> {
 		String fname = "Image-" + (nextImageIndex) + ".png";
 		currentList.add(nextImageIndex);
 		File file = new File(myDir, fname);
+		File preview = new File(myPreviews, fname);
 		if (file.exists()) {
 			file.delete();
+		}
+		if (preview.exists()) {
+			preview.delete();
 		}
 		try {
 			FileOutputStream out = new FileOutputStream(file);
 			finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
 			out.flush();
 			out.close();
+			FileOutputStream previewOut = new FileOutputStream(preview);
+			finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, previewOut);
+			previewOut.flush();
+			previewOut.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

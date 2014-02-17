@@ -29,6 +29,7 @@ public class GlobalVariables extends Application {
   public static final String MIMOLET_FOLDER = Environment.getExternalStorageDirectory().toString() + File.separator
       + "mimolet" + File.separator;
   public static final String IMAGE_FOLDER = MIMOLET_FOLDER + ".mimolet_imagies" + File.separator;
+  public static final String PREVIEW_FOLDER = MIMOLET_FOLDER + ".mimolet_previews" + File.separator;
   
   public static final String[] bindingType = new String[]{"?!?!", "На скобе"};
   public static final String[] coverType = new String[]{"?!?!", "Мягкая"};

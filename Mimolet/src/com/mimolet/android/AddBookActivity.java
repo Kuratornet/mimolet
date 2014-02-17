@@ -67,6 +67,13 @@ public class AddBookActivity extends FragmentActivity {
 				files[i].delete();
 			}
 		}
+		File previewsDir = new File(GlobalVariables.PREVIEW_FOLDER);
+		if (previewsDir.exists()) {
+			File[] files = previewsDir.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				files[i].delete();
+			}
+		}
 		chooseStyleFragment = new ChooseStyleFragment();
 		addPhotoFragment = new AddPhotoFragment();
 		stylePageFragment = new StylePageFragment();
@@ -201,12 +208,12 @@ public class AddBookActivity extends FragmentActivity {
 			final ImageView rightImage = (ImageView) previewFragment.getView()
 					.findViewById(R.id.previewRightImage);
 
-			final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
+			final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
 			stylePageFragment.setImagePathes(imageFolder);
 
-			ImageUtils.loadImage(leftImage, GlobalVariables.IMAGE_FOLDER
+			ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
 					+ imageFolder.list()[0], 300, true);
-			ImageUtils.loadImage(rightImage, GlobalVariables.IMAGE_FOLDER
+			ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
 					+ imageFolder.list()[1], 300, true);
 		}
 	}
@@ -252,7 +259,7 @@ public class AddBookActivity extends FragmentActivity {
 		final ImageView rightImage = (ImageView) stylePageFragment.getView()
 				.findViewById(R.id.rightImage);
 
-		final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
+		final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
 		stylePageFragment.setImagePathes(imageFolder);
 		ImageUtils.loadImage(bookCover, GlobalVariables.IMAGE_FOLDER
 				+ stylePageFragment.getPreviewImagePath());
