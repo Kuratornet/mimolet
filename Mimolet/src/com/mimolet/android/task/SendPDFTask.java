@@ -84,7 +84,7 @@ public class SendPDFTask extends AsyncTask<Void, Void, Void> {
 			reqEntity.addPart("paper", new StringBody("1"));
 			reqEntity.addPart("print", new StringBody("1"));
 			reqEntity.addPart("blockSize", new StringBody("1"));
-			reqEntity.addPart("pages", new StringBody("20"));
+			reqEntity.addPart("pages", new StringBody(String.valueOf(order.getPages())));
 			Log.i(TAG, "Request rdy");
 			httpPost.setEntity(reqEntity);
 			final HttpResponse response = httpClient.execute(httpPost);
