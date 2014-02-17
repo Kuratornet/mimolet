@@ -35,21 +35,25 @@ public class OrdersListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orders_list);
-
 		Intent intent = getIntent();
-		ordersId = intent.getIntArrayExtra("ids");
-		orders = intent.getStringArrayExtra("orders");
-		images = intent.getStringArrayExtra("imageSources");
-		createData = intent.getStringArrayExtra("createData");
-		bindingsDate = intent.getStringArrayExtra("bindingsDate");
-		paperData = intent.getStringArrayExtra("paperData");
-		printData = intent.getStringArrayExtra("printData");
-		coverData = intent.getStringArrayExtra("coverData");
-		blockSizeData = intent.getStringArrayExtra("blockSizeData");
-		pagesData = intent.getStringArrayExtra("pagesData");
-		// in call activity use intent.putExtra("")
-		getListView().setAdapter(new OrderArrayAdapter(this, R.id.undobar, 
-				orders, images,	createData));
+		if (intent.getIntExtra("ordersListSize", 0) != 0) { 
+			ordersId = intent.getIntArrayExtra("ids");
+			orders = intent.getStringArrayExtra("orders");
+			images = intent.getStringArrayExtra("imageSources");
+			createData = intent.getStringArrayExtra("createData");
+			bindingsDate = intent.getStringArrayExtra("bindingsDate");
+			paperData = intent.getStringArrayExtra("paperData");
+			printData = intent.getStringArrayExtra("printData");
+			coverData = intent.getStringArrayExtra("coverData");
+			blockSizeData = intent.getStringArrayExtra("blockSizeData");
+			pagesData = intent.getStringArrayExtra("pagesData");
+			// in call activity use intent.putExtra("")
+			getListView().setAdapter(new OrderArrayAdapter(this, R.id.undobar, 
+					orders, images,	createData));
+		} else {
+			ListView listOfOrders = (ListView) findViewById(android.R.id.list);
+			listOfOrders.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -85,6 +89,18 @@ public class OrdersListActivity extends ListActivity {
 									imageFolder.mkdirs();
 									if (imageFolder.exists()) {
 										File[] listOfFiles = imageFolder
+												.listFiles();
+										if (listOfFiles.length != 0) {
+											for (int i = 0; i < listOfFiles.length; i++) {
+												listOfFiles[i].delete();
+											}
+										}
+									}
+									final File previewFolder = new File(
+											GlobalVariables.PREVIEW_FOLDER);
+									previewFolder.mkdirs();
+									if (previewFolder.exists()) {
+										File[] listOfFiles = previewFolder
 												.listFiles();
 										if (listOfFiles.length != 0) {
 											for (int i = 0; i < listOfFiles.length; i++) {

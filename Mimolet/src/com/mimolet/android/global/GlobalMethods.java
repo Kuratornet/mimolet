@@ -62,41 +62,47 @@ public class GlobalMethods {
 
 	public static void goToOrderList(Activity activity, View view,
 			List<Order> orders) {
-		final int[] ordersId = new int[orders.size()];
-		final String[] ordersName = new String[orders.size()];
-		final String[] imageSourcesLinks = new String[orders.size()];
-		final String[] ordersDate = new String[orders.size()];
-		final String[] bindingsDate = new String[orders.size()];
-		final String[] paperData = new String[orders.size()];
-		final String[] printData = new String[orders.size()];
-		final String[] coverData = new String[orders.size()];
-		final String[] blockSizeData = new String[orders.size()];
-		final String[] pagesData = new String[orders.size()];
-
-		for (int i = 0; i < orders.size(); i++) {
-			ordersId[i] = orders.get(i).getId();
-			ordersName[i] = orders.get(i).getDescription();
-			imageSourcesLinks[i] = orders.get(i).getImagelink();
-			ordersDate[i] = orders.get(i).getCreateData().toString();
-			bindingsDate[i] = orders.get(i).getBinding().toString();
-			paperData[i] = orders.get(i).getPaper().toString();
-			printData[i] = orders.get(i).getPrint().toString();
-			coverData[i] = orders.get(i).getBinding().toString();
-			blockSizeData[i] = orders.get(i).getBlocksize().toString();
-			pagesData[i] = orders.get(i).getPages().toString();
-		}
 		final Intent intent = new Intent(activity.getApplicationContext(),
 				OrdersListActivity.class);
-		intent.putExtra("ids", ordersId);
-		intent.putExtra("orders", ordersName);
-		intent.putExtra("imageSources", imageSourcesLinks);
-		intent.putExtra("createData", ordersDate);
-		intent.putExtra("bindingsDate", bindingsDate);
-		intent.putExtra("paperData", paperData);
-		intent.putExtra("printData", printData);
-		intent.putExtra("coverData", coverData);
-		intent.putExtra("blockSizeData", blockSizeData);
-		intent.putExtra("pagesData", pagesData);
+		Log.d(TAG, "Orders = " + orders);
+		if (orders != null) {
+			final int[] ordersId = new int[orders.size()];
+			final String[] ordersName = new String[orders.size()];
+			final String[] imageSourcesLinks = new String[orders.size()];
+			final String[] ordersDate = new String[orders.size()];
+			final String[] bindingsDate = new String[orders.size()];
+			final String[] paperData = new String[orders.size()];
+			final String[] printData = new String[orders.size()];
+			final String[] coverData = new String[orders.size()];
+			final String[] blockSizeData = new String[orders.size()];
+			final String[] pagesData = new String[orders.size()];
+			for (int i = 0; i < orders.size(); i++) {
+				ordersId[i] = orders.get(i).getId();
+				ordersName[i] = orders.get(i).getDescription();
+				imageSourcesLinks[i] = orders.get(i).getImagelink();
+				ordersDate[i] = orders.get(i).getCreateData().toString();
+				bindingsDate[i] = orders.get(i).getBinding().toString();
+				paperData[i] = orders.get(i).getPaper().toString();
+				printData[i] = orders.get(i).getPrint().toString();
+				coverData[i] = orders.get(i).getBinding().toString();
+				blockSizeData[i] = orders.get(i).getBlocksize().toString();
+				pagesData[i] = orders.get(i).getPages().toString();
+			}
+			
+			intent.putExtra("ids", ordersId);
+			intent.putExtra("orders", ordersName);
+			intent.putExtra("imageSources", imageSourcesLinks);
+			intent.putExtra("createData", ordersDate);
+			intent.putExtra("bindingsDate", bindingsDate);
+			intent.putExtra("paperData", paperData);
+			intent.putExtra("printData", printData);
+			intent.putExtra("coverData", coverData);
+			intent.putExtra("blockSizeData", blockSizeData);
+			intent.putExtra("pagesData", pagesData);
+			intent.putExtra("ordersListSize", orders.size());
+		} else {
+			intent.putExtra("ordersListSize", 0);
+		}
 		activity.startActivity(intent);
 		activity.finish();
 	}

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
@@ -26,6 +27,7 @@ import com.mimolet.android.fragment.PreviewFragment;
 import com.mimolet.android.fragment.StylePageFragment;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.global.ImageUtils;
+import com.mimolet.android.task.GetOrdersListTask;
 
 import entity.Order;
 import entity.PhotoData;
@@ -319,4 +321,15 @@ public class AddBookActivity extends FragmentActivity {
 			return false;
 		}
 	}
+	
+	@Override
+	public final boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			new GetOrdersListTask(this).execute();
+			finish();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }
