@@ -44,6 +44,7 @@ public class AddBookActivity extends FragmentActivity {
 	private AddPhotoFragment addPhotoFragment;
 	private StylePageFragment stylePageFragment;
 	private PreviewFragment previewFragment;
+	private Fragment currentFragment;
 
 	private GestureDetector gestureDetector;
 	View.OnTouchListener gestureListener;
@@ -105,6 +106,7 @@ public class AddBookActivity extends FragmentActivity {
 	}
 
 	public void switchFragment(Fragment fragment) {
+		currentFragment = fragment;
 		final FragmentTransaction fragmentTransaction = getSupportFragmentManager()
 				.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -113,25 +115,20 @@ public class AddBookActivity extends FragmentActivity {
 	}
 
 	public void chooseStyleTabClick(View view) {
-		//if (order.getDescription() != null && order.getDescription().length() != 0) {
-			if (isTabAccessible(CHOOSE_STYLE_TAB)) {
-				selectedTab = CHOOSE_STYLE_TAB;
-				final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
-				chooseStyleTab
-						.setBackgroundResource(R.drawable.choose_style_tab_selected);
-				final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
-				addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab);
-				final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
-				stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
-				final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
-				previewTab.setBackgroundResource(R.drawable.preview_tab);
-	
-				switchFragment(chooseStyleFragment);
-			}
-		/*} else {
-			Toast.makeText(this,
-					R.string.add_photo_albomwithoutname, Toast.LENGTH_LONG).show();
-		}*/
+		if (isTabAccessible(CHOOSE_STYLE_TAB)) {
+			selectedTab = CHOOSE_STYLE_TAB;
+			final ImageButton chooseStyleTab = (ImageButton) findViewById(R.id.chooseStyleTab);
+			chooseStyleTab
+					.setBackgroundResource(R.drawable.choose_style_tab_selected);
+			final ImageButton addPhotoTab = (ImageButton) findViewById(R.id.addPhotoTab);
+			addPhotoTab.setBackgroundResource(R.drawable.add_photo_tab);
+			final ImageButton stylePageTab = (ImageButton) findViewById(R.id.stylePageTab);
+			stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
+			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
+			previewTab.setBackgroundResource(R.drawable.preview_tab);
+
+			switchFragment(chooseStyleFragment);
+		}
 	}
 
 	public void addPhotoTabClick(View view) {
@@ -205,14 +202,13 @@ public class AddBookActivity extends FragmentActivity {
 					.findViewById(R.id.previewLeftImage);
 			final ImageView rightImage = (ImageView) previewFragment.getView()
 					.findViewById(R.id.previewRightImage);
-
+			
 			final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
 			previewFragment.setImagePathes(imageFolder);
 
-			ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
-					+ imageFolder.list()[0], 300, true);
-			ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
-					+ imageFolder.list()[1], 300, true);
+			leftImage.setOnTouchListener(gestureListener);
+			rightImage.setOnTouchListener(gestureListener);
+			loadLeftRightPreviewImages();
 		}
 	}
 
@@ -234,19 +230,23 @@ public class AddBookActivity extends FragmentActivity {
 	}
 
 	public void onLeftImageClick(View view) {
-		final Intent intent = new Intent(getApplicationContext(),
-				EditPhotoActivity.class);
-		intent.putExtra(EditPhotoActivity.IS_LEFT, true);
-		intent.putExtra("imageIndex", stylePageFragment.getLeftImagePath());
-		startActivity(intent);
+		if (currentFragment instanceof StylePageFragment) {
+			final Intent intent = new Intent(getApplicationContext(),
+					EditPhotoActivity.class);
+			intent.putExtra(EditPhotoActivity.IS_LEFT, true);
+			intent.putExtra("imageIndex", stylePageFragment.getLeftImagePath());
+			startActivity(intent);
+		}
 	}
 
 	public void onRightImageClick(View view) {
-		final Intent intent = new Intent(getApplicationContext(),
-				EditPhotoActivity.class);
-		intent.putExtra(EditPhotoActivity.IS_LEFT, false);
-		intent.putExtra("imageIndex", stylePageFragment.getRightImagePath());
-		startActivity(intent);
+		if (currentFragment instanceof StylePageFragment) {
+			final Intent intent = new Intent(getApplicationContext(),
+					EditPhotoActivity.class);
+			intent.putExtra(EditPhotoActivity.IS_LEFT, false);
+			intent.putExtra("imageIndex", stylePageFragment.getRightImagePath());
+			startActivity(intent);
+		}
 	}
 
 	private void loadPreviewImages() {
@@ -278,15 +278,36 @@ public class AddBookActivity extends FragmentActivity {
 		ImageUtils.loadImage(rightImage, GlobalVariables.IMAGE_FOLDER
 				+ stylePageFragment.getRightImagePath(), 300, true);
 	}
+	
+	private void loadLeftRightPreviewImages() {
+		final ImageView leftImage = (ImageView) previewFragment.getView()
+				.findViewById(R.id.previewLeftImage);
+		final ImageView rightImage = (ImageView) previewFragment.getView()
+				.findViewById(R.id.previewRightImage);
+		ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
+				+ previewFragment.getLeftImagePath(), 300, true);
+		ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
+				+ previewFragment.getRightImagePath(), 300, true);
+	}
 
 	private void onLeftSwipe() {
-		stylePageFragment.flipImagesRight();
-		loadLeftRightImages();
+		if (currentFragment instanceof StylePageFragment) {
+			stylePageFragment.flipImagesRight();
+			loadLeftRightImages();
+		} else if (currentFragment instanceof PreviewFragment) {
+			previewFragment.flipImagesRight();
+			loadLeftRightPreviewImages();
+		}
 	}
 
 	private void onRightSwipe() {
-		stylePageFragment.flipImagesLeft();
-		loadLeftRightImages();
+		if (currentFragment instanceof StylePageFragment) {
+			stylePageFragment.flipImagesLeft();
+			loadLeftRightImages();
+		} else if (currentFragment instanceof PreviewFragment) {
+			previewFragment.flipImagesLeft();
+			loadLeftRightPreviewImages();
+		}
 	}
 
 	public void checkout(View view) {
