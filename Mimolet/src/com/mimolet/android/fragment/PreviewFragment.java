@@ -13,23 +13,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfWriter;
+import com.mimolet.android.AddBookActivity;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.global.ImageUtils;
 import com.mimolet.android.task.SendPDFTask;
 
-import entity.Order;
-
 public class PreviewFragment extends Fragment {
 
 	private static final String TAG = "PreviewFragment";
-
-	private Order order;
+	AddBookActivity parent;
 
 	private String[] imagePathes;
 	private File imageFolder;
@@ -39,6 +38,7 @@ public class PreviewFragment extends Fragment {
 	public void setImagePathes(File file) {
 		imageFolder = file;
 		this.imagePathes = imageFolder.list();
+		parent.getOrder().setPages(this.imagePathes.length);
 		Log.i(TAG, imagePathes.toString());
 		
 	}
@@ -46,14 +46,11 @@ public class PreviewFragment extends Fragment {
 	public String[] getImagePathes() {
 		return imagePathes;
 	}
-	
-	public void setOrder(Order order) {
-		this.order = order;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		this.parent = (AddBookActivity) getActivity();
 		final View view = inflater.inflate(R.layout.fragment_preview,
 				container, false);
 		final ImageButton createPDF = (ImageButton) view
@@ -62,18 +59,23 @@ public class PreviewFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
+				if (parent.getOrder().getDescription() == null || parent.getOrder().getDescription().length() == 0) {
+					Toast.makeText(getActivity(), R.string.preview_noname_album, Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (parent.getOrder().getPages() < 20) {
+					Toast.makeText(getActivity(), R.string.preview_less_then_twenty_photos, Toast.LENGTH_LONG).show();
+					return;
+				}
 				final int SIDE_SIZE = 576;
 				final int BORDER_SIZE = 43;
 				Document document = new Document(new Rectangle(SIDE_SIZE,
 						SIDE_SIZE));
 				document.setMargins(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE,
 						BORDER_SIZE);
-				final String targetFile = GlobalVariables.MIMOLET_FOLDER
-						+ "Images.pdf";
-				final String previewFile = GlobalVariables.MIMOLET_FOLDER
-						+ "preview.png";
+				final String targetFile = GlobalVariables.MIMOLET_FOLDER + "Images.pdf";
+				final String previewFile = GlobalVariables.MIMOLET_FOLDER + "preview.png";
 				try {
-
 					File f = new File(targetFile);
 					if (!f.exists()) {
 						f.createNewFile();
@@ -82,23 +84,13 @@ public class PreviewFragment extends Fragment {
 					if (!preview.exists()) {
 						preview.createNewFile();
 					}
-					/*final String previewUrl = "Image-0.png";
-					final Bitmap previewBitmap = ImageUtils
-							.decodeSampledBitmapFromFile(
-									GlobalVariables.IMAGE_FOLDER + previewUrl,
-									200, 200, false);*/
-					
 					FileOutputStream fOut = new FileOutputStream(preview);
 					GlobalVariables.previewImageBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
 					fOut.flush();
 					fOut.close();
-					/*previewBitmap.recycle();*/
-					PdfWriter.getInstance(document, new FileOutputStream(
-							targetFile));
+					PdfWriter.getInstance(document, new FileOutputStream(targetFile));
 					document.open();
-
-					final File workingFolder = new File(
-							GlobalVariables.IMAGE_FOLDER);
+					final File workingFolder = new File(GlobalVariables.IMAGE_FOLDER);
 					final File[] listOfFiles = workingFolder.listFiles();
 					for (File file : listOfFiles) {
 						String imageName = GlobalVariables.IMAGE_FOLDER
@@ -130,7 +122,7 @@ public class PreviewFragment extends Fragment {
 				}
 
 				Log.i(TAG, "If all ok start this");
-				new SendPDFTask(getActivity(), targetFile, previewFile, order)
+				new SendPDFTask(getActivity(), targetFile, previewFile, parent.getOrder())
 						.execute(new Void[0]);
 			}
 		});

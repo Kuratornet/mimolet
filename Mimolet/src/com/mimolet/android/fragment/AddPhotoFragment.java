@@ -13,17 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.mimolet.android.AddBookActivity;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.multiphoto.MultiPhotoSelectActivity;
 
-import entity.Order;
-
 public class AddPhotoFragment extends Fragment {
 
 	LinearLayout myGallery;
-
-	private Order order;
+	AddBookActivity parent;
 
 	private final String[] listviewItems = new String[] { "Phone memory"/*,
 			"Facebook", "Instagram", "Google+" */};
@@ -31,6 +29,7 @@ public class AddPhotoFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		this.parent = (AddBookActivity) getActivity();
 		final View view = inflater.inflate(R.layout.fragment_add_photo,
 				container, false);
 		ListView list = (ListView) view.findViewById(R.id.listview);
@@ -44,7 +43,7 @@ public class AddPhotoFragment extends Fragment {
 							.getApplicationContext(),
 							MultiPhotoSelectActivity.class);
 					final Bundle bundle = new Bundle();
-					bundle.putSerializable(GlobalVariables.BUNDLE_ORDER, order);
+					bundle.putSerializable(GlobalVariables.BUNDLE_ORDER, parent.getOrder());
 					intent.putExtras(bundle);
 					startActivityForResult(intent, 1);
 					break;
@@ -65,13 +64,5 @@ public class AddPhotoFragment extends Fragment {
 				R.layout.custom_list_view, listviewItems));
 		myGallery = (LinearLayout) view.findViewById(R.id.mygallery);
 		return view;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
-	public Order getOrder() {
-		return order;
 	}
 }

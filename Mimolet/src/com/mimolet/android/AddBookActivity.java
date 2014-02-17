@@ -80,10 +80,6 @@ public class AddBookActivity extends FragmentActivity {
 		addPhotoFragment = new AddPhotoFragment();
 		stylePageFragment = new StylePageFragment();
 		previewFragment = new PreviewFragment();
-		chooseStyleFragment.setOrder(order);
-		addPhotoFragment.setOrder(order);
-		stylePageFragment.setOrder(order);
-		previewFragment.setOrder(order);
 
 		setContentView(R.layout.activity_add_book);
 
@@ -322,6 +318,14 @@ public class AddBookActivity extends FragmentActivity {
 		}
 	}
 	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	@Override
 	public final boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {

@@ -8,33 +8,22 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 
-import entity.Order;
-
 public class StylePageFragment extends Fragment {
 	private static final String TAG = "StylePageFragment";
 
-	private Order order;
 	private View thisView;
 
 	private String[] imagePathes;
 	private File imageFolder;
 
 	private int currentImageIndex = 0;
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	
-	public Order getOrder() {
-		return order;
-	} 
 	
 	public void setImagePathes(File file) {
 		imageFolder = file;

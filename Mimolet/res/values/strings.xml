@@ -31,6 +31,8 @@
     <string name="add_photo_albomwithoutname">Введите название для Вашего альбома</string>
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_title">Оформление страницы</string>
+    <string name="preview_noname_album">Введите название альбома пожалуйста!</string>
+    <string name="preview_less_then_twenty_photos">Надо добавить хотя бы 20 фотографий</string>
     <string name="choose_layout_title">Выбор макета</string>
     <string name="choose_background_title">Выбор фона</string>
     <string name="background_color">Цвет фона:</string>
