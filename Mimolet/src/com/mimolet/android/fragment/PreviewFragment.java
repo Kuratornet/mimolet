@@ -31,6 +31,22 @@ public class PreviewFragment extends Fragment {
 
 	private Order order;
 
+	private String[] imagePathes;
+	private File imageFolder;
+	
+	private int currentImageIndex = 0;
+	
+	public void setImagePathes(File file) {
+		imageFolder = file;
+		this.imagePathes = imageFolder.list();
+		Log.i(TAG, imagePathes.toString());
+		
+	}
+
+	public String[] getImagePathes() {
+		return imagePathes;
+	}
+	
 	public void setOrder(Order order) {
 		this.order = order;
 	}
@@ -119,5 +135,37 @@ public class PreviewFragment extends Fragment {
 			}
 		});
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (imageFolder != null) {
+			this.imagePathes = imageFolder.list();
+		}
+	}
+	
+	public String getPreviewImagePath() {
+	  return imagePathes[0];
+	}
+	
+	public String getLeftImagePath() {
+	  return imagePathes[currentImageIndex];
+	}
+	
+	public String getRightImagePath() {
+	  return imagePathes[currentImageIndex + 1];
+	}
+	
+	public void flipImagesRight() {
+	  if (currentImageIndex + 2 < imagePathes.length) {
+	    currentImageIndex += 2;
+	  }
+	}
+	
+	public void flipImagesLeft() {
+	  if (currentImageIndex - 2 >= 0) {
+		  currentImageIndex -= 2;
+	  }
 	}
 }

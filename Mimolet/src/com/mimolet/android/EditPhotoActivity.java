@@ -1,11 +1,13 @@
 package com.mimolet.android;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -46,6 +48,7 @@ public class EditPhotoActivity extends SherlockActivity {
     private Activity thisActivity;
     private Bitmap photoBitmap;
     private String imageFullPath;
+    private String imagePreviewFullPath;
     private int imageIndex;
     private PhotoData photoData;
     private int currentBorderColor;
@@ -107,8 +110,9 @@ public class EditPhotoActivity extends SherlockActivity {
 		// Load image and get image path and index
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-		String imagePath = getIntent().getStringExtra("imageIndex");
+		String imagePath = getIntent().getStringExtra("imageIndex"); 
 		imageFullPath = GlobalVariables.IMAGE_FOLDER + imagePath;
+		imagePreviewFullPath = GlobalVariables.PREVIEW_FOLDER + imagePath;
 		imageIndex = Integer.valueOf(imagePath.replaceAll("\\D+",""));
 		photoBitmap = BitmapFactory.decodeFile(imageFullPath, options);
 		addingTextField = (EditText) findViewById(R.id.addingTextField);
@@ -142,6 +146,27 @@ public class EditPhotoActivity extends SherlockActivity {
 					@Override
 					public void onClick(View v) {
 						photoData.setText(addingTextField.getText().toString());
+
+						View content = findViewById(R.id.layoutforphotosaving);
+						content.setDrawingCacheEnabled(true);
+						Bitmap bitmap = content.getDrawingCache();
+						Log.e(TAG, imagePreviewFullPath);
+						File file = new File(imagePreviewFullPath);
+						try {
+							if (!file.exists()) {
+								file.createNewFile();
+							}
+							FileOutputStream ostream = new FileOutputStream(
+									file);
+							bitmap.compress(CompressFormat.PNG, 10, ostream);
+							ostream.close();
+							content.invalidate();
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							content.setDrawingCacheEnabled(false);
+						}
+						
 						EditPhotoActivity.this.onBackPressed();
 					}
 				});

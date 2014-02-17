@@ -209,7 +209,7 @@ public class AddBookActivity extends FragmentActivity {
 					.findViewById(R.id.previewRightImage);
 
 			final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
-			stylePageFragment.setImagePathes(imageFolder);
+			previewFragment.setImagePathes(imageFolder);
 
 			ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
 					+ imageFolder.list()[0], 300, true);
@@ -259,7 +259,7 @@ public class AddBookActivity extends FragmentActivity {
 		final ImageView rightImage = (ImageView) stylePageFragment.getView()
 				.findViewById(R.id.rightImage);
 
-		final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
+		final File imageFolder = new File(GlobalVariables.IMAGE_FOLDER);
 		stylePageFragment.setImagePathes(imageFolder);
 		ImageUtils.loadImage(bookCover, GlobalVariables.IMAGE_FOLDER
 				+ stylePageFragment.getPreviewImagePath());
