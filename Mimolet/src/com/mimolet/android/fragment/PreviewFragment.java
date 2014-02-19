@@ -32,15 +32,15 @@ public class PreviewFragment extends Fragment {
 
 	private String[] imagePathes;
 	private File imageFolder;
-	
+
 	private int currentImageIndex = 0;
-	
+
 	public void setImagePathes(File file) {
 		imageFolder = file;
 		this.imagePathes = imageFolder.list();
 		parent.getOrder().setPages(this.imagePathes.length);
 		Log.i(TAG, imagePathes.toString());
-		
+
 	}
 
 	public String[] getImagePathes() {
@@ -59,12 +59,17 @@ public class PreviewFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				if (parent.getOrder().getDescription() == null || parent.getOrder().getDescription().length() == 0) {
-					Toast.makeText(getActivity(), R.string.preview_noname_album, Toast.LENGTH_LONG).show();
+				if (parent.getOrder().getDescription() == null
+						|| parent.getOrder().getDescription().length() == 0) {
+					Toast.makeText(getActivity(),
+							R.string.preview_noname_album, Toast.LENGTH_LONG)
+							.show();
 					return;
 				}
 				if (parent.getOrder().getPages() < 20) {
-					Toast.makeText(getActivity(), R.string.preview_less_then_twenty_photos, Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(),
+							R.string.preview_less_then_twenty_photos,
+							Toast.LENGTH_LONG).show();
 					return;
 				}
 				final int SIDE_SIZE = 576;
@@ -73,8 +78,10 @@ public class PreviewFragment extends Fragment {
 						SIDE_SIZE));
 				document.setMargins(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE,
 						BORDER_SIZE);
-				final String targetFile = GlobalVariables.MIMOLET_FOLDER + "Images.pdf";
-				final String previewFile = GlobalVariables.MIMOLET_FOLDER + "preview.png";
+				final String targetFile = GlobalVariables.MIMOLET_FOLDER
+						+ "Images.pdf";
+				final String previewFile = GlobalVariables.MIMOLET_FOLDER
+						+ "preview.png";
 				try {
 					File f = new File(targetFile);
 					if (!f.exists()) {
@@ -85,12 +92,15 @@ public class PreviewFragment extends Fragment {
 						preview.createNewFile();
 					}
 					FileOutputStream fOut = new FileOutputStream(preview);
-					GlobalVariables.previewImageBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+					GlobalVariables.previewImageBitmap.compress(
+							Bitmap.CompressFormat.PNG, 85, fOut);
 					fOut.flush();
 					fOut.close();
-					PdfWriter.getInstance(document, new FileOutputStream(targetFile));
+					PdfWriter.getInstance(document, new FileOutputStream(
+							targetFile));
 					document.open();
-					final File workingFolder = new File(GlobalVariables.IMAGE_FOLDER);
+					final File workingFolder = new File(
+							GlobalVariables.IMAGE_FOLDER);
 					final File[] listOfFiles = workingFolder.listFiles();
 					for (File file : listOfFiles) {
 						String imageName = GlobalVariables.IMAGE_FOLDER
@@ -122,13 +132,13 @@ public class PreviewFragment extends Fragment {
 				}
 
 				Log.i(TAG, "If all ok start this");
-				new SendPDFTask(getActivity(), targetFile, previewFile, parent.getOrder())
-						.execute(new Void[0]);
+				new SendPDFTask(getActivity(), targetFile, previewFile, parent
+						.getOrder()).execute(new Void[0]);
 			}
 		});
 		return view;
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -136,28 +146,26 @@ public class PreviewFragment extends Fragment {
 			this.imagePathes = imageFolder.list();
 		}
 	}
-	
+
 	public String getPreviewImagePath() {
-	  return imagePathes[0];
+		return imagePathes[0];
 	}
-	
+
 	public String getLeftImagePath() {
-	  return imagePathes[currentImageIndex];
+		return imagePathes[currentImageIndex];
 	}
-	
+
 	public String getRightImagePath() {
-	  return imagePathes[currentImageIndex + 1];
+		return imagePathes[currentImageIndex + 1];
 	}
-	
+
 	public void flipImagesRight() {
-	  if (currentImageIndex + 2 < imagePathes.length) {
-	    currentImageIndex += 2;
-	  }
+		currentImageIndex += 2;
 	}
-	
+
 	public void flipImagesLeft() {
-	  if (currentImageIndex - 2 >= 0) {
-		  currentImageIndex -= 2;
-	  }
+		if (currentImageIndex - 2 >= 0) {
+			currentImageIndex -= 2;
+		}
 	}
 }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
@@ -19,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mimolet.android.fragment.AddPhotoFragment;
@@ -112,6 +114,7 @@ public class AddBookActivity extends FragmentActivity {
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
 		fragmentTransaction.commit();
 		getSupportFragmentManager().executePendingTransactions();
+		resizeScreenParts();
 	}
 
 	public void chooseStyleTabClick(View view) {
@@ -126,7 +129,6 @@ public class AddBookActivity extends FragmentActivity {
 			stylePageTab.setBackgroundResource(R.drawable.style_page_tab);
 			final ImageButton previewTab = (ImageButton) findViewById(R.id.previewTab);
 			previewTab.setBackgroundResource(R.drawable.preview_tab);
-
 			switchFragment(chooseStyleFragment);
 		}
 	}
@@ -286,8 +288,12 @@ public class AddBookActivity extends FragmentActivity {
 				.findViewById(R.id.previewRightImage);
 		ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
 				+ previewFragment.getLeftImagePath(), 300, true);
-		ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
-				+ previewFragment.getRightImagePath(), 300, true);
+		try {
+			ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
+					+ previewFragment.getRightImagePath(), 300, true);
+		} catch (Exception e) {
+			rightImage.setImageResource(R.drawable.no_imageb);
+		}
 	}
 
 	private void onLeftSwipe() {
@@ -346,7 +352,18 @@ public class AddBookActivity extends FragmentActivity {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
+	
+	@SuppressWarnings("deprecation")
+	public void resizeScreenParts() {
+		if (currentFragment instanceof PreviewFragment) {
+			Display display = getWindowManager().getDefaultDisplay(); 
+			int width = display.getWidth();
+			LinearLayout linear = (LinearLayout) findViewById(R.id.linearLayout1);
+			LinearLayout.LayoutParams relativeLayoutParams = new LinearLayout.LayoutParams(width, width/2);
+			linear.setLayoutParams(relativeLayoutParams);
+		}
+	}
+	
 	@Override
 	public final boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {

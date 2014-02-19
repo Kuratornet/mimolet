@@ -86,6 +86,7 @@
             android:weightSum="200" >
 
             <FrameLayout
+                android:id="@+id/leftImageFrameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="100" >
@@ -111,6 +112,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/rightImageFrameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="100" >

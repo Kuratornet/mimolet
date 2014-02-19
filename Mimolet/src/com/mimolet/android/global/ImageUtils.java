@@ -33,8 +33,6 @@ public class ImageUtils {
 		final BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filepath, options);
-
-		// Calculate inSampleSize
 		if (stretchSmallerSide) {
 			options.inSampleSize = calculateInSampleSize2(options, reqWidth,
 					reqHeight);
@@ -56,17 +54,9 @@ public class ImageUtils {
 		int inSampleSize = 1;
 
 		if (height > reqHeight || width > reqWidth) {
-
-			// Calculate ratios of height and width to requested height and
-			// width
 			final int heightRatio = Math.round((float) height
 					/ (float) reqHeight);
 			final int widthRatio = Math.round((float) width / (float) reqWidth);
-
-			// Choose the smallest ratio as inSampleSize value, this will
-			// guarantee
-			// a final image with both dimensions larger than or equal to the
-			// requested height and width.
 			inSampleSize = heightRatio > widthRatio ? heightRatio : widthRatio;
 		}
 
@@ -81,17 +71,9 @@ public class ImageUtils {
 		int inSampleSize = 1;
 
 		if (height > reqHeight || width > reqWidth) {
-
-			// Calculate ratios of height and width to requested height and
-			// width
 			final int heightRatio = Math.round((float) height
 					/ (float) reqHeight);
 			final int widthRatio = Math.round((float) width / (float) reqWidth);
-
-			// Choose the smallest ratio as inSampleSize value, this will
-			// guarantee
-			// a final image with both dimensions larger than or equal to the
-			// requested height and width.
 			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
 		}
 
