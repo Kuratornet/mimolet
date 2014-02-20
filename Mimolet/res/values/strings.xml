@@ -33,7 +33,8 @@
     <string name="edit_photo_open_error">Ошибка редактирования фотографии</string>
     <string name="edit_photo_title">Оформление страницы</string>
     <string name="preview_noname_album">Введите название альбома пожалуйста!</string>
-    <string name="preview_less_then_twenty_photos">Надо добавить хотя бы 20 фотографий</string>
+    <string name="preview_less_then_twenty_photos">Надо добавить хотя бы 20 фотографий.</string>
+    <string name="preview_less_more_then_ts">Можно добавить не больше 36 фотографий.</string>
     <string name="choose_layout_title">Выбор макета</string>
     <string name="choose_background_title">Выбор фона</string>
     <string name="background_color">Цвет фона:</string>

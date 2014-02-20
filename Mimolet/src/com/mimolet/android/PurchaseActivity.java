@@ -27,6 +27,7 @@ public class PurchaseActivity extends Activity {
 
 	private static final int BOOK_PRICE = 14;
 	private static final int PAGE_PRICE = 1;
+	private static final int MAIN_PRICE_PAGES_COUNT = 20;
 
 	private int orderID;
 
@@ -81,13 +82,14 @@ public class PurchaseActivity extends Activity {
 		blockSize.setText(GlobalVariables.blockSizeType[Integer
 				.valueOf(itemIntent.getStringExtra("blockSize"))]);
 		pagesCount = (TextView) findViewById(R.id.purchasePagesValueTextText);
-		pagesCount.setText(itemIntent.getStringExtra("pages"));
+		Integer pagesCountInteger = Integer.valueOf(itemIntent.getStringExtra("pages"));
+		pagesCount.setText(String.valueOf(pagesCountInteger));
 		amountValue = (TextView) findViewById(R.id.purchaseAmountValueText);
 		additionalPagesValue = (TextView) findViewById(R.id.purchaseAdditionalPagesValueText);
 		singleBookPrice = (TextView) findViewById(R.id.purchaseSingleBookPriceValueText);
 		additionalPagesPrice = (TextView) findViewById(R.id.purchaseAdditionalPagesPriceText);
 		overalPrice = (TextView) findViewById(R.id.purchaseOveralPriceText);
-		int additionalPagesValueFromIntent = 0; // Need to resolve!!!
+		int additionalPagesValueFromIntent = pagesCountInteger - MAIN_PRICE_PAGES_COUNT;
 		amountValue.setText("1 шт");
 		singleBookPrice.setText(BOOK_PRICE + ".00 $");
 		additionalPagesValue.setText(additionalPagesValueFromIntent + " шт");

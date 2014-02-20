@@ -22,9 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.mimolet.android.global.GlobalMethods;
 import com.mimolet.android.task.AuthorizationTask;
 import com.mimolet.android.task.SocialAuthTask;
@@ -109,30 +106,30 @@ public class AuthorizationActivity extends SherlockActivity {
 		forgetPasswordText.setOnClickListener(new RestorePasswordFieldsOnClickListener());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings)
-				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						Intent intent = new Intent(AuthorizationActivity.this,
-								SettingsActivity.class);
-						startActivityForResult(intent, 1);
-						return true;
-					}
-				}).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings)
+//				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//
+//					@Override
+//					public boolean onMenuItemClick(MenuItem item) {
+//						Intent intent = new Intent(AuthorizationActivity.this,
+//								SettingsActivity.class);
+//						startActivityForResult(intent, 1);
+//						return true;
+//					}
+//				}).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//		return true;
+//	}
 
 	@Override
 	public final boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+		/*if ((keyCode == KeyEvent.KEYCODE_MENU)) {
 			Intent intent = new Intent(AuthorizationActivity.this,
 					SettingsActivity.class);
 			startActivityForResult(intent, 1);
 			return true;
-		} else if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+		} else*/ if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			finish();
 			return true;
 		}

@@ -67,8 +67,14 @@ public class PreviewFragment extends FragmentWithPreviews {
 				}
 				if (parent.getOrder().getPages() < 20) {
 					Toast.makeText(getActivity(),
-							R.string.preview_less_then_twenty_photos,
-							Toast.LENGTH_LONG).show();
+							R.string.preview_less_then_twenty_photos + " Загружено " 
+									+ parent.getOrder().getPages() + " страниц", Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (parent.getOrder().getPages() > 36) {
+					Toast.makeText(getActivity(),
+							R.string.preview_less_more_then_ts + " Загружено " 
+									+ parent.getOrder().getPages() + " страниц", Toast.LENGTH_LONG).show();
 					return;
 				}
 				final int SIDE_SIZE = 576;
