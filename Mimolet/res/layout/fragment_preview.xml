@@ -8,6 +8,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
+        android:baselineAligned="false"
         android:layout_width="320dp"
         android:layout_height="160dp"
         android:layout_gravity="center_vertical|center_horizontal"

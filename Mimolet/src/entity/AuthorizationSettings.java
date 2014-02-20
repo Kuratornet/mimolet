@@ -1,6 +1,10 @@
 package entity;
 
-public class AuthorizationSettings {
+import java.io.Serializable;
+
+public class AuthorizationSettings implements Serializable {
+	private static final long serialVersionUID = 7565075647325306829L;
+	
 	private AuthorizationType authorizationType = AuthorizationType.UNCHECKED;
 	private String email;
 	private String password;

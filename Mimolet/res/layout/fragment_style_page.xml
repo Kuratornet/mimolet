@@ -18,6 +18,7 @@
         android:paddingTop="20dp" >
 
         <LinearLayout
+            android:baselineAligned="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
@@ -86,6 +87,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout1"
+            android:baselineAligned="false"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
