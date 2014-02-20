@@ -357,7 +357,7 @@ public class AddBookActivity extends FragmentActivity {
 	
 	@SuppressWarnings("deprecation")
 	public void resizeScreenParts() {
-		if (currentFragment instanceof PreviewFragment) {
+		if (currentFragment instanceof FragmentWithPreviews) {
 			Display display = getWindowManager().getDefaultDisplay(); 
 			int width = display.getWidth();
 			LinearLayout linear = (LinearLayout) findViewById(R.id.linearLayout1);
