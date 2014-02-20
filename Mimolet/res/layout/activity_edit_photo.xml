@@ -30,6 +30,7 @@
 
                 <ImageView
                     android:id="@+id/backgroundRect"
+                    android:contentDescription="@string/edit_photo_contentdescription"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop" />
@@ -41,6 +42,7 @@
 
                     <ImageView
                         android:id="@+id/photo"
+                        android:contentDescription="@string/edit_photo_contentdescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -65,6 +67,7 @@
 
             <ImageView
                 android:id="@+id/mainFrame"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -84,6 +87,7 @@
 
         <ImageButton
             android:id="@+id/chooseLayoutTab"
+            android:contentDescription="@string/edit_photo_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -95,6 +99,7 @@
 
         <ImageButton
             android:id="@+id/chooseBackgroundTab"
+            android:contentDescription="@string/edit_photo_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -106,6 +111,7 @@
 
         <ImageButton
             android:id="@+id/addTextTab"
+            android:contentDescription="@string/edit_photo_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -117,6 +123,7 @@
 
         <ImageButton
             android:id="@+id/changePhotoTab"
+            android:contentDescription="@string/edit_photo_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -153,6 +160,7 @@
 
             <ImageView
                 android:id="@+id/choose_layout_ok"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -169,6 +177,7 @@
 
             <ImageView
                 android:id="@+id/edit_photo_layout_all_button"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -176,6 +185,7 @@
 
             <ImageView
                 android:id="@+id/edit_photo_layout_rounded_button"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -183,6 +193,7 @@
 
             <ImageView
                 android:id="@+id/edit_photo_layout_center_button"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -216,6 +227,7 @@
 
             <ImageView
                 android:id="@+id/choose_background_ok"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -356,6 +368,7 @@
 
             <ImageView
                 android:id="@+id/add_text_ok"
+                android:contentDescription="@string/edit_photo_contentdescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

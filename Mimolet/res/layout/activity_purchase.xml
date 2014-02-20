@@ -311,6 +311,7 @@
 
         <ImageButton
             android:id="@+id/bottomtab1"
+            android:contentDescription="@string/purchase_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -322,6 +323,7 @@
 
         <ImageButton
             android:id="@+id/bottomtab2"
+            android:contentDescription="@string/purchase_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -333,6 +335,7 @@
 
         <ImageButton
             android:id="@+id/bottomtab3"
+            android:contentDescription="@string/purchase_contentdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"

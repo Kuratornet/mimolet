@@ -32,6 +32,8 @@
     <string name="edit_photo_activity">Оформление страницы</string>
     <string name="edit_photo_open_error">Ошибка редактирования фотографии</string>
     <string name="edit_photo_title">Оформление страницы</string>
+    <string name="edit_photo_contentdescription">EditPhoto content description</string>
+    <string name="editphoto_withoutBroderMode">Для указания цвета рамки включите отображение рамки в первом меню</string>
     <string name="preview_noname_album">Введите название альбома пожалуйста!</string>
     <string name="preview_less_then_twenty_photos">Надо добавить хотя бы 20 фотографий.</string>
     <string name="preview_less_more_then_ts">Можно добавить не больше 36 фотографий.</string>
@@ -48,6 +50,7 @@
     <string name="color">Цвет:</string>
     <string name="change_photo_title">Изменение фотографии</string>
     <string name="phone_memory_label">Память телефона</string>
+    <string name="order_list_contentdescription">OrderList content description</string>
 
     <string-array name="image_source_labels">
         <item>Память телефона</item>
@@ -61,6 +64,7 @@
     <string name="appID">492177964205714</string>
     <string name="server_unavailable">В данный момент сервер недоступен</string>
     <string name="unidentified_error">Неопознання ошибка. Сообщите о ней разработчикам пожалуйста!</string>
+    <string name="add_book_contentdescription">Add button image</string>
     <string name="authorization_loginButton">Login button</string>
     <string name="authotization_logoImageDescript">Logo Image</string>
     <string name="authorization_ORimageDescript">OR image</string>
@@ -98,6 +102,8 @@
     <string name="purchase_buttonDeleteText">Удалить книгу</string>
     <string name="purchase_testString">Needset</string>
     <string name="purchase_orderPurchaseSuccesfull">Спасибо за Ваш заказ! Ожидайте уведомления на e-mail с инструкциями по оплате.</string>
-    <string name="editphoto_withoutBroderMode">Для указания цвета рамки включите отображение рамки в первом меню</string>
+    <string name="purchase_contentdescription">Purchase content description</string>
+    <string name="preview_fragment_contentdescription">PreviewFragment content description</string>
+    <string name="stylepage_fragment_contentdescription">StylepageFragment content description</string>
 
 </resources>
