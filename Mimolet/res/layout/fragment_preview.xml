@@ -22,7 +22,7 @@
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/previewLeftImage"
+                android:id="@+id/leftImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
@@ -49,7 +49,7 @@
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/previewRightImage"
+                android:id="@+id/rightImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="left|center_vertical"

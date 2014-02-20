@@ -4,7 +4,6 @@ import java.io.File;
 
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.FrameLayout;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 
-public class StylePageFragment extends Fragment {
+public class StylePageFragment extends FragmentWithPreviews {
 	private static final String TAG = "StylePageFragment";
 
 	private View thisView;
@@ -77,10 +76,12 @@ public class StylePageFragment extends Fragment {
 		return imagePathes[0];
 	}
 
+	@Override
 	public String getLeftImagePath() {
 		return imagePathes[currentImageIndex];
 	}
-
+	
+	@Override
 	public String getRightImagePath() {
 		return imagePathes[currentImageIndex + 1];
 	}

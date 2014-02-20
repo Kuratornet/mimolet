@@ -30,6 +30,7 @@
     <string name="lenguage_choiser_label">Язык</string>
     <string name="add_photo_albomwithoutname">Введите название для Вашего альбома</string>
     <string name="edit_photo_activity">Оформление страницы</string>
+    <string name="edit_photo_open_error">Ошибка редактирования фотографии</string>
     <string name="edit_photo_title">Оформление страницы</string>
     <string name="preview_noname_album">Введите название альбома пожалуйста!</string>
     <string name="preview_less_then_twenty_photos">Надо добавить хотя бы 20 фотографий</string>

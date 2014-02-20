@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.mimolet.android.fragment.AddPhotoFragment;
 import com.mimolet.android.fragment.ChooseStyleFragment;
+import com.mimolet.android.fragment.FragmentWithPreviews;
 import com.mimolet.android.fragment.PreviewFragment;
 import com.mimolet.android.fragment.StylePageFragment;
 import com.mimolet.android.global.GlobalVariables;
@@ -201,16 +202,16 @@ public class AddBookActivity extends FragmentActivity {
 			switchFragment(previewFragment);
 
 			final ImageView leftImage = (ImageView) previewFragment.getView()
-					.findViewById(R.id.previewLeftImage);
+					.findViewById(R.id.leftImage);
 			final ImageView rightImage = (ImageView) previewFragment.getView()
-					.findViewById(R.id.previewRightImage);
+					.findViewById(R.id.rightImage);
 			
 			final File imageFolder = new File(GlobalVariables.PREVIEW_FOLDER);
 			previewFragment.setImagePathes(imageFolder);
 
 			leftImage.setOnTouchListener(gestureListener);
 			rightImage.setOnTouchListener(gestureListener);
-			loadLeftRightPreviewImages();
+			loadLeftRightImages(previewFragment, GlobalVariables.PREVIEW_FOLDER);
 		}
 	}
 
@@ -233,21 +234,29 @@ public class AddBookActivity extends FragmentActivity {
 
 	public void onLeftImageClick(View view) {
 		if (currentFragment instanceof StylePageFragment) {
-			final Intent intent = new Intent(getApplicationContext(),
-					EditPhotoActivity.class);
-			intent.putExtra(EditPhotoActivity.IS_LEFT, true);
-			intent.putExtra("imageIndex", stylePageFragment.getLeftImagePath());
-			startActivity(intent);
+			try {
+				final Intent intent = new Intent(getApplicationContext(),
+						EditPhotoActivity.class);
+				intent.putExtra(EditPhotoActivity.IS_LEFT, true);
+				intent.putExtra("imageIndex", stylePageFragment.getLeftImagePath());
+				startActivity(intent);
+			} catch (Exception e) {
+				Toast.makeText(this, R.string.edit_photo_open_error, Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 
 	public void onRightImageClick(View view) {
-		if (currentFragment instanceof StylePageFragment) {
-			final Intent intent = new Intent(getApplicationContext(),
-					EditPhotoActivity.class);
-			intent.putExtra(EditPhotoActivity.IS_LEFT, false);
-			intent.putExtra("imageIndex", stylePageFragment.getRightImagePath());
-			startActivity(intent);
+		try {
+			if (currentFragment instanceof StylePageFragment) {
+				final Intent intent = new Intent(getApplicationContext(),
+						EditPhotoActivity.class);
+				intent.putExtra(EditPhotoActivity.IS_LEFT, false);
+				intent.putExtra("imageIndex", stylePageFragment.getRightImagePath());
+				startActivity(intent);
+			}
+		} catch (Exception e) {
+			Toast.makeText(this, R.string.edit_photo_open_error, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -267,30 +276,23 @@ public class AddBookActivity extends FragmentActivity {
 		leftImage.setOnTouchListener(gestureListener);
 		rightImage.setOnTouchListener(gestureListener);
 
-		loadLeftRightImages();
+		loadLeftRightImages(stylePageFragment, GlobalVariables.IMAGE_FOLDER);
 	}
 
-	private void loadLeftRightImages() {
-		final ImageView leftImage = (ImageView) stylePageFragment.getView()
+	private void loadLeftRightImages(FragmentWithPreviews fragment, String imagesFolder) {
+		final ImageView leftImage = (ImageView) fragment.getView()
 				.findViewById(R.id.leftImage);
-		final ImageView rightImage = (ImageView) stylePageFragment.getView()
+		final ImageView rightImage = (ImageView) fragment.getView()
 				.findViewById(R.id.rightImage);
-		ImageUtils.loadImage(leftImage, GlobalVariables.IMAGE_FOLDER
-				+ stylePageFragment.getLeftImagePath(), 300, true);
-		ImageUtils.loadImage(rightImage, GlobalVariables.IMAGE_FOLDER
-				+ stylePageFragment.getRightImagePath(), 300, true);
-	}
-	
-	private void loadLeftRightPreviewImages() {
-		final ImageView leftImage = (ImageView) previewFragment.getView()
-				.findViewById(R.id.previewLeftImage);
-		final ImageView rightImage = (ImageView) previewFragment.getView()
-				.findViewById(R.id.previewRightImage);
-		ImageUtils.loadImage(leftImage, GlobalVariables.PREVIEW_FOLDER
-				+ previewFragment.getLeftImagePath(), 300, true);
 		try {
-			ImageUtils.loadImage(rightImage, GlobalVariables.PREVIEW_FOLDER
-					+ previewFragment.getRightImagePath(), 300, true);
+			ImageUtils.loadImage(leftImage, imagesFolder
+					+ fragment.getLeftImagePath(), 300, true);
+		} catch (Exception e) {
+			leftImage.setImageResource(R.drawable.no_imageb);
+		}
+		try {
+			ImageUtils.loadImage(rightImage, imagesFolder
+					+ fragment.getRightImagePath(), 300, true);
 		} catch (Exception e) {
 			rightImage.setImageResource(R.drawable.no_imageb);
 		}
@@ -299,20 +301,20 @@ public class AddBookActivity extends FragmentActivity {
 	private void onLeftSwipe() {
 		if (currentFragment instanceof StylePageFragment) {
 			stylePageFragment.flipImagesRight();
-			loadLeftRightImages();
+			loadLeftRightImages(stylePageFragment, GlobalVariables.IMAGE_FOLDER);
 		} else if (currentFragment instanceof PreviewFragment) {
 			previewFragment.flipImagesRight();
-			loadLeftRightPreviewImages();
+			loadLeftRightImages(previewFragment, GlobalVariables.PREVIEW_FOLDER);
 		}
 	}
 
 	private void onRightSwipe() {
 		if (currentFragment instanceof StylePageFragment) {
 			stylePageFragment.flipImagesLeft();
-			loadLeftRightImages();
+			loadLeftRightImages(stylePageFragment, GlobalVariables.IMAGE_FOLDER);
 		} else if (currentFragment instanceof PreviewFragment) {
 			previewFragment.flipImagesLeft();
-			loadLeftRightPreviewImages();
+			loadLeftRightImages(previewFragment, GlobalVariables.PREVIEW_FOLDER);
 		}
 	}
 
@@ -361,6 +363,15 @@ public class AddBookActivity extends FragmentActivity {
 			LinearLayout linear = (LinearLayout) findViewById(R.id.linearLayout1);
 			LinearLayout.LayoutParams relativeLayoutParams = new LinearLayout.LayoutParams(width, width/2);
 			linear.setLayoutParams(relativeLayoutParams);
+		}
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+		super.onWindowFocusChanged(hasFocus);
+		if (currentFragment instanceof StylePageFragment) {
+			loadLeftRightImages(stylePageFragment, GlobalVariables.IMAGE_FOLDER);
 		}
 	}
 	

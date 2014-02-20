@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.global.ImageUtils;
 import com.mimolet.android.task.SendPDFTask;
 
-public class PreviewFragment extends Fragment {
+public class PreviewFragment extends FragmentWithPreviews {
 
 	private static final String TAG = "PreviewFragment";
 	AddBookActivity parent;
@@ -150,11 +149,13 @@ public class PreviewFragment extends Fragment {
 	public String getPreviewImagePath() {
 		return imagePathes[0];
 	}
-
+	
+	@Override
 	public String getLeftImagePath() {
 		return imagePathes[currentImageIndex];
 	}
-
+	
+	@Override
 	public String getRightImagePath() {
 		return imagePathes[currentImageIndex + 1];
 	}
