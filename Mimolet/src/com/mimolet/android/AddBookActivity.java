@@ -228,8 +228,8 @@ public class AddBookActivity extends FragmentActivity {
 	}
 
 	public void onChangeSequenceButtonClick(View view) {
-		String selectedValue = "Functional isn`t rdy yet";
-		Toast.makeText(this, selectedValue, Toast.LENGTH_LONG).show();
+		/*String selectedValue = "Functional isn`t rdy yet";
+		Toast.makeText(this, selectedValue, Toast.LENGTH_LONG).show();*/
 	}
 
 	public void onLeftImageClick(View view) {

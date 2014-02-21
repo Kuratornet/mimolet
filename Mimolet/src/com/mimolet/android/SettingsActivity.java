@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -70,6 +72,19 @@ public class SettingsActivity extends Activity {
 				break;
 		}
 		setOnClickListeners();
+		Button clearSettings = (Button) findViewById(R.id.clearDataButton);
+		clearSettings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				File file = new File(GlobalVariables.MIMOLET_FOLDER + GlobalVariables.AUTH_DATA_FILE);
+				if (file.exists()) {
+					file.delete();
+				}
+				enteredChoice.setChecked(false);
+				facebookChoiser.setChecked(false);
+				googlePlusChoiser.setChecked(false);
+			}
+		});
 	}
 
 	private void setOnClickListeners() {

@@ -50,6 +50,7 @@
     <string name="color">Цвет:</string>
     <string name="change_photo_title">Изменение фотографии</string>
     <string name="phone_memory_label">Память телефона</string>
+    <string name="settings_clear_settings">Очистить данные</string>
     <string name="order_list_contentdescription">OrderList content description</string>
 
     <string-array name="image_source_labels">
