@@ -1,5 +1,10 @@
 package com.mimolet.android;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import org.brickred.socialauth.Profile;
@@ -22,13 +27,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.mimolet.android.global.GlobalMethods;
+import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.task.AuthorizationTask;
 import com.mimolet.android.task.SocialAuthTask;
+
+import entity.AuthorizationSettings;
+import entity.AuthorizationType;
 
 public class AuthorizationActivity extends SherlockActivity {
 
 	private static final String TAG = "AuthorizationActivity";
+	private AuthorizationSettings authorizationSettings;
 	private EditText loginField;
 	private EditText passwordField;
 	private TextView registrationText;
@@ -59,6 +72,16 @@ public class AuthorizationActivity extends SherlockActivity {
 			@Override
 			public void onComplete(Bundle arg0) {
 				Profile profileMap = adapter.getUserProfile();
+				authorizationSettings.setEmail(profileMap.getEmail());
+				if (profileMap.getProviderId().equals(new String("facebook"))) {
+					authorizationSettings.setAuthorizationType(AuthorizationType.FACEBOOK);
+					authorizationSettings.setFacebookValidationID(profileMap.getValidatedId());
+					saveSettings(authorizationSettings);
+				} else if (profileMap.getProviderId().equals(new String("googleplus"))) {
+					authorizationSettings.setAuthorizationType(AuthorizationType.GOOGLEPLUS);
+					authorizationSettings.setGooglePlusValdationID(profileMap.getValidatedId());
+					saveSettings(authorizationSettings);
+				}
 				new SocialAuthTask(thisActivity).execute(profileMap.getEmail(),
 						profileMap.getValidatedId(),
 						adapter.getCurrentProvider().getAccessGrant().getKey(),
@@ -76,6 +99,64 @@ public class AuthorizationActivity extends SherlockActivity {
 			}
 		});
 
+		ObjectInputStream ois;
+		try {
+			File authorizationSettingsFile = new File(GlobalVariables.MIMOLET_FOLDER + GlobalVariables.AUTH_DATA_FILE);
+			if (authorizationSettingsFile.exists()) {
+				FileInputStream fis = new FileInputStream(authorizationSettingsFile);
+				ois = new ObjectInputStream(fis);
+				authorizationSettings = (AuthorizationSettings)ois.readObject();
+				ois.close();
+			} else {
+				authorizationSettings = new AuthorizationSettings();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			authorizationSettings = new AuthorizationSettings();
+		}
+		if (authorizationSettings.getEmail() != null && 
+				authorizationSettings.getEmail().length() != 0) {
+			switch (authorizationSettings.getAuthorizationType()) {
+					case UNCHECKED:
+						break;
+					case STANDART:
+						if (authorizationSettings.getPassword() != null && 
+							authorizationSettings.getPassword().length() != 0) {
+							final Properties connectionProperties = new Properties();
+							try {
+								connectionProperties.load(getAssets().open(
+										"connection.properties"));
+								final String serverUrl = connectionProperties.getProperty("server_url")
+										+ connectionProperties.getProperty("login_path");
+								new AuthorizationTask(this, authorizationSettings).execute(authorizationSettings.getEmail(), 
+										authorizationSettings.getPassword(), serverUrl);
+							} catch (Exception e) {
+								e.printStackTrace();
+							} 
+						}
+						break;
+					case FACEBOOK:
+						if (authorizationSettings.getFacebookValidationID() != null && 
+						authorizationSettings.getFacebookValidationID().length() != 0) {
+						new SocialAuthTask(thisActivity).execute(authorizationSettings.getEmail(),
+								authorizationSettings.getFacebookValidationID(),
+								"temp", "facebook");
+						} else {
+							adapter.authorize(AuthorizationActivity.this, Provider.FACEBOOK);
+						}
+						break;
+					case GOOGLEPLUS:
+						if (authorizationSettings.getGooglePlusValdationID() != null && 
+						authorizationSettings.getGooglePlusValdationID().length() != 0) {
+						new SocialAuthTask(thisActivity).execute(authorizationSettings.getEmail(),
+								authorizationSettings.getGooglePlusValdationID(),
+								"temp", "googleplus");
+						} else {
+							adapter.authorize(AuthorizationActivity.this, Provider.GOOGLEPLUS);
+						}
+						break;
+				}
+		}
 		facebook_button = (Button) findViewById(R.id.facebookLoginButton);
 		facebook_button.setBackgroundResource(R.drawable.facebookenter);
 		facebook_button.setOnClickListener(new OnClickListener() {
@@ -106,30 +187,30 @@ public class AuthorizationActivity extends SherlockActivity {
 		forgetPasswordText.setOnClickListener(new RestorePasswordFieldsOnClickListener());
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings)
-//				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-//
-//					@Override
-//					public boolean onMenuItemClick(MenuItem item) {
-//						Intent intent = new Intent(AuthorizationActivity.this,
-//								SettingsActivity.class);
-//						startActivityForResult(intent, 1);
-//						return true;
-//					}
-//				}).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-//		return true;
-//	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings)
+				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+					@Override
+					public boolean onMenuItemClick(MenuItem item) {
+						Intent intent = new Intent(AuthorizationActivity.this,
+								SettingsActivity.class);
+						startActivityForResult(intent, 1);
+						return true;
+					}
+				}).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
 
 	@Override
 	public final boolean onKeyDown(int keyCode, KeyEvent event) {
-		/*if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+		if ((keyCode == KeyEvent.KEYCODE_MENU)) {
 			Intent intent = new Intent(AuthorizationActivity.this,
 					SettingsActivity.class);
 			startActivityForResult(intent, 1);
 			return true;
-		} else*/ if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+		} else if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			finish();
 			return true;
 		}
@@ -145,7 +226,7 @@ public class AuthorizationActivity extends SherlockActivity {
 				final String serverUrl = connectionProperties
 						.getProperty("server_url")
 						+ connectionProperties.getProperty("login_path");
-				new AuthorizationTask(this).execute(loginField.getText()
+				new AuthorizationTask(this, authorizationSettings).execute(loginField.getText()
 						.toString(), passwordField.getText().toString(),
 						serverUrl);
 			} catch (Exception ex) {
@@ -180,6 +261,19 @@ public class AuthorizationActivity extends SherlockActivity {
 					RestorePasswordActivity.class);
 			startActivity(intent);
 			finish();
+		}
+	}
+	
+	public void saveSettings(AuthorizationSettings authorizationSettingsToSave) {
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(GlobalVariables.MIMOLET_FOLDER + GlobalVariables.AUTH_DATA_FILE);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(authorizationSettingsToSave);
+			oos.flush();
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

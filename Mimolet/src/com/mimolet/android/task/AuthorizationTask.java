@@ -14,15 +14,15 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.mimolet.android.AuthorizationActivity;
 import com.mimolet.android.R;
-import com.mimolet.android.util.DataBaseLoginUtil;
 import com.mimolet.android.util.Registry;
+
+import entity.AuthorizationSettings;
 
 public class AuthorizationTask extends
 		AsyncTask<String, Void, AuthorizationTask.ExecutionResult> {
@@ -34,9 +34,13 @@ public class AuthorizationTask extends
 	}
 
 	private AuthorizationActivity parent;
-
-	public AuthorizationTask(AuthorizationActivity parent) {
+	private AuthorizationSettings authorizationSettings;
+	private String email;
+	private String password;
+	
+	public AuthorizationTask(AuthorizationActivity parent, AuthorizationSettings authorizationSettings) {
 		this.parent = parent;
+		this.authorizationSettings = authorizationSettings;
 	}
 
 	/**
@@ -48,6 +52,8 @@ public class AuthorizationTask extends
 			final DefaultHttpClient httpClient = new DefaultHttpClient();
 			final HttpPost httpPost = new HttpPost(params[2]);
 			nameValuePairs = new ArrayList<NameValuePair>(2);
+			email = params[0];
+			password = params[1];
 			nameValuePairs.add(new BasicNameValuePair("j_username", params[0]));
 			nameValuePairs.add(new BasicNameValuePair("j_password", params[1]));
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -78,10 +84,9 @@ public class AuthorizationTask extends
 	protected void onPostExecute(ExecutionResult result) {
 		switch (result) {
 		case SUCCESS:
-			DataBaseLoginUtil sqh = new DataBaseLoginUtil(parent);
-			SQLiteDatabase sqdb = sqh.getWritableDatabase();
-			sqdb.close();
-			sqh.close();
+			authorizationSettings.setEmail(email);
+			authorizationSettings.setPassword(password);
+			parent.saveSettings(authorizationSettings);
 			new GetOrdersListTask(parent).execute();
 			break;
 		case FAIL:

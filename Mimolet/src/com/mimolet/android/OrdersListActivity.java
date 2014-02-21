@@ -4,7 +4,6 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +11,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.mimolet.android.adapter.OrderArrayAdapter;
 import com.mimolet.android.global.GlobalVariables;
 
-public class OrdersListActivity extends ListActivity {
+public class OrdersListActivity extends SherlockListActivity {
 
 	private final Activity activity = this;
 	int[] ordersId;
@@ -75,6 +78,22 @@ public class OrdersListActivity extends ListActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(R.string.action_settings).setIcon(R.drawable.ic_settings)
+				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+					@Override
+					public boolean onMenuItemClick(MenuItem item) {
+						Intent intent = new Intent(OrdersListActivity.this,
+								SettingsActivity.class);
+						startActivityForResult(intent, 1);
+						return true;
+					}
+				}).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
+	
+	@Override
 	public final boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			new AlertDialog.Builder(this)
@@ -116,6 +135,11 @@ public class OrdersListActivity extends ListActivity {
 									finish();
 								}
 							}).setNegativeButton("No", null).show();
+			return true;
+		} else if ((keyCode == KeyEvent.KEYCODE_MENU)) {
+			Intent intent = new Intent(OrdersListActivity.this,
+					SettingsActivity.class);
+			startActivityForResult(intent, 1);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
