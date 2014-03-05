@@ -7,15 +7,11 @@ import java.util.HashMap;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.mimolet.android.fragment.AddPhotoFragment;
 import com.mimolet.android.fragment.ChooseStyleFragment;
 import com.mimolet.android.fragment.FragmentWithPreviews;
@@ -35,7 +33,7 @@ import com.mimolet.android.task.GetOrdersListTask;
 import entity.Order;
 import entity.PhotoData;
 
-public class AddBookActivity extends FragmentActivity {
+public class AddBookActivity extends SherlockFragmentActivity {
 
 	/* These numbers should correlate with tab order */
 	private static final int CHOOSE_STYLE_TAB = 1;
@@ -47,7 +45,7 @@ public class AddBookActivity extends FragmentActivity {
 	private AddPhotoFragment addPhotoFragment;
 	private StylePageFragment stylePageFragment;
 	private PreviewFragment previewFragment;
-	private Fragment currentFragment;
+	private SherlockFragment currentFragment;
 
 	private GestureDetector gestureDetector;
 	View.OnTouchListener gestureListener;
@@ -97,18 +95,11 @@ public class AddBookActivity extends FragmentActivity {
 		};
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.add_book, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
 	private boolean isTabAccessible(int tabIndex) {
 		return selectedTab == tabIndex - 1 || selectedTab > tabIndex;
 	}
 
-	public void switchFragment(Fragment fragment) {
+	public void switchFragment(SherlockFragment fragment) {
 		currentFragment = fragment;
 		final FragmentTransaction fragmentTransaction = getSupportFragmentManager()
 				.beginTransaction();
@@ -368,7 +359,6 @@ public class AddBookActivity extends FragmentActivity {
 	
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasFocus);
 		if (currentFragment instanceof StylePageFragment) {
 			loadLeftRightImages(stylePageFragment, GlobalVariables.IMAGE_FOLDER);

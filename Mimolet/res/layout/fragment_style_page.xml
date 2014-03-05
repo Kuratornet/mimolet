@@ -109,8 +109,7 @@
                     android:layout_gravity="right|center_vertical"
                     android:onClick="onLeftImageClick"
                     android:padding="1dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -137,8 +136,7 @@
                     android:layout_gravity="left|center_vertical"
                     android:onClick="onRightImageClick"
                     android:padding="1dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/imageView6"

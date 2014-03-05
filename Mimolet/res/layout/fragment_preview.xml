@@ -32,8 +32,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="2dp"
                 android:onClick="onLeftImageClick"
-                android:scaleType="centerCrop"
-                android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -61,8 +60,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="2dp"
                 android:onClick="onRightImageClick"
-                android:scaleType="centerCrop"
-                android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/imageView8"

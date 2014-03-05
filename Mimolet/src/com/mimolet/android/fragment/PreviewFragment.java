@@ -49,7 +49,7 @@ public class PreviewFragment extends FragmentWithPreviews {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		this.parent = (AddBookActivity) getActivity();
+		this.parent = (AddBookActivity) getSherlockActivity();
 		final View view = inflater.inflate(R.layout.fragment_preview,
 				container, false);
 		final ImageButton createPDF = (ImageButton) view

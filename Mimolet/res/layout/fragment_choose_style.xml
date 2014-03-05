@@ -30,8 +30,7 @@
             android:id="@+id/bookNameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/testloginbg"
-            android:ems="10"
+            
             android:paddingLeft="12dp"
             android:hint="@string/book_name" >
 

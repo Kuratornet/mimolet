@@ -2,7 +2,6 @@ package com.mimolet.android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.mimolet.android.AddBookActivity;
 import com.mimolet.android.R;
 import com.mimolet.android.global.GlobalVariables;
 import com.mimolet.android.multiphoto.MultiPhotoSelectActivity;
 
-public class AddPhotoFragment extends Fragment {
+public class AddPhotoFragment extends SherlockFragment {
 
 	LinearLayout myGallery;
 	AddBookActivity parent;

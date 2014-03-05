@@ -1,8 +1,8 @@
 package com.mimolet.android.fragment;
 
-import android.support.v4.app.Fragment;
+import com.actionbarsherlock.app.SherlockFragment;
 
-public abstract class FragmentWithPreviews extends Fragment{
+public abstract class FragmentWithPreviews extends SherlockFragment {
 	public abstract String getLeftImagePath();
 	public abstract String getRightImagePath();
 }
